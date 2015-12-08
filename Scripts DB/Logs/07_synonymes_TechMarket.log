@@ -1,0 +1,118 @@
+SQL> @.\07_synonymes_TechMarket.sql;
+SQL> -- ---------------------------------------------------------------------------------------------------------------------------------------------------
+SQL> -- Script: 07_synonymes_TechMarket.sql
+SQL> -- Objet : Création des synonymes de la base TechMarket
+SQL> --
+SQL> -- Auteur : CAPITAO Jonathan
+SQL> -- Mise à jour des versions
+SQL> -- Version  Visa	Date	   Commentaires
+SQL> -- -----  ------  --------    ------------------------------------------------------------------------------------------------------------------------
+SQL> -- 1.0	  GA   25.11.15    Création des synonymes
+SQL> -- ---------------------------------------------------------------------------------------------------------------------------------------------------
+SQL> --<ScriptOptions statementTerminator=";"/>
+SQL> 
+SQL> 
+SQL> -- Création des synonyme sur les vues ----------------------------------------------------------------------------------------------------------------
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.vw_changstockatt FOR TechMarket_data.vw_changstockatt;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.vw_categorie_compo FOR TechMarket_data.vw_categorie_compo;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.vw_client FOR TechMarket_data.vw_client;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.vw_commande FOR TechMarket_data.vw_commande;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.vw_composant FOR TechMarket_data.vw_composant;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.vw_emplacement FOR TechMarket_data.vw_emplacement;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.vw_ligne_commande FOR TechMarket_data.vw_ligne_commande;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.vw_manager FOR TechMarket_data.vw_manager;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.vw_marque FOR TechMarket_data.vw_marque;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.vw_marque_as_categorie FOR TechMarket_data.vw_marque_as_categorie;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.vw_spec FOR TechMarket_data.vw_spec;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.vw_spec_as_categorie FOR TechMarket_data.vw_spec_as_categorie;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.vw_stock FOR TechMarket_data.vw_stock;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.vw_valeur_spec FOR TechMarket_data.vw_valeur_spec;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.vw_valeur_spec_as_compo FOR TechMarket_data.vw_valeur_spec_as_compo;
+
+Synonyme créé.
+
+SQL> 
+SQL> -- Création des synonyme sur les sequences -----------------------------------------------------------------------------------------------------------
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.seq_cha_id FOR TechMarket_data.seq_cha_id;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.seq_cli_id FOR TechMarket_data.seq_cli_id;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.seq_com_id FOR TechMarket_data.seq_com_id;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.seq_emp_id FOR TechMarket_data.seq_emp_id;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.seq_man_id FOR TechMarket_data.seq_man_id;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.seq_spc_id FOR TechMarket_data.seq_spc_id;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.seq_spv_id FOR TechMarket_data.seq_spv_id;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.seq_cmp_id FOR TechMarket_data.seq_cmp_id;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.seq_mar_id FOR TechMarket_data.seq_mar_id;
+
+Synonyme créé.
+
+SQL> CREATE OR REPLACE SYNONYM TechMarket_user.seq_cot_id FOR TechMarket_data.seq_cot_id;
+
+Synonyme créé.
+
+SQL> SPOOL OFF
