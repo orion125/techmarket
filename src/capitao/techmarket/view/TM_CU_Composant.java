@@ -59,27 +59,33 @@ public class TM_CU_Composant extends javax.swing.JFrame {
     
      private TM_CU_Composant(TM_Composant composant) {
         initComponents();
-        initGen(composant);
+        initTypeCt();
         this.setLocationRelativeTo(null);
     }   
     
-    public void initGen(TM_Composant composant){
-        //principal
+    public void initTypeCt(){
         listCt = ComposantTypeDao.getListeCatCompo();
         for (TM_ComposantType ct : listCt){
             listTypeCompo.add(ct.toString());
-        }
-        if (composant != null){
-            System.out.println(composant.toString());
+        } 
+    }
+     
+    public void initGen(TM_Composant composant, boolean mod){
+        //principal
+        if (composant != null && mod){
+            //System.out.println(composant.toString());
             compoCourant = composant;
             for(TM_SpecificationAsValue s:composant.getSpecifications()) {
                 listSpecUsed.add(s.toString());
             }
-            int i = 0;
-            listTypeCompo.select(compoCourant.getCompoType().getId()-1);
-            this.setTitle("Modifier le composant : " +composant.getNom());
+            int i = (compoCourant.getCompoType()).getId()-1;
+            listTypeCompo.select(i);
+            this.setTitle("Modifier le composant : " +compoCourant.getNom());
+            tfName.setText(compoCourant.getNom());
         }else{
             this.setTitle("Ajout de composant");
+            tfName.setText(null);
+            listTypeCompo.select(-1);
         }
         
         
@@ -218,9 +224,9 @@ public class TM_CU_Composant extends javax.swing.JFrame {
         men_help_apropos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(646, 546));
+        setPreferredSize(new java.awt.Dimension(655, 550));
         setResizable(false);
-        setSize(new java.awt.Dimension(646, 546));
+        setSize(new java.awt.Dimension(655, 550));
 
         btValider.setText("Valider");
         btValider.addActionListener(new java.awt.event.ActionListener() {

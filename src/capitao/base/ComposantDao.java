@@ -32,15 +32,14 @@ public class ComposantDao {
             Connection con = ConnexionBase.get();
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(
-                    "SELECT cmp_id, cmp_nom, cmp_prix "
+                    "SELECT cmp_id, cmp_nom, cmp_prix, cmp_cot_id, cmp_mar_id  "
                   + "FROM vw_composant "
             );
             while (rs.next()) {
-                int id = rs.getInt("cmp_id");
-                TM_ComposantType cot = getCompType(id);
-                TM_Marque mar = getMarque(id);
+                TM_ComposantType cot = getCompType(rs.getInt("cmp_cot_id"));
+                TM_Marque mar = getMarque(rs.getInt("cmp_mar_id"));
                 TM_Composant comp = new TM_Composant(
-                        id,
+                        rs.getInt("cmp_id"),
                         rs.getString("cmp_nom"),
                         cot,
                         mar,

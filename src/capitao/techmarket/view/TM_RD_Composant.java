@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class TM_RD_Composant extends javax.swing.JFrame {
     
     private ArrayList<TM_Composant> alComposants = new ArrayList<TM_Composant>();
+    public boolean mod = false;
 
     public static TM_RD_Composant MyWindows = null;
     
@@ -166,10 +167,12 @@ public class TM_RD_Composant extends javax.swing.JFrame {
     }//GEN-LAST:event_menuFermerActionPerformed
 
     private void btModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModActionPerformed
+        mod = true; 
         open(alComposants.get(listComposants.getSelectedIndex()));
     }//GEN-LAST:event_btModActionPerformed
 
     private void btAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddActionPerformed
+        mod = false; 
         open(null);
     }//GEN-LAST:event_btAddActionPerformed
 
@@ -185,6 +188,7 @@ public class TM_RD_Composant extends javax.swing.JFrame {
 
     public void open(TM_Composant comp){
         TM_CU_Composant cuCompoFrame = TM_CU_Composant.getInstance(comp);
+        cuCompoFrame.initGen(comp, mod);
         cuCompoFrame.setVisible(true);
     }    
     

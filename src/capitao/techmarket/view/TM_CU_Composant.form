@@ -46,11 +46,11 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[646, 546]"/>
+      <Dimension value="[655, 550]"/>
     </Property>
     <Property name="resizable" type="boolean" value="false"/>
     <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[646, 546]"/>
+      <Dimension value="[655, 550]"/>
     </Property>
   </Properties>
   <SyntheticProperties>
