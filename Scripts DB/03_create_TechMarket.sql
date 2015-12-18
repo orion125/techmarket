@@ -72,7 +72,7 @@ CREATE TABLE tm_compoasstock (
 CREATE TABLE tm_composant (
 		cmp_id NUMBER(6 , 0) NOT NULL,
 		cmp_nom VARCHAR2(200),
-		cmp_prix NUMBER(7 , 2),
+		cmp_prix BINARY_DOUBLE,
 		cmp_mar_id NUMBER(3 , 0) NOT NULL,
 		cmp_cot_id NUMBER(2 , 0) NOT NULL
 	);
@@ -124,7 +124,7 @@ CREATE TABLE tm_specification (
 		spc_nom VARCHAR2(125),
 		spc_id NUMBER(6 , 0) NOT NULL
 	);
-
+commit;
 -- Création des Contraintes  ------------------------------------------------------------------------------------------------------------------------------	
 ALTER TABLE tm_changestockenatt ADD CONSTRAINT tm_changestockenatt_pk PRIMARY KEY(cha_id);
 ALTER TABLE tm_client ADD CONSTRAINT tm_client_pk PRIMARY KEY (cli_id);
