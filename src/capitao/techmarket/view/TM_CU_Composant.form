@@ -196,6 +196,9 @@
           </Properties>
         </Component>
         <Component class="java.awt.List" name="listTypeCompo">
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="listTypeCompoItemStateChanged"/>
+          </Events>
         </Component>
         <Component class="java.awt.List" name="listSpecDispo">
           <Events>

@@ -57,6 +57,42 @@ public class SpecificationDao {
         return lst;
     } // getListeEmployes
     
+    public static ArrayList<TM_Specification> getListeSpec(TM_ComposantType ct){
+        ArrayList<TM_ComposantType> ar = ComposantTypeDao.getListeCatCompo();
+        ArrayList lst = new ArrayList();
+        try {
+            Connection con = ConnexionBase.get();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(
+                    "SELECT spc_id, spc_nom "
+                  + "FROM vw_spec "
+                  + "JOIN vw_spec_as_categorie ON cts_spc_id = spc_id "
+                  + "WHERE cts_cot_id = "+ct.getId()
+            );
+
+            while (rs.next()) {
+                ArrayList<TM_ComposantType> ArrayCt = new ArrayList<TM_ComposantType>();
+                int id = rs.getInt("spc_id");
+                ArrayList ArrayId = getCompType(id);
+                for (int i = 0; i < ar.size();i++)
+                    if (ArrayId.contains(ar.get(i).getId()))
+                        ArrayCt.add(ar.get(i));
+                TM_Specification spec = new TM_Specification(
+                        id,
+                        rs.getString("spc_nom"),
+                        ArrayCt
+                );
+                setSpecAsValue(spec);
+                lst.add(spec);  
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            System.err.println("SpecificationDao.getListeMarque(): " + ex.getMessage());
+            return null;
+        }
+        return lst;
+    } // getListeEmployes  
+    
     public static void setSpecAsValue(TM_Specification spec){
         ArrayList<TM_SpecificationAsValue> lst = new ArrayList<TM_SpecificationAsValue>();
         try {

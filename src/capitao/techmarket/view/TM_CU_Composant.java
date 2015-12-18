@@ -5,7 +5,9 @@
  */
 package capitao.techmarket.view;
 
+import capitao.base.ComposantDao;
 import capitao.base.ComposantTypeDao;
+import capitao.base.SpecificationDao;
 import capitao.techmarket.domaine.TM_Composant;
 import capitao.techmarket.domaine.TM_ComposantType;
 import capitao.techmarket.domaine.TM_Specification;
@@ -36,8 +38,9 @@ import sun.security.krb5.JavaxSecurityAuthKerberosAccess;
 public class TM_CU_Composant extends javax.swing.JFrame {
     
     public static TM_CU_Composant MyWindows = null;
-    public ArrayList listSpec = new ArrayList();
-    public ArrayList<TM_ComposantType> listCt = new ArrayList<TM_ComposantType>();
+    public ArrayList<TM_Specification> alistSpec = new ArrayList();
+    public ArrayList<TM_Specification> alistSpecDispo = new ArrayList<>();
+    public ArrayList<TM_ComposantType> alistCt = new ArrayList<TM_ComposantType>();
     public JLabel[] labelSpecUsed = new JLabel[10];
     //public JComboBox comboSpecUsed;
     public int nbSpecUsed = 0;
@@ -57,15 +60,30 @@ public class TM_CU_Composant extends javax.swing.JFrame {
      * Creates new form TM_CU_Composant
      */
     
-     private TM_CU_Composant(TM_Composant composant) {
+    public void selectCompoType(TM_ComposantType ct){
+        listSpecUsed.removeAll();
+        alistSpecDispo.removeAll(alistSpecDispo);
+        listSpecDispo.removeAll();
+        alistSpecDispo = SpecificationDao.getListeSpec(compoCourant.getCompoType());
+        for (TM_SpecificationAsValue spv : compoCourant.getSpecifications()){
+            alistSpec.add(spv.getSpec());
+        }
+        for (TM_Specification s : alistSpecDispo){
+            if (alistSpec.contains(s))
+                listSpecUsed.add(s.toString());
+            listSpecDispo.add(s.toString());
+        }
+    }
+    
+    private TM_CU_Composant(TM_Composant composant) {
         initComponents();
         initTypeCt();
         this.setLocationRelativeTo(null);
     }   
     
     public void initTypeCt(){
-        listCt = ComposantTypeDao.getListeCatCompo();
-        for (TM_ComposantType ct : listCt){
+        alistCt = ComposantTypeDao.getListeCatCompo();
+        for (TM_ComposantType ct : alistCt){
             listTypeCompo.add(ct.toString());
         } 
     }
@@ -73,16 +91,20 @@ public class TM_CU_Composant extends javax.swing.JFrame {
     public void initGen(TM_Composant composant, boolean mod){
         //principal
         if (composant != null && mod){
-            //System.out.println(composant.toString());
             compoCourant = composant;
-            for(TM_SpecificationAsValue s:composant.getSpecifications()) {
+            ComposantDao.setSpecAsValue(compoCourant);
+            //System.out.println(composant.toString());
+            selectCompoType(compoCourant.getCompoType());
+            /* for(TM_SpecificationAsValue s: composant.getSpecifications()) {
                 listSpecUsed.add(s.toString());
-            }
+            }*/
             int i = (compoCourant.getCompoType()).getId()-1;
             listTypeCompo.select(i);
             this.setTitle("Modifier le composant : " +compoCourant.getNom());
             tfName.setText(compoCourant.getNom());
         }else{
+            compoCourant = new TM_Composant();
+            listSpecUsed.removeAll();
             this.setTitle("Ajout de composant");
             tfName.setText(null);
             listTypeCompo.select(-1);
@@ -115,8 +137,8 @@ public class TM_CU_Composant extends javax.swing.JFrame {
     }
     
     public void loadlistSpec(){
-        for (int i = 0; i < listSpec.size(); i++) {
-            listSpecDispo.add(listSpec.get(i).toString());
+        for (int i = 0; i < alistSpecDispo.size(); i++) {
+            listSpecDispo.add(alistSpecDispo.get(i).toString());
         }
     }
     
@@ -138,7 +160,7 @@ public class TM_CU_Composant extends javax.swing.JFrame {
     }
     
     public void addnewSpec(){
-        TM_Specification specSelect = (TM_Specification)listSpec.get(listSpecDispo.getSelectedIndex());
+        TM_Specification specSelect = alistSpecDispo.get(listSpecDispo.getSelectedIndex());
         listSpecUsed.add(specSelect.getNom());
         ArrayList valpos = specSelect.getValpos();
         TM_SpecificationAsValue specAsValue = (TM_SpecificationAsValue)specSelect.getValpos().get(0) ;    
@@ -157,7 +179,7 @@ public class TM_CU_Composant extends javax.swing.JFrame {
     public void removeSpec(){
         if (isNotEmpty()){
             int idselect = listSpecUsed.getSelectedIndex();
-            TM_Specification specSelect = (TM_Specification)listSpec.get(idselect);
+            TM_Specification specSelect = (TM_Specification)alistSpec.get(idselect);
             listSpecUsed.remove(idselect);
             ArrayList valpos = specSelect.getValpos();
             TM_SpecificationAsValue specAsValue = compoCourant.getSpecification(idselect);    
@@ -170,6 +192,7 @@ public class TM_CU_Composant extends javax.swing.JFrame {
                 reloadSpecSelect();
             }
             btRemoveSpec.setEnabled(listSpecUsed.getSelectedIndexes().length > 0);
+            alistSpec.remove(idselect);
         }
         this.pack();
         this.validate(); 
@@ -179,17 +202,16 @@ public class TM_CU_Composant extends javax.swing.JFrame {
 
     public void isAddDispo(){
         boolean doNotContains = true;    
-        System.out.println(listSpecUsed.getItems().length);
+        //System.out.println(listSpecUsed.getItems().length);
         if (listSpecUsed.getItems().length > 0){
             for (int i = 0; i < listSpecUsed.getItems().length;i++){
-                System.out.println(listSpecUsed.getItem(i));
+                //System.out.println(listSpecUsed.getItem(i));
                 if (listSpecDispo.getSelectedItem().equals(listSpecUsed.getItem(i))){
                     doNotContains = false;
                 }
             }
         }
-        btAddNewSpec.setEnabled(listSpecDispo.getSelectedIndexes().length > 0 && doNotContains);
-       
+        btAddNewSpec.setEnabled(listSpecDispo.getSelectedIndexes().length > 0 && doNotContains);       
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -238,6 +260,12 @@ public class TM_CU_Composant extends javax.swing.JFrame {
         lbName.setText("Libellé du composant");
 
         lbTypeAssoc.setText("Types de composants");
+
+        listTypeCompo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                listTypeCompoItemStateChanged(evt);
+            }
+        });
 
         listSpecDispo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -507,6 +535,12 @@ public class TM_CU_Composant extends javax.swing.JFrame {
     private void btAddNewSpec1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddNewSpec1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btAddNewSpec1ActionPerformed
+
+    private void listTypeCompoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listTypeCompoItemStateChanged
+        compoCourant.setCompoType(alistCt.get(listTypeCompo.getSelectedIndex()));
+        selectCompoType(alistCt.get(listTypeCompo.getSelectedIndex()));
+       //System.out.println(alistCt.get(listTypeCompo.getSelectedIndex()).toString());
+    }//GEN-LAST:event_listTypeCompoItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
