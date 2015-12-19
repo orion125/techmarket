@@ -6,6 +6,7 @@
 package capitao.base;
 
 
+import capitao.techmarket.domaine.TM_Composant;
 import capitao.techmarket.domaine.TM_Marque;
 import capitao.techmarket.domaine.TM_ComposantType;
 // import capitao.techmarket.domaine.TM_Commande;
@@ -32,6 +33,40 @@ public class MarqueDao {
             ResultSet rs = stmt.executeQuery(
                     "SELECT mar_id, mar_nom "
                   + "FROM vw_marque "
+            );
+
+            while (rs.next()) {
+                ArrayList<TM_ComposantType> ArrayCt = new ArrayList<TM_ComposantType>();
+                int id = rs.getInt("mar_id");
+                ArrayList ArrayId = getCompType(id);
+                for (int i = 0; i < ar.size();i++)
+                    if (ArrayId.contains(ar.get(i).getId()))
+                        ArrayCt.add(ar.get(i));
+                lst.add(new TM_Marque(
+                        id,
+                        rs.getString("mar_nom"),
+                        ArrayCt
+                ));      
+            }
+            stmt.close();
+        } catch (SQLException ex) {
+            System.err.println("MarqueDao.getListeMarque(): " + ex.getMessage());
+            return null;
+        }
+        return lst;
+    } // getListeEmployes
+    
+       public static ArrayList getListeMarque (TM_ComposantType ct) {
+        ArrayList<TM_ComposantType> ar = ComposantTypeDao.getListeCatCompo();
+        ArrayList lst = new ArrayList();
+        try {
+            Connection con = ConnexionBase.get();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(
+                    "SELECT mar_id, mar_nom "
+                  + "FROM vw_marque "
+                  + "JOIN vw_marque_as_categorie ON ctm_mar_id = mar_id "
+                  + "WHERE ctm_cot_id = "+ct.getId()
             );
 
             while (rs.next()) {

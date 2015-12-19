@@ -7,9 +7,11 @@ package capitao.techmarket.view;
 
 import capitao.base.ComposantDao;
 import capitao.base.ComposantTypeDao;
+import capitao.base.MarqueDao;
 import capitao.base.SpecificationDao;
 import capitao.techmarket.domaine.TM_Composant;
 import capitao.techmarket.domaine.TM_ComposantType;
+import capitao.techmarket.domaine.TM_Marque;
 import capitao.techmarket.domaine.TM_Specification;
 import capitao.techmarket.domaine.TM_SpecificationAsValue;
 import java.awt.BorderLayout;
@@ -40,6 +42,8 @@ public class TM_CU_Composant extends javax.swing.JFrame {
     public static TM_CU_Composant MyWindows = null;
     public ArrayList<TM_Specification> alistSpec = new ArrayList();
     public ArrayList<TM_Specification> alistSpecDispo = new ArrayList<>();
+    public ArrayList<TM_Marque> alistMarqueDispo = new ArrayList<TM_Marque>();
+    public ArrayList<TM_Marque> alistMarques = new ArrayList<TM_Marque>();
     public ArrayList<TM_ComposantType> alistCt = new ArrayList<TM_ComposantType>();
     public JLabel[] labelSpecUsed = new JLabel[10];
     //public JComboBox comboSpecUsed;
@@ -62,8 +66,10 @@ public class TM_CU_Composant extends javax.swing.JFrame {
     
     public void selectCompoType(TM_ComposantType ct){
         listSpecUsed.removeAll();
+        listMarque.removeAll();
         alistSpecDispo.removeAll(alistSpecDispo);
         listSpecDispo.removeAll();
+        
         alistSpecDispo = SpecificationDao.getListeSpec(compoCourant.getCompoType());
         for (TM_SpecificationAsValue spv : compoCourant.getSpecifications()){
             alistSpec.add(spv.getSpec());
@@ -73,11 +79,16 @@ public class TM_CU_Composant extends javax.swing.JFrame {
                 listSpecUsed.add(s.toString());
             listSpecDispo.add(s.toString());
         }
+        alistMarqueDispo = MarqueDao.getListeMarque(ct);
+        for (TM_Marque m : alistMarqueDispo){
+            listMarque.add(m.toString());
+        }
     }
     
     private TM_CU_Composant(TM_Composant composant) {
         initComponents();
         initTypeCt();
+        initMarque();
         this.setLocationRelativeTo(null);
     }   
     
@@ -86,20 +97,29 @@ public class TM_CU_Composant extends javax.swing.JFrame {
         for (TM_ComposantType ct : alistCt){
             listTypeCompo.add(ct.toString());
         } 
+    }    
+    public void initMarque(){
+        alistMarques = MarqueDao.getListeMarque();
     }
      
     public void initGen(TM_Composant composant, boolean mod){
         //principal
+        listTypeCompo.setEnabled(!mod);
         if (composant != null && mod){
             compoCourant = composant;
             ComposantDao.setSpecAsValue(compoCourant);
             //System.out.println(composant.toString());
             selectCompoType(compoCourant.getCompoType());
-            /* for(TM_SpecificationAsValue s: composant.getSpecifications()) {
-                listSpecUsed.add(s.toString());
-            }*/
             int i = (compoCourant.getCompoType()).getId()-1;
             listTypeCompo.select(i);
+            int j = -1;
+            for (TM_Marque m : alistMarqueDispo){
+                j++;
+                if (m.equals(compoCourant.getMarque())){
+                    System.out.println("j ="+j);
+                    listMarque.select(j);
+                }
+            }
             this.setTitle("Modifier le composant : " +compoCourant.getNom());
             tfName.setText(compoCourant.getNom());
         }else{
@@ -229,16 +249,12 @@ public class TM_CU_Composant extends javax.swing.JFrame {
         lbSpecUsed = new java.awt.Label();
         btAddNewSpec = new javax.swing.JButton();
         btRemoveSpec = new javax.swing.JButton();
+        listMarque = new java.awt.List();
+        lbMarque = new java.awt.Label();
         jPanSpecDet = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtableSpecUsed = new javax.swing.JTable();
         lbSpcsChoosed = new java.awt.Label();
-        listEmplac = new java.awt.List();
-        lbEmplacementDeStockChoisie = new java.awt.Label();
-        label1 = new java.awt.Label();
-        listEmplacUsed = new java.awt.List();
-        btRemoveSpec1 = new javax.swing.JButton();
-        btAddNewSpec1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuMain = new javax.swing.JMenu();
         menuFermer = new javax.swing.JMenuItem();
@@ -297,6 +313,8 @@ public class TM_CU_Composant extends javax.swing.JFrame {
             }
         });
 
+        lbMarque.setText("Marques");
+
         javax.swing.GroupLayout panAddModLayout = new javax.swing.GroupLayout(panAddMod);
         panAddMod.setLayout(panAddModLayout);
         panAddModLayout.setHorizontalGroup(
@@ -321,12 +339,17 @@ public class TM_CU_Composant extends javax.swing.JFrame {
                         .addComponent(lbSpecDispo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lbSpecUsed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(listTypeCompo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panAddModLayout.createSequentialGroup()
                         .addGroup(panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(listTypeCompo, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbTypeAssoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panAddModLayout.createSequentialGroup()
+                                .addComponent(lbMarque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(listMarque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         panAddModLayout.setVerticalGroup(
@@ -352,11 +375,18 @@ public class TM_CU_Composant extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btRemoveSpec, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbTypeAssoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(listTypeCompo, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btValider)
+                .addGroup(panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panAddModLayout.createSequentialGroup()
+                        .addComponent(lbTypeAssoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addGroup(panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(listMarque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(listTypeCompo, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btValider))
+                    .addGroup(panAddModLayout.createSequentialGroup()
+                        .addComponent(lbMarque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -377,24 +407,6 @@ public class TM_CU_Composant extends javax.swing.JFrame {
 
         lbSpcsChoosed.setText("Valeurs des spécifications choisient");
 
-        lbEmplacementDeStockChoisie.setText("Emplacement dans le stocks");
-
-        label1.setText("Utilisés");
-
-        btRemoveSpec1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/capitao/techmarket/view/image/green_globe_left_arrow_558_rs.jpg"))); // NOI18N
-        btRemoveSpec1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btRemoveSpec1ActionPerformed(evt);
-            }
-        });
-
-        btAddNewSpec1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/capitao/techmarket/view/image/green_globe_right_arrow_559_rs.jpg"))); // NOI18N
-        btAddNewSpec1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btAddNewSpec1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanSpecDetLayout = new javax.swing.GroupLayout(jPanSpecDet);
         jPanSpecDet.setLayout(jPanSpecDetLayout);
         jPanSpecDetLayout.setHorizontalGroup(
@@ -405,20 +417,7 @@ public class TM_CU_Composant extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanSpecDetLayout.createSequentialGroup()
                         .addComponent(lbSpcsChoosed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanSpecDetLayout.createSequentialGroup()
-                        .addGroup(jPanSpecDetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbEmplacementDeStockChoisie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanSpecDetLayout.createSequentialGroup()
-                                .addComponent(listEmplac, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(19, 19, 19)
-                                .addGroup(jPanSpecDetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btAddNewSpec1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btRemoveSpec1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                        .addGroup(jPanSpecDetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(listEmplacUsed, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 127, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanSpecDetLayout.setVerticalGroup(
@@ -427,28 +426,9 @@ public class TM_CU_Composant extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lbSpcsChoosed, javax.swing.GroupLayout.PREFERRED_SIZE, 11, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanSpecDetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanSpecDetLayout.createSequentialGroup()
-                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(listEmplacUsed, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanSpecDetLayout.createSequentialGroup()
-                        .addComponent(lbEmplacementDeStockChoisie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanSpecDetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanSpecDetLayout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(listEmplac, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanSpecDetLayout.createSequentialGroup()
-                                .addGap(66, 66, 66)
-                                .addComponent(btAddNewSpec1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btRemoveSpec1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-
-        lbEmplacementDeStockChoisie.getAccessibleContext().setAccessibleParent(panAddMod);
 
         menuMain.setText("Fichier");
 
@@ -528,14 +508,6 @@ public class TM_CU_Composant extends javax.swing.JFrame {
         TM_APropos.getInstance().setVisible(true);
     }//GEN-LAST:event_men_help_aproposActionPerformed
 
-    private void btRemoveSpec1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoveSpec1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btRemoveSpec1ActionPerformed
-
-    private void btAddNewSpec1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddNewSpec1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btAddNewSpec1ActionPerformed
-
     private void listTypeCompoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listTypeCompoItemStateChanged
         compoCourant.setCompoType(alistCt.get(listTypeCompo.getSelectedIndex()));
         selectCompoType(alistCt.get(listTypeCompo.getSelectedIndex()));
@@ -545,23 +517,19 @@ public class TM_CU_Composant extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAddNewSpec;
-    private javax.swing.JButton btAddNewSpec1;
     private javax.swing.JButton btRemoveSpec;
-    private javax.swing.JButton btRemoveSpec1;
     private javax.swing.JButton btValider;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanSpecDet;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jtableSpecUsed;
-    private java.awt.Label label1;
-    private java.awt.Label lbEmplacementDeStockChoisie;
+    private java.awt.Label lbMarque;
     private java.awt.Label lbName;
     private java.awt.Label lbSpcsChoosed;
     private java.awt.Label lbSpecDispo;
     private java.awt.Label lbSpecUsed;
     private java.awt.Label lbTypeAssoc;
-    private java.awt.List listEmplac;
-    private java.awt.List listEmplacUsed;
+    private java.awt.List listMarque;
     private java.awt.List listSpecDispo;
     private java.awt.List listSpecUsed;
     private java.awt.List listTypeCompo;

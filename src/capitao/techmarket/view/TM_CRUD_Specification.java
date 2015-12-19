@@ -144,7 +144,7 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
         specActu.setValpos(new ArrayList<TM_SpecificationAsValue>());
         for (int i = 0; i < listValeurSpec.getItemCount(); i++)
             specActu.addValpos(
-                new TM_SpecificationAsValue(specActu, listValeurSpec.getItem(i))
+                new TM_SpecificationAsValue(-1,specActu, listValeurSpec.getItem(i))
             );
     }
     

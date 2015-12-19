@@ -6,6 +6,7 @@
 package capitao.techmarket.domaine;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -75,7 +76,29 @@ public class TM_Marque {
     public String toString() {
         return nom;
     }
-    
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TM_Marque other = (TM_Marque) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.nom, other.nom)) {
+            return false;
+        }
+        return true;
+    }
     
 }

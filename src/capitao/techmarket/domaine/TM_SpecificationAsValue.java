@@ -13,13 +13,20 @@ import java.util.Objects;
  */
 public class TM_SpecificationAsValue {
     private TM_Specification spec;
+    private int id;
+
     private String value;
 
-    public TM_SpecificationAsValue(TM_Specification spec, String value) {
+    public TM_SpecificationAsValue(int id, TM_Specification spec, String value) {
+        this.id = id;
         this.spec = spec;
         this.value = value;
     }
 
+    public int getId() {
+        return id;
+    }
+    
     public String getValue() {
         return value;
     }

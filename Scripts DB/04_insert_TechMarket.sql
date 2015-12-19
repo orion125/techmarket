@@ -286,6 +286,8 @@ INSERT INTO tm_compotypeasmarque (ctm_cot_id, ctm_mar_id) VALUES (seq_cot_id.CUR
 INSERT INTO tm_compotypeasmarque (ctm_cot_id, ctm_mar_id) VALUES (seq_cot_id.CURRVAL-2,seq_mar_id.CURRVAL);
 INSERT INTO tm_compotypeasmarque (ctm_cot_id, ctm_mar_id) VALUES (seq_cot_id.CURRVAL-2,seq_mar_id.CURRVAL-1);
 INSERT INTO tm_compotypeasmarque (ctm_cot_id, ctm_mar_id) VALUES (seq_cot_id.CURRVAL-2,seq_mar_id.CURRVAL-2);
+INSERT INTO tm_compotypeasmarque (ctm_cot_id, ctm_mar_id) VALUES (seq_cot_id.CURRVAL,seq_mar_id.CURRVAL-11);
+INSERT INTO tm_compotypeasmarque (ctm_cot_id, ctm_mar_id) VALUES (seq_cot_id.CURRVAL,seq_mar_id.CURRVAL-10);
 COMMIT;
 		
 -- tm_specasvalue
@@ -455,32 +457,27 @@ INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbs
 INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-16,seq_cmp_id.CURRVAL-24,2,2);
 INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-15,seq_cmp_id.CURRVAL-23,3,3);
 INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-15,seq_cmp_id.CURRVAL-22,3,3); 
-INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-15,seq_cmp_id.CURRVAL-21,3,3); 
 INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-14,seq_cmp_id.CURRVAL-21,2,2); 
 INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-14,seq_cmp_id.CURRVAL-20,3,3); 
 INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-14,seq_cmp_id.CURRVAL-19,3,3); 
 INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-14,seq_cmp_id.CURRVAL-18,3,3);
-INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-13,seq_cmp_id.CURRVAL-17,5,5);
 INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-12,seq_cmp_id.CURRVAL-17,1,1);
 INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-12,seq_cmp_id.CURRVAL-16,2,2); 
 INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-12,seq_cmp_id.CURRVAL-15,3,3); 
 INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-12,seq_cmp_id.CURRVAL-14,1,1);
 INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-10,seq_cmp_id.CURRVAL-13,6,6);
-INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-10,seq_cmp_id.CURRVAL-12,3,3); 
 INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-11,seq_cmp_id.CURRVAL-12,2,2); 
 INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-10,seq_cmp_id.CURRVAL-11,3,3); 
 INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-11,seq_cmp_id.CURRVAL-10,3,3); 
 INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-11,seq_cmp_id.CURRVAL-9,3,3); 
 INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-11,seq_cmp_id.CURRVAL-8,3,3);
 INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-9,seq_cmp_id.CURRVAL-3,3,3);
-INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-9,seq_cmp_id.CURRVAL-2,3,3);  
-INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-8,seq_cmp_id.CURRVAL-2,2,2);
+INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-9,seq_cmp_id.CURRVAL-2,3,3); 
 INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-8,seq_cmp_id.CURRVAL-1,1,1);  
-INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-7,seq_cmp_id.CURRVAL-1,3,3);  
 INSERT INTO tm_compoasstock (cos_emp_id, cos_cmp_id, cos_nbstockvirtuel, cos_nbstockphysique) VALUES (seq_emp_id.CURRVAL-7,seq_cmp_id.CURRVAL,1,1);
 COMMIT;
 
 -- tm_changestockenatt (état 0 ou 1)
-INSERT INTO tm_changestockenatt (cha_id, cha_cos_emp_id, cha_cos_cmp_id, cha_datechange,  cha_qte, cha_etat, cha_comment)
-VALUES  (seq_cha_id.NEXTVAL,seq_emp_id.CURRVAL-8,seq_cmp_id.CURRVAL-1,TO_DATE('05-12-2015','dd-mm-yyyy'),1,1,'Apprivionnement d''écran 32 d''ASUS'); 
+INSERT INTO tm_changestockenatt (cha_id, cha_cos_cmp_id, cha_datechange,  cha_qte, cha_etat, cha_comment)
+VALUES  (seq_cha_id.NEXTVAL,seq_cmp_id.CURRVAL-1,TO_DATE('05-12-2015','dd-mm-yyyy'),1,1,'Apprivionnement d''écran 32 d''ASUS'); 
 COMMIT;

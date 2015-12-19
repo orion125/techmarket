@@ -123,13 +123,20 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="lbSpecUsed" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="listTypeCompo" max="32767" attributes="0"/>
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="listTypeCompo" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
                               <Component id="lbName" min="-2" max="-2" attributes="0"/>
                               <Component id="lbTypeAssoc" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="lbMarque" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="listMarque" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -164,11 +171,22 @@
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lbTypeAssoc" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                  <Component id="listTypeCompo" min="-2" pref="179" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btValider" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="lbTypeAssoc" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="listMarque" max="32767" attributes="0"/>
+                              <Component id="listTypeCompo" pref="179" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btValider" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="lbMarque" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -243,6 +261,13 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btRemoveSpecActionPerformed"/>
           </Events>
         </Component>
+        <Component class="java.awt.List" name="listMarque">
+        </Component>
+        <Component class="java.awt.Label" name="lbMarque">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Marques"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanSpecDet">
@@ -256,25 +281,7 @@
                       <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="lbSpcsChoosed" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lbEmplacementDeStockChoisie" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="listEmplac" min="-2" pref="133" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="btAddNewSpec1" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
-                                      <Component id="btRemoveSpec1" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                          <EmptySpace pref="19" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="label1" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="listEmplacUsed" alignment="1" min="-2" pref="133" max="-2" attributes="0"/>
-                          </Group>
+                          <EmptySpace min="0" pref="127" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -287,30 +294,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lbSpcsChoosed" pref="11" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" min="-2" pref="236" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="label1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                          <Component id="listEmplacUsed" min="-2" pref="178" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="lbEmplacementDeStockChoisie" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                  <Component id="listEmplac" min="-2" pref="178" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-                                  <Component id="btAddNewSpec1" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btRemoveSpec1" min="-2" pref="25" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                  </Group>
+                  <Component id="jScrollPane2" min="-2" pref="447" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -342,45 +326,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Valeurs des sp&#xe9;cifications choisient"/>
           </Properties>
-        </Component>
-        <Component class="java.awt.List" name="listEmplac">
-        </Component>
-        <Component class="java.awt.Label" name="lbEmplacementDeStockChoisie">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Emplacement dans le stocks"/>
-          </Properties>
-          <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleParent" type="javax.accessibility.Accessible" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="panAddMod"/>
-            </Property>
-          </AccessibilityProperties>
-        </Component>
-        <Component class="java.awt.Label" name="label1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Utilis&#xe9;s"/>
-          </Properties>
-        </Component>
-        <Component class="java.awt.List" name="listEmplacUsed">
-        </Component>
-        <Component class="javax.swing.JButton" name="btRemoveSpec1">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/capitao/techmarket/view/image/green_globe_left_arrow_558_rs.jpg"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btRemoveSpec1ActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btAddNewSpec1">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/capitao/techmarket/view/image/green_globe_right_arrow_559_rs.jpg"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btAddNewSpec1ActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

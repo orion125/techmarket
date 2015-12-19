@@ -62,15 +62,16 @@ public class ComposantDao {
             Connection con = ConnexionBase.get();
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(
-                    "SELECT spv_spc_id, spv_value " 
+                    "SELECT spv_id, spv_spc_id, spv_value " 
                    +"FROM vw_valeur_spec " 
                    +"OUTER JOIN vw_valeur_spec_as_compo ON cov_spv_id = spv_id " 
                    +"WHERE cov_cmp_id = "+c.getId()
             );
             while (rs.next()) {
                 c.addSpecification(new TM_SpecificationAsValue(
-                        getSpecForVal(rs.getInt("spv_spc_id"))
-                        ,rs.getString("spv_value")
+                        rs.getInt("spv_id"),
+                        getSpecForVal(rs.getInt("spv_spc_id")),
+                        rs.getString("spv_value")
                 ));
             }
             stmt.close(); 
@@ -114,24 +115,32 @@ public class ComposantDao {
     }
     
     /** Insert un composant **/
- /*   public static void insert (TM_Composant c) {
+    public static void insert (TM_Composant c) {
         try {
             Connection con = ConnexionBase.get();
             PreparedStatement stmt = con.prepareStatement(
-                    "INSERT INTO vw_spec "
-                  + "VALUES (seq_spc_id.nextval, '"+s.getNom()+"')"
+                    "INSERT INTO vw_composant "
+                  + "VALUES (seq_cmp_id.nextval, '"+c.getNom()+"',"
+                            + c.getPrix()+", "+c.getMarque().getId()
+                            + ", "+c.getCompoType().getId()+")"
             );
             stmt.executeUpdate();
             stmt.close();
-            for (int i = 0; i < cts.size (); i++){
-                PreparedStatement stmtInsertc = con.prepareCall(
-                        "INSERT INTO vw_spec_as_categorie "
-                      + "VALUES (seq_spc_id.currval,"+cts.get(i).getId()+")"
+            for (int i = 0; i < c.getSpecifications().size(); i++){
+                PreparedStatement stmtInsertspv = con.prepareCall(
+                        "INSERT INTO vw_valeur_spec_as_compo "
+                      + "VALUES ("+c.getSpecifications().get(i).
+                              getId()+",seq_cmp_id.currval)"
                 );
-                stmtInsertc.executeUpdate();
-                stmtInsertc.close();
+                stmtInsertspv.executeUpdate();
+                stmtInsertspv.close();
             }
-            insertValPos(s,true);
+            PreparedStatement stmtInsertStock = con.prepareCall(
+                    "INSERT INTO vw_stock "
+                  + "VALUES (0,0,null,"+c.getId()+")"
+            );
+            stmtInsertStock.executeUpdate();
+            stmtInsertStock.close();
         } catch (SQLException ex) {
             System.err.println("ComposantDao.insert(): " + ex.getMessage());
         }   
@@ -206,6 +215,13 @@ public class ComposantDao {
             );
             stmt.executeUpdate();
             stmt.close();
+            PreparedStatement stmtstock = con.prepareStatement(
+                  "DELETE "
+                + "FROM vw_stock "
+                + "WHERE cmp_id = "+c.getId()
+            );
+            stmtstock.executeUpdate();
+            stmtstock.close();
         } catch (SQLException ex) {
             System.err.println("ComposantDao.delete() - etape "+step+" : " + ex.getMessage());
         }   

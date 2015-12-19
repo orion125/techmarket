@@ -99,14 +99,14 @@ public class SpecificationDao {
             Connection con = ConnexionBase.get();
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(
-                    "SELECT spv_value "
+                    "SELECT spv_id, spv_value "
                   + "FROM vw_valeur_spec "
                   + "WHERE spv_spc_id = "+spec.getId()+" "
                   + "ORDER BY spv_value"
             );
 
             while (rs.next()) {
-                lst.add(new TM_SpecificationAsValue(spec, rs.getString("spv_value")));  
+                lst.add(new TM_SpecificationAsValue(rs.getInt("spv_id"),spec, rs.getString("spv_value")));  
             }
             stmt.close(); 
         }catch (SQLException ex) {

@@ -38,8 +38,7 @@ CREATE TABLE tm_changestockenatt (
 		cha_qte NUMBER(3 , 0) NOT NULL,
 		cha_id NUMBER(9 , 0) NOT NULL,
 		cha_datechange DATE DEFAULT SYSDATE,
-		cha_cos_cmp_id NUMBER(6 , 0) NOT NULL,
-		cha_cos_emp_id NUMBER(3 , 0)
+		cha_cos_cmp_id NUMBER(6 , 0) NOT NULL
 	);
 
 CREATE TABLE tm_client (
@@ -130,7 +129,7 @@ ALTER TABLE tm_changestockenatt ADD CONSTRAINT tm_changestockenatt_pk PRIMARY KE
 ALTER TABLE tm_client ADD CONSTRAINT tm_client_pk PRIMARY KEY (cli_id);
 ALTER TABLE tm_commande ADD CONSTRAINT tm_commande_pk PRIMARY KEY (com_id);
 ALTER TABLE tm_compoasspecvalue ADD CONSTRAINT tm_comp_as_spec_value_pk PRIMARY KEY (cov_spv_id, cov_cmp_id);
-ALTER TABLE tm_compoasstock ADD CONSTRAINT tm_composantasstock_pk PRIMARY KEY (cos_cmp_id, cos_emp_id);
+ALTER TABLE tm_compoasstock ADD CONSTRAINT tm_composantasstock_pk PRIMARY KEY (cos_cmp_id);
 ALTER TABLE tm_composant ADD CONSTRAINT tm_composant_pk PRIMARY KEY (cmp_id);
 ALTER TABLE tm_composanttype ADD CONSTRAINT tm_composanttype_pk PRIMARY KEY (cot_id);
 ALTER TABLE tm_compotypeasmarque ADD CONSTRAINT tm_compotype_as_marque_pk PRIMARY KEY (ctm_mar_id, ctm_cot_id);
