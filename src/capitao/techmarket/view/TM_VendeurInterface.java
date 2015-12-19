@@ -54,6 +54,7 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TekMarket Manager");
+        setResizable(false);
 
         menuAdmin.setText("Administration");
 

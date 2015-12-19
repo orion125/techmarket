@@ -194,6 +194,7 @@ public class TM_ClientInterface extends javax.swing.JFrame {
         setTitle("TechMarket Client");
         setLocation(new java.awt.Point(150, 150));
         setName("frClient"); // NOI18N
+        setResizable(false);
 
         lb_marque.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         lb_marque.setText("Marques");
