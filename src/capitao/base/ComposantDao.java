@@ -147,52 +147,46 @@ public class ComposantDao {
     } // insert
     
     /** Modifie un composant **/
-    /*
-    public static void update (TM_Composant s) {
+
+    public static void update (TM_Composant c) {
         int step = 0;
         try {
             step++;
             Connection con = ConnexionBase.get();
-            ArrayList<TM_ComposantType> cts = s.getCompoTypes();       
+            TM_ComposantType ct = c.getCompoType();       
             PreparedStatement stmt = con.prepareStatement(
-                      "UPDATE vw_spec "
-                      + "SET spc_nom = '"+s.getNom()+"' "
-                      + "WHERE spc_id = "+s.getId()
+                      "UPDATE vw_composant "
+                      + "SET cmp_nom = '"+c.getNom()+"', "
+                      + "cmp_prix = "+c.getPrix()+", "
+                      + "cmp_mar_id = "+c.getMarque().getId()+", "
+                      + "cmp_cot_id = "+c.getCompoType().getId()+" "
+                      + "WHERE cmp_id = "+c.getId()
             );
             stmt.executeUpdate();
             stmt.close();
             step++;
             PreparedStatement stmtClean = con.prepareStatement(
                     "DELETE "
-                  + "FROM vw_spec_as_categorie "
-                  + "WHERE cts_spc_id = "+s.getId()
+                  + "FROM vw_valeur_spec_as_compo "
+                  + "WHERE cov_cmp_id = "+c.getId()
             );
             stmtClean.executeUpdate();
             stmtClean.close();
             step++;
-            for (int i = 0; i < cts.size (); i++){
-                PreparedStatement stmtInsert = con.prepareCall(
-                        "INSERT INTO vw_spec_as_categorie "
-                      + "VALUES ("+s.getId()+","+cts.get(i).getId()+")"
+            for (int i = 0; i < c.getSpecifications().size (); i++){
+                PreparedStatement stmtInsertspv = con.prepareCall(
+                        "INSERT INTO vw_valeur_spec_as_compo "
+                      + "VALUES ("+c.getSpecifications().get(i).
+                              getId()+","+c.getId()+")"
                 );
-                stmtInsert.executeUpdate();
-                stmtInsert.close();
+                stmtInsertspv.executeUpdate();
+                stmtInsertspv.close();
             }
-            step++;
-            PreparedStatement stmtCleanval = con.prepareStatement(
-                    "DELETE "
-                  + "FROM vw_valeur_spec "
-                  + "WHERE spv_spc_id = "+s.getId()
-            );
-            stmtCleanval.executeUpdate();
-            stmtCleanval.close();
-            step++;            
-            insertValPos(s,false);
         } catch (SQLException ex) {
             System.err.println("ComposantDao.update() - etape "+step+" : " + ex.getMessage());
         }   
     } // update
-    */
+    
     
     /** Supprime un composant **/
     public static void delete (TM_Composant c) {
