@@ -17,7 +17,7 @@
 
 CREATE OR REPLACE VIEW vw_changstockatt AS
        SELECT cha_id, cha_comment,cha_etat,cha_qte,cha_datechange, 
-				cha_cos_cmp_id, cha_cos_emp_id
+				cha_cos_cmp_id
        FROM tm_changestockenatt ;
 GRANT SELECT, INSERT, UPDATE, DELETE ON vw_changstockatt TO TechMarket_user;
 

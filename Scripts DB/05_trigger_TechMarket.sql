@@ -15,40 +15,41 @@ DROP TRIGGER tr_cha_valider;
 DROP TRIGGER tr_com_changeStockAtt;
 
 -- Création des Triggers ------------------------------------------------------------------------------------------------------------------------------ 
-CREATE TRIGGER tr_cha_valider 
-  AFTER UPDATE OF cha_etat ON tm_changestockenatt
+CREATE TRIGGER tr_cha_valider
+  AFTER UPDATE OF cha_etat  
+  ON tm_changestockenatt
   FOR EACH ROW
+  WHEN (new.cha_etat = 0)
 DECLARE
-   qteto_update number;
+  qteto_update NUMBER;
+  v_stockphy NUMBER;
 BEGIN
-  IF (:NEW.cha_etat = 0)
-      SELECT cos_nbstockphysique into v_stockphy
-      FROM tm_compoasstock
-      WHERE cos_cmp_id = :new.cha_cos_cmp_id AND cos_emp_id = :new.cha_cos_emp_id;
-      dbms_output.put_line(v_stockphy);  
-      qteto_update := :NEW.cha_qte +v_stockphy;
-      
-      dbms_output.put_line(qteto_update);  
-      UPDATE tm_compoasstock SET cos_nbstockphysique = qtetoupdate
-      WHERE cos_cmp_id = :new.cha_cos_cmp_id AND cos_emp_id = :new.cha_cos_emp_id;
-  END IF;
+  SELECT cos_nbstockphysique into v_stockphy 
+  FROM tm_compoasstock 
+  WHERE cos_cmp_id = :new.cha_cos_cmp_id;
+  qteto_update := :new.cha_qte + v_stockphy;
+  UPDATE tm_compoasstock SET cos_nbstockphysique = qtetoupdate 
+  WHERE cos_cmp_id = :new.cha_cos_cmp_id;
 END;
 /
 
-CREATE TRIGGER tr_com_changeStockAtt
-  AFTER INSERT ON tm_lignecommande
+CREATE TRIGGER tr_com_changeStockAtt 
+  AFTER INSERT
+  ON tm_lignecommande
+  FOR EACH ROW
+DECLARE
+  EXCEPTION no_cmp_found;
 BEGIN
-     IF (:NEW.lco_cmp_id > 0) THEN
-		 INSERT INTO tm_changestockenatt (cha_id, cha_commentaire, cha_qte, cha_etat,cmp_id) )VALUES 
-		 (cha_id_seq.nextval,'Commande n°' || :NEW.lco_com_id, :NEW.lco_qte , 1, :NEW.lco_cmp_id)
-     ELSE
-      RAISE no_cmp_found;
-        CLOSE cur_get_ligncom;
-     END IF;
+  IF (:NEW.lco_cmp_id > 0) THEN
+    INSERT INTO vw_changstockatt (cha_id, cha_commentaire, cha_qte, cha_etat,cha_cmp_id) VALUES 
+    (cha_id_seq.nextval,'Commande n°' || :new.lco_com_id, :new.lco_qte , 1, :new.lco_cmp_id);
+  ELSE
+    RAISE no_cmp_found;
+  END IF;
 EXCEPTION
-    WHEN no_cmp_found THEN
-       RAISE_APPLICATION_ERROR(-20111, 'Erreur : aucun article attaché à la commande..');
-    WHEN OTHERS THEN
-       RAISE_APPLICATION_ERROR(-20122, 'Erreur non-supportée pour la commande :' || TO_CHAR(:NEW.com_id));
+  WHEN no_cmp_found THEN
+    RAISE_APPLICATION_ERROR(-20111, 'Erreur : Un article éronné est attaché à la commande!');
+  WHEN OTHERS THEN
+    RAISE_APPLICATION_ERROR(-20122, 'Erreur non-supportée pour la commande :' || TO_CHAR(:new.com_id));
 END;
 /
