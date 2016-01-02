@@ -13,21 +13,21 @@ import java.util.ArrayList;
  */
 public class TM_Commande {
      private TM_Client cli;
-     private ArrayList<TM_Composant> aListComposantCommandes;
+     private ArrayList<TM_LigneCommande> aListComposantCommandes;
      
-    public TM_Commande(TM_Client cli, ArrayList<TM_Composant> aListComposantCommandes) {
+    public TM_Commande(TM_Client cli, ArrayList<TM_LigneCommande> aListComposantCommandes) {
         this.cli = cli;
         this.aListComposantCommandes = aListComposantCommandes;
     }
 
      
-     public double getValTotCommande(){
-         double tot = 0.0;
-         for (int i = 0; i < aListComposantCommandes.size();i++){
-             tot=+ aListComposantCommandes.get(i).getPrix();
-         }
-         return tot;
-     }
+    public double getValTotCommande(){
+        double tot = 0.0;
+        for (int i = 0; i < aListComposantCommandes.size();i++){
+            tot=+ aListComposantCommandes.get(i).getCompo().getPrix();
+        }
+        return tot;
+    }
 
     public TM_Client getCli() {
         return cli;
@@ -37,11 +37,11 @@ public class TM_Commande {
         this.cli = cli;
     }
 
-    public ArrayList<TM_Composant> getaListComposantCommandes() {
+    public ArrayList<TM_LigneCommande> getaListComposantCommandes() {
         return aListComposantCommandes;
     }
 
-    public void setaListComposantCommandes(ArrayList<TM_Composant> aListComposantCommandes) {
+    public void setaListComposantCommandes(ArrayList<TM_LigneCommande> aListComposantCommandes) {
         this.aListComposantCommandes = aListComposantCommandes;
     }
 }

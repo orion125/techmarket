@@ -6,8 +6,6 @@
 package capitao.base;
 
 import capitao.techmarket.domaine.TM_Composant;
-import capitao.techmarket.domaine.TM_ComposantAsStock;
-import capitao.techmarket.domaine.TM_Composant;
 import capitao.techmarket.domaine.TM_ComposantType;
 import capitao.techmarket.domaine.TM_SpecificationAsValue;
 import capitao.techmarket.domaine.TM_Marque;

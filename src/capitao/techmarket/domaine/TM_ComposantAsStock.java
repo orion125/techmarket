@@ -16,6 +16,10 @@ public class TM_ComposantAsStock {
     private TM_Composant composantConcernee;
     private TM_Emplacement emplacement;
 
+    public TM_ComposantAsStock(){
+        this(0,0,null,null);
+    }
+    
     public TM_ComposantAsStock(int nbEnStockVirtuelle, int nbEnStockPhysique, 
             TM_Composant composantConcernee, TM_Emplacement emplacement) {
         this.nbEnStockVirtuelle = nbEnStockVirtuelle;

@@ -47,7 +47,7 @@ public class ClientDao {
           return null;
       }
       return lst;
-    } // getListeEmployes
+    } // getListeClient
  
     /** Ajoute un client **/
     public static int insert (TM_Client client) {
