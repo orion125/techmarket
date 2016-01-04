@@ -85,6 +85,7 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
     }
     public void mod(){
         clean();
+        btRemoveType.setEnabled(false);
         resize(true);
         mod = "Mod";
         marqueActu = mar.get(listMarque.getSelectedIndex());
@@ -94,6 +95,7 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
     
     public void add(){
         clean();
+        btRemoveType.setEnabled(true);
         resize(true);
         mod = "Add";
         tfName.setText("");

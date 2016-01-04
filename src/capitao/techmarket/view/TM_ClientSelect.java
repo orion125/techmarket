@@ -6,6 +6,7 @@
 package capitao.techmarket.view;
 
 import capitao.base.ClientDao;
+import capitao.base.CommandeStockDao;
 import capitao.techmarket.domaine.TM_Client;
 import capitao.techmarket.domaine.TM_Commande;
 import capitao.techmarket.domaine.TM_Composant;
@@ -188,6 +189,7 @@ public class TM_ClientSelect extends javax.swing.JFrame {
     private void jbtValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtValiderActionPerformed
         if (cli != null){
             TM_Commande com = new TM_Commande(getLastComId(), cli, alistComp);
+            CommandeStockDao.creeCommande(com);
             TM_FactureAutoGenerer factu = TM_FactureAutoGenerer.getInstance(com);
             factu.setVisible(true);
             this.dispose();

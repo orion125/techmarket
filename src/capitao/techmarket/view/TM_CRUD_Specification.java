@@ -77,6 +77,11 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
     }
     public void mod(){
         clean();
+        btRemoveType.setEnabled(false);
+        jbtValDown.setEnabled(false);
+        jbtValUp.setEnabled(false);
+        listValeurSpec.setEnabled(false);
+        btReiniVal.setEnabled(false);
         resize(true);
         mod = "Mod";
         specActu = spcs.get(listSpec.getSelectedIndex());
@@ -86,6 +91,11 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
     
     public void add(){
         clean();
+        btRemoveType.setEnabled(true);
+        jbtValDown.setEnabled(true);
+        jbtValUp.setEnabled(true);
+        listValeurSpec.setEnabled(true);
+        btReiniVal.setEnabled(true);
         resize(true);
         mod = "Add";
         tfName.setText("");

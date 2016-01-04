@@ -32,6 +32,7 @@ public class TM_ChangementStockEnAttente {
         this.commentaire = commentaire;        
     }
     
+    
     public Date getDateDuChangement() {
         return dateDuChangement;
     }

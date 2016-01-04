@@ -46,7 +46,7 @@ public class SpecificationDao {
                         rs.getString("spc_nom"),
                         ArrayCt
                 );
-                setSpecAsValue(spec);
+                getSpecAsValue(spec);
                 lst.add(spec);  
             }
             stmt.close();
@@ -82,7 +82,7 @@ public class SpecificationDao {
                         rs.getString("spc_nom"),
                         ArrayCt
                 );
-                setSpecAsValue(spec);
+                spec.setValpos(getSpecAsValue(spec));
                 lst.add(spec);  
             }
             stmt.close();
@@ -93,7 +93,7 @@ public class SpecificationDao {
         return lst;
     } // getListeEmployes  
     
-    public static void setSpecAsValue(TM_Specification spec){
+    public static ArrayList<TM_SpecificationAsValue> getSpecAsValue(TM_Specification spec){
         ArrayList<TM_SpecificationAsValue> lst = new ArrayList<TM_SpecificationAsValue>();
         try {
             Connection con = ConnexionBase.get();
@@ -111,9 +111,9 @@ public class SpecificationDao {
             stmt.close(); 
         }catch (SQLException ex) {
             System.err.println("SpecificationDao.setSpecAsValue(): " + ex.getMessage());
-            return;  
+            return null;  
         }
-        spec.setValpos(lst);
+        return lst;
     }
     
     public static ArrayList getCompType(int marid){
@@ -214,15 +214,27 @@ public class SpecificationDao {
                 stmtInsert.close();
             }
             step++;
-            PreparedStatement stmtCleanval = con.prepareStatement(
+      /*      PreparedStatement stmtCleanval = con.prepareStatement(
                     "DELETE "
                   + "FROM vw_valeur_spec "
                   + "WHERE spv_spc_id = "+s.getId()
             );
             stmtCleanval.executeUpdate();
-            stmtCleanval.close();
+            stmtCleanval.close();*/
+            ArrayList<TM_SpecificationAsValue> als = getSpecAsValue(s);
+            ArrayList<TM_SpecificationAsValue> alsNew = new ArrayList<TM_SpecificationAsValue>();
+            for (TM_SpecificationAsValue spvmain : s.getValpos()){
+                boolean test = true;
+                for (TM_SpecificationAsValue spv : als){
+                    if (spv.equals(spvmain)) test = false;
+                }
+                if (test) alsNew.add(spvmain); 
+            }
+            ArrayList<TM_SpecificationAsValue> temp = s.getValpos();
+            s.setValpos(alsNew);
             step++;            
             insertValPos(s,false);
+            s.setValpos(temp);
         } catch (SQLException ex) {
             System.err.println("SpecificationDao.update() - etape "+step+" : " + ex.getMessage());
         }   
