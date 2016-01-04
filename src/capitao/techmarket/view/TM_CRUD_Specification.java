@@ -123,7 +123,7 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
         else
             btAddNewType.setEnabled(false);
             
-        if (listTypeCompoUsed.getItemCount() > 0)
+        if (listTypeCompoUsed.getItemCount() > 0 && !mod.equals("Mod"))
             btRemoveType.setEnabled(listTypeCompoUsed.getSelectedIndex()>-1);
         else
             btRemoveType.setEnabled(false);
