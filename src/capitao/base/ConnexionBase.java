@@ -2,7 +2,6 @@
 package capitao.base;
 
 import capitao.base.oracle.Outils;
-import capitao.base.oracle.Outils;
 import java.sql.Connection;
 import java.sql.SQLException;
 

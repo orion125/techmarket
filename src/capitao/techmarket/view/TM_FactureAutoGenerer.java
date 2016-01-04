@@ -5,12 +5,21 @@
  */
 package capitao.techmarket.view;
 
+import capitao.outils.FileToStr;
 import capitao.techmarket.domaine.TM_Client;
+import capitao.techmarket.domaine.TM_Commande;
 import capitao.techmarket.domaine.TM_Composant;
+import capitao.techmarket.domaine.TM_LigneCommande;
 import java.awt.print.PrinterException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.text.Document;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.html.StyleSheet;
 
 /**
  *
@@ -19,12 +28,11 @@ import java.util.logging.Logger;
 public class TM_FactureAutoGenerer extends javax.swing.JFrame {
     
     public static TM_FactureAutoGenerer MyPanWindows = null;
-    public static ArrayList<TM_Composant> ar = new ArrayList<>();
-    public static TM_Client clientConcerne;
+    public static TM_Commande comData;
        
-    public static TM_FactureAutoGenerer getInstance(ArrayList listParent, TM_Client cli){
+    public static TM_FactureAutoGenerer getInstance(TM_Commande com){
         if (MyPanWindows == null){
-            MyPanWindows = new TM_FactureAutoGenerer(listParent, cli);
+            MyPanWindows = new TM_FactureAutoGenerer(com);
 
         }
         return MyPanWindows;
@@ -32,11 +40,51 @@ public class TM_FactureAutoGenerer extends javax.swing.JFrame {
     /**
      * Creates new form TM_FactureAutoGenerer
      */
-    private TM_FactureAutoGenerer(ArrayList<TM_Composant> ar, TM_Client cli) {
+    private TM_FactureAutoGenerer(TM_Commande com) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.clientConcerne = cli;
-        this.ar = ar;
+        this.comData = com;
+        genFact();
+    }
+    
+    private void genFact(){
+        String conf = FileToStr.read("./config.cfg");
+        StringTokenizer stLigne = new StringTokenizer(conf,";");
+        String[] data = new String [3];
+        int i = 0;
+        while (stLigne.hasMoreTokens()) {
+            StringTokenizer stData = new StringTokenizer(stLigne.nextToken(),":");
+            while (stData.hasMoreTokens()){
+                 stData.nextToken();
+                 data[i] = stData.nextToken();
+            }
+            i++;
+        }
+        HTMLEditorKit kit = new HTMLEditorKit();
+        jEdpan_facture.setEditorKit(kit);
+        StyleSheet styleSheet = kit.getStyleSheet();
+        styleSheet.addRule(".art table {border-collapse: collapse;}") ;
+        styleSheet.addRule(".art td{border : 1px solid #black;}");
+        Document doc = kit.createDefaultDocument();
+        jEdpan_facture.setDocument(doc);
+        
+        SimpleDateFormat dt = new SimpleDateFormat("dd-mm-yyyy"); 
+        Date dateActu = new Date(System.currentTimeMillis()); 
+        
+        String htmlFact = "<td>"+comData.getCli().getNom()+" "
+                +comData.getCli().getPrenom() 
+                +"</td><td align=\"right\">"+data[0]+"</td></br><td>"
+                +comData.getCli().getAddress()
+                + "</td><td align=\"right\">"+data[1]+" "+data[2]+"</td>"
+                + "</br></br>Genève, le "+dt.format(dateActu)+"</br>"
+                + "Facture de la commande n°"+comData.getId()+"</br>";
+        htmlFact += "<table class=\"art\" >";
+        for (TM_LigneCommande lc : comData.getaListComposantCommandes()){
+            htmlFact += "<tr><td>"+lc.getCompo().getNom()+" "+lc.getQte()
+                    + "</td><td>"+ lc.getCompo().getPrix()*lc.getQte()
+                    + "</td></tr>";
+        }
+        jEdpan_facture.setText(htmlFact);
     }
 
     /**
@@ -70,6 +118,7 @@ public class TM_FactureAutoGenerer extends javax.swing.JFrame {
             }
         });
 
+        jEdpan_facture.setContentType("text/html"); // NOI18N
         jScrPanMain.setViewportView(jEdpan_facture);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -145,7 +194,7 @@ public class TM_FactureAutoGenerer extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TM_FactureAutoGenerer(null,null).setVisible(true);
+                new TM_FactureAutoGenerer(null).setVisible(true);
             }
         });
     }

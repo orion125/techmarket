@@ -6,6 +6,7 @@
 package capitao.techmarket.domaine;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.JOptionPane;
@@ -21,6 +22,33 @@ public class TM_Composant extends AbstractTableModel {
     private double prix;
     private ArrayList<TM_SpecificationAsValue> specifications = new ArrayList<>();
     private final ArrayList<TableModelListener> compoTabModeListener = new ArrayList<>();
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TM_Composant other = (TM_Composant) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.nom, other.nom)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.prix) != Double.doubleToLongBits(other.prix)) {
+            return false;
+        }
+        return true;
+    }
 
 
     public TM_Composant() {

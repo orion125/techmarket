@@ -6,6 +6,7 @@
 package capitao.techmarket.view;
 
 import capitao.techmarket.domaine.TM_Composant;
+import capitao.techmarket.domaine.TM_LigneCommande;
 import java.util.ArrayList;
 
 /**
@@ -15,12 +16,13 @@ import java.util.ArrayList;
 public class TM_PanierInterface extends javax.swing.JFrame {
 
     public static TM_PanierInterface MyPanWindows = null;
-    public ArrayList<TM_Composant> alistComp = new ArrayList<>();
+    public ArrayList<TM_LigneCommande> alistComp = new ArrayList<>();
             
     public static TM_PanierInterface getInstance(){
         if (MyPanWindows == null){
             MyPanWindows = new TM_PanierInterface();
         }
+        MyPanWindows.valideur();
         return MyPanWindows;
     }
     
@@ -57,11 +59,21 @@ public class TM_PanierInterface extends javax.swing.JFrame {
         setType(java.awt.Window.Type.POPUP);
 
         list_compoCommandes.setMultipleMode(true);
+        list_compoCommandes.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                list_compoCommandesItemStateChanged(evt);
+            }
+        });
 
         lb_listTitle.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         lb_listTitle.setText("Contenu du panier");
 
         jbt_panSuppr.setText("Supprimer du panier");
+        jbt_panSuppr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbt_panSupprActionPerformed(evt);
+            }
+        });
 
         jbt_panBuy.setText("Valider le panier");
         jbt_panBuy.addActionListener(new java.awt.event.ActionListener() {
@@ -130,6 +142,17 @@ public class TM_PanierInterface extends javax.swing.JFrame {
         TM_APropos.getInstance().setVisible(true);
     }//GEN-LAST:event_men_help_apropos1ActionPerformed
 
+    private void jbt_panSupprActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_panSupprActionPerformed
+        alistComp.remove(list_compoCommandes.getSelectedIndex());
+    }//GEN-LAST:event_jbt_panSupprActionPerformed
+
+    private void list_compoCommandesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_list_compoCommandesItemStateChanged
+        valideur();
+    }//GEN-LAST:event_list_compoCommandesItemStateChanged
+
+    public void valideur(){
+        jbt_panSuppr.setEnabled(list_compoCommandes.getSelectedIndexes().length > 0);
+    }
     /**
      * @param args the command line arguments
      */

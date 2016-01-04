@@ -94,7 +94,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lb_Spec" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="list1" min="-2" pref="206" max="-2" attributes="0"/>
+                              <Component id="list_spec" min="-2" pref="206" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="tf_prixMax" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
@@ -126,7 +126,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="list1" max="32767" attributes="0"/>
+                          <Component id="list_spec" max="32767" attributes="0"/>
                           <Component id="list_marque" min="-2" pref="172" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -178,14 +178,8 @@
       </Properties>
     </Component>
     <Component class="java.awt.List" name="list_marque">
-      <Properties>
-        <Property name="multipleMode" type="boolean" value="true"/>
-      </Properties>
     </Component>
-    <Component class="java.awt.List" name="list1">
-      <Properties>
-        <Property name="multipleMode" type="boolean" value="true"/>
-      </Properties>
+    <Component class="java.awt.List" name="list_spec">
     </Component>
     <Component class="java.awt.Label" name="lbPrixMin">
       <Properties>
@@ -230,6 +224,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Ajouter au panier"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbt_PanAddActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

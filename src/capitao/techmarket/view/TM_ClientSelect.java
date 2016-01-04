@@ -7,7 +7,9 @@ package capitao.techmarket.view;
 
 import capitao.base.ClientDao;
 import capitao.techmarket.domaine.TM_Client;
+import capitao.techmarket.domaine.TM_Commande;
 import capitao.techmarket.domaine.TM_Composant;
+import capitao.techmarket.domaine.TM_LigneCommande;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -17,11 +19,11 @@ import javax.swing.JOptionPane;
  */
 public class TM_ClientSelect extends javax.swing.JFrame {
     public static TM_ClientSelect MyPanWindows = null;
-    public ArrayList<TM_Composant> alistComp = new ArrayList<>();
+    public ArrayList<TM_LigneCommande> alistComp = new ArrayList<>();
     public ArrayList<TM_Client> alistClient = new ArrayList<>();
     public TM_Client cli = null;
             
-    public static TM_ClientSelect getInstance(ArrayList<TM_Composant> alistC){
+    public static TM_ClientSelect getInstance(ArrayList<TM_LigneCommande> alistC){
         if (MyPanWindows == null){
             MyPanWindows = new TM_ClientSelect(alistC);
         }
@@ -32,7 +34,7 @@ public class TM_ClientSelect extends javax.swing.JFrame {
     /**
      * Creates new form TM_ClientSelect
      */
-    private TM_ClientSelect(ArrayList<TM_Composant> alistC) {
+    private TM_ClientSelect(ArrayList<TM_LigneCommande> alistC) {
         alistComp = alistC;
         initComponents();
         this.setLocationRelativeTo(null);
@@ -68,6 +70,10 @@ public class TM_ClientSelect extends javax.swing.JFrame {
             lst_Clients.select(id); // sélection du client dans la list
         }
         return ;
+    }
+    
+    public int getLastComId(){
+        return -1;
     }
 
     /**
@@ -181,7 +187,8 @@ public class TM_ClientSelect extends javax.swing.JFrame {
 
     private void jbtValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtValiderActionPerformed
         if (cli != null){
-            TM_FactureAutoGenerer factu = TM_FactureAutoGenerer.getInstance(alistComp, cli);
+            TM_Commande com = new TM_Commande(getLastComId(), cli, alistComp);
+            TM_FactureAutoGenerer factu = TM_FactureAutoGenerer.getInstance(com);
             factu.setVisible(true);
             this.dispose();
         } else {

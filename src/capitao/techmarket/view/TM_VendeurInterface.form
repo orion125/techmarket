@@ -8,6 +8,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Administration"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAdminActionPerformed"/>
+          </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuImport">
               <Properties>

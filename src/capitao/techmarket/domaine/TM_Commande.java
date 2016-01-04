@@ -12,15 +12,24 @@ import java.util.ArrayList;
  * @author jonathan.capitao
  */
 public class TM_Commande {
-     private TM_Client cli;
-     private ArrayList<TM_LigneCommande> aListComposantCommandes;
+    private int id;
+    private TM_Client cli;
+    private ArrayList<TM_LigneCommande> aListComposantCommandes;
      
-    public TM_Commande(TM_Client cli, ArrayList<TM_LigneCommande> aListComposantCommandes) {
+    public TM_Commande(int id ,TM_Client cli, ArrayList<TM_LigneCommande> aListComposantCommandes) {
+        this.id = id;
         this.cli = cli;
         this.aListComposantCommandes = aListComposantCommandes;
     }
 
-     
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public double getValTotCommande(){
         double tot = 0.0;
         for (int i = 0; i < aListComposantCommandes.size();i++){

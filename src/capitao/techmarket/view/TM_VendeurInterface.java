@@ -4,6 +4,11 @@
  * and open the template in the editor.
  */
 package capitao.techmarket.view;
+import capitao.outils.importSql;
+import java.io.File;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 
@@ -57,6 +62,11 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
         setResizable(false);
 
         menuAdmin.setText("Administration");
+        menuAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAdminActionPerformed(evt);
+            }
+        });
 
         menuImport.setText("Import");
         menuImport.addActionListener(new java.awt.event.ActionListener() {
@@ -159,6 +169,14 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
         if(result==JFileChooser.CANCEL_OPTION)
             return;
         String BD=fc_import.getSelectedFile().getAbsolutePath();
+        File fileBD = fc_import.getSelectedFile();
+        try {
+            importSql.resetDatabase(fileBD);
+        } catch (SQLException ex) {
+            System.err.println("TM_VendeurInterface.menuImportActionPerformed: " + ex.getMessage());
+        } catch (Exception ex){
+            System.err.println("TM_VendeurInterface.menuImportActionPerformed: " + ex.getMessage());
+        }
     }//GEN-LAST:event_menuImportActionPerformed
 
     private void menuQuitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuQuitterActionPerformed
@@ -193,6 +211,10 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
     private void men_help_aproposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_men_help_aproposActionPerformed
         TM_APropos.getInstance().setVisible(true);
     }//GEN-LAST:event_men_help_aproposActionPerformed
+
+    private void menuAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAdminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuAdminActionPerformed
 
     /**
      * @param args the command line arguments
