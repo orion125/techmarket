@@ -178,8 +178,14 @@
       </Properties>
     </Component>
     <Component class="java.awt.List" name="list_marque">
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="list_marqueItemStateChanged"/>
+      </Events>
     </Component>
     <Component class="java.awt.List" name="list_spec">
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="list_specItemStateChanged"/>
+      </Events>
     </Component>
     <Component class="java.awt.Label" name="lbPrixMin">
       <Properties>

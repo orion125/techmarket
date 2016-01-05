@@ -37,6 +37,7 @@ public class TM_ClientInterface extends javax.swing.JFrame {
     public ArrayList<TM_Specification> Specs = new ArrayList();
     public ArrayList<TM_Composant> ComposantsTrouvee = new ArrayList();
     public ArrayList<TM_LigneCommande> alc = new ArrayList<>();
+    ArrayList<TM_Composant> allComp = ComposantDao.getListeComp();
     TM_ComposantType cp;
     private boolean onTimeInitArray = true;
     /**
@@ -114,15 +115,18 @@ public class TM_ClientInterface extends javax.swing.JFrame {
     }
     
     private void loadCompo(){
-        ArrayList<TM_Composant> allComp = ComposantDao.getListeComp();
         TM_Marque m ;
         TM_Specification s;
-        if (list_marque.getSelectedIndexes().length > 0)
+        if (list_marque.getSelectedIndexes().length > 0){
             m = Marques.get(list_marque.getSelectedIndex());
+        }
         else m = null;
-        if (list_spec.getSelectedIndexes().length > 0)
+        if (list_spec.getSelectedIndexes().length > 0){
             s = Specs.get(list_spec.getSelectedIndex());
+        }
         else s = null;
+        list_composants.removeAll();
+        ComposantsTrouvee = new ArrayList<>();
         for (TM_Composant c : allComp){
             ComposantDao.setSpecAsValue(c);
             if (verif(c,m,s)){
@@ -133,18 +137,22 @@ public class TM_ClientInterface extends javax.swing.JFrame {
     }
     
     public boolean verif (TM_Composant c, TM_Marque m, TM_Specification s){
+        boolean v = true;
         if (m != null){
-            if (!c.getMarque().equals(m)) return false;
+            if (!c.getMarque().equals(m)) v= false;
         }
+        
         if (s != null){
             for (TM_SpecificationAsValue spv : c.getSpecifications()){
-                if (!s.getValpos().contains(spv)) return false;
+               if (!s.getValpos().contains(spv)) v= false;
+               spv.getSpec().toString();
             }
         }
-        return verif (c);
+        return v&&verif(c);
     }
     
     public boolean verif (TM_Composant c){
+        System.out.println(c.getCompoType().toString());
         return c.getCompoType().equals(cp);
     }
     /**
@@ -188,6 +196,18 @@ public class TM_ClientInterface extends javax.swing.JFrame {
         lb_Spec.setText("Spécifications");
 
         list_composants.setMultipleMode(true);
+
+        list_marque.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                list_marqueItemStateChanged(evt);
+            }
+        });
+
+        list_spec.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                list_specItemStateChanged(evt);
+            }
+        });
 
         lbPrixMin.setText("Prix minimal");
 
@@ -358,6 +378,16 @@ public class TM_ClientInterface extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jbt_PanAddActionPerformed
+
+    private void list_marqueItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_list_marqueItemStateChanged
+       // if (list_spec.getSelectedIndexes().length > 0) 
+            loadCompo();
+    }//GEN-LAST:event_list_marqueItemStateChanged
+
+    private void list_specItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_list_specItemStateChanged
+        //if (list_marque.getSelectedIndexes().length > 0) 
+            loadCompo();
+    }//GEN-LAST:event_list_specItemStateChanged
 
     /**
      * @param args the command line arguments

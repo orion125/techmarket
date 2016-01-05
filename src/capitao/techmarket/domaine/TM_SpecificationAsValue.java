@@ -71,7 +71,7 @@ public class TM_SpecificationAsValue {
 
     @Override
     public String toString() {
-        return spec.toString();
+        return spec.toString()+" "+this.getValue(); 
     }
     
     

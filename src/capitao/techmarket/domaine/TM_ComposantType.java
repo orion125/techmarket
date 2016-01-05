@@ -52,6 +52,13 @@ public class TM_ComposantType {
         }else{
             return false;
         }
+    } 
+    public boolean equals (TM_ComposantType cp){
+        if (this.getNom().equals(cp.getNom())){
+            return true;
+        }else{
+            return false;
+        }
     }
   
     public boolean equals (int id){
