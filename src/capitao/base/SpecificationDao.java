@@ -101,8 +101,8 @@ public class SpecificationDao {
             ResultSet rs = stmt.executeQuery(
                     "SELECT spv_id, spv_value "
                   + "FROM vw_valeur_spec "
-                  + "WHERE spv_spc_id = "+spec.getId()+" "
-                  + "ORDER BY spv_value"
+                  + "WHERE spv_spc_id = "+spec.getId()/*+" "
+                  + "ORDER BY spv_value"*/
             );
 
             while (rs.next()) {

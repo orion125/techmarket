@@ -60,9 +60,6 @@ public class TM_SpecificationAsValue {
             return false;
         }
         final TM_SpecificationAsValue other = (TM_SpecificationAsValue) obj;
-        if (!Objects.equals(this.spec, other.spec)) {
-            return false;
-        }
         if (!Objects.equals(this.value, other.value)) {
             return false;
         }

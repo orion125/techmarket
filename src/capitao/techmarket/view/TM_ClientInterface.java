@@ -35,6 +35,7 @@ public class TM_ClientInterface extends javax.swing.JFrame {
     public ArrayList<TM_ComposantType> CompoType = new ArrayList();
     public ArrayList<TM_Marque> Marques = new ArrayList();
     public ArrayList<TM_Specification> Specs = new ArrayList();
+    public ArrayList<TM_SpecificationAsValue> SpecV = new ArrayList();
     public ArrayList<TM_Composant> ComposantsTrouvee = new ArrayList();
     public ArrayList<TM_LigneCommande> alc = new ArrayList<>();
     ArrayList<TM_Composant> allComp = ComposantDao.getListeComp();
@@ -87,8 +88,11 @@ public class TM_ClientInterface extends javax.swing.JFrame {
     private void initSpecList(TM_ComposantType cp){
         Specs = SpecificationDao.getListeSpec(cp);
         list_spec.removeAll();
-        for (int i = 0; i < Specs.size(); i++) {
-            list_spec.add(Specs.get(i).toString());
+        for (TM_Specification s : Specs) {
+            for (TM_SpecificationAsValue spv : s.getValpos()){
+                SpecV.add(spv);
+                list_spec.add(spv.toString());
+            }
             this.validate();
         }
     }
@@ -116,13 +120,13 @@ public class TM_ClientInterface extends javax.swing.JFrame {
     
     private void loadCompo(){
         TM_Marque m ;
-        TM_Specification s;
+        TM_SpecificationAsValue s;
         if (list_marque.getSelectedIndexes().length > 0){
             m = Marques.get(list_marque.getSelectedIndex());
         }
         else m = null;
         if (list_spec.getSelectedIndexes().length > 0){
-            s = Specs.get(list_spec.getSelectedIndex());
+            s = SpecV.get(list_spec.getSelectedIndex());
         }
         else s = null;
         list_composants.removeAll();
@@ -136,23 +140,23 @@ public class TM_ClientInterface extends javax.swing.JFrame {
         }
     }
     
-    public boolean verif (TM_Composant c, TM_Marque m, TM_Specification s){
-        boolean v = true;
+    public boolean verif (TM_Composant c, TM_Marque m, TM_SpecificationAsValue s){
+        boolean vs = false; boolean vm = false;
         if (m != null){
-            if (!c.getMarque().equals(m)) v= false;
+            if (c.getMarque().equals(m)) vm= true;
         }
         
         if (s != null){
+            vs=false;
             for (TM_SpecificationAsValue spv : c.getSpecifications()){
-               if (!s.getValpos().contains(spv)) v= false;
+               if (s.equals(spv)) vs= true;
                spv.getSpec().toString();
             }
         }
-        return v&&verif(c);
+        return vs&&vm&&verif(c);
     }
     
     public boolean verif (TM_Composant c){
-        System.out.println(c.getCompoType().toString());
         return c.getCompoType().equals(cp);
     }
     /**

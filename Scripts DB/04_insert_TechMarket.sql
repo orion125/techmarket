@@ -209,9 +209,9 @@ INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VAL
 INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VALUES (seq_cmp_id.NEXTVAL,'INTEL Pentium G2120 3.1GHz',91.70,seq_mar_id.CURRVAL-10,seq_cot_id.CURRVAL);
 INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VALUES (seq_cmp_id.NEXTVAL,'AMD Opteron 12-Core 6348',700.40,seq_mar_id.CURRVAL,seq_cot_id.CURRVAL);
 INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VALUES (seq_cmp_id.NEXTVAL,'SATA600 - 7200 TOSHIBA',150.60,seq_mar_id.CURRVAL-9,seq_cot_id.CURRVAL-5);
-INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VALUES (seq_cmp_id.NEXTVAL,'SSD Drive 2.5 SATA INTEL DC S3610 Series',1388.90,seq_mar_id.CURRVAL,seq_cot_id.CURRVAL);
-INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VALUES (seq_cmp_id.NEXTVAL,'SSD Drive 2.5 SATA SAMSUNG 850 Pro Series',926.90,seq_mar_id.CURRVAL,seq_cot_id.CURRVAL);
-INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VALUES (seq_cmp_id.NEXTVAL,'SSD Drive INTEL SSD DC P3700 SERIES PCI-Express',5249.20,seq_mar_id.CURRVAL,seq_cot_id.CURRVAL);
+INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VALUES (seq_cmp_id.NEXTVAL,'SSD Drive 2.5 SATA INTEL DC S3610 Series',1388.90,seq_mar_id.CURRVAL-8,seq_cot_id.CURRVAL-5);
+INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VALUES (seq_cmp_id.NEXTVAL,'SSD Drive 2.5 SATA SAMSUNG 850 Pro Series',926.90,seq_mar_id.CURRVAL-8,seq_cot_id.CURRVAL-5);
+INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VALUES (seq_cmp_id.NEXTVAL,'SSD Drive INTEL SSD DC P3700 SERIES PCI-Express',5249.20,seq_mar_id.CURRVAL-8,seq_cot_id.CURRVAL-5);
 INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VALUES (seq_cmp_id.NEXTVAL,'DDR4 [8x16GB] C14 - CORSAIR Dominator Platinum ',1679.30,seq_mar_id.CURRVAL-7,seq_cot_id.CURRVAL-3);
 INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VALUES (seq_cmp_id.NEXTVAL,'DDR4 [8x16GB] C14 - CORSAIR Dominator Platinum ',1392.50,seq_mar_id.CURRVAL-7,seq_cot_id.CURRVAL-3);
 INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VALUES (seq_cmp_id.NEXTVAL,'DDR4 [8x16GB] C14 - CORSAIR Dominator Platinum ',1281.70,seq_mar_id.CURRVAL-7,seq_cot_id.CURRVAL-3);
@@ -221,7 +221,7 @@ INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VAL
 INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VALUES (seq_cmp_id.NEXTVAL,'CORSAIR clavier Gaming K70 RGB Mechanical - Cherry MX Brown',201.0,seq_mar_id.CURRVAL-7,seq_cot_id.CURRVAL-6);
 INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VALUES (seq_cmp_id.NEXTVAL,'LOGITECH clavier CH Wireless All-in-One Keyboard TK820',90.40,seq_mar_id.CURRVAL-1,seq_cot_id.CURRVAL-6);
 INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VALUES (seq_cmp_id.NEXTVAL,'Souris RAZER Imperator Mouse 2012',77.80,seq_mar_id.CURRVAL,seq_cot_id.CURRVAL-2);
-INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VALUES (seq_cmp_id.NEXTVAL,'LOGITECH Stereo Headset H111',20.90,seq_mar_id.CURRVAL,seq_cot_id.CURRVAL-7);
+INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VALUES (seq_cmp_id.NEXTVAL,'LOGITECH Stereo Headset H111',20.90,seq_mar_id.CURRVAL-1,seq_cot_id.CURRVAL-7);
 INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VALUES (seq_cmp_id.NEXTVAL,'Ecran 23,6 LED SAMSUNG TC241W SMART Cloud Display ',1019.40,seq_mar_id.CURRVAL-8,seq_cot_id.CURRVAL-4);
 INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VALUES (seq_cmp_id.NEXTVAL,'Ecran 27 LED ASUS PA279Q',762.60,seq_mar_id.CURRVAL-7,seq_cot_id.CURRVAL-4);
 INSERT INTO tm_composant (cmp_id, cmp_nom, cmp_prix, cmp_mar_id, cmp_cot_id) VALUES (seq_cmp_id.NEXTVAL,'Ecran 32 LED ASUS PB328Q',669.0,seq_mar_id.CURRVAL-7,seq_cot_id.CURRVAL-4);
@@ -255,6 +255,7 @@ INSERT INTO tm_compotypeasspec (cts_cot_id, cts_spc_id) VALUES (seq_cot_id.CURRV
 INSERT INTO tm_compotypeasspec (cts_cot_id, cts_spc_id) VALUES (seq_cot_id.CURRVAL-4,seq_spc_id.CURRVAL-5);
 INSERT INTO tm_compotypeasspec (cts_cot_id, cts_spc_id) VALUES (seq_cot_id.CURRVAL-2,seq_spc_id.CURRVAL-4);
 INSERT INTO tm_compotypeasspec (cts_cot_id, cts_spc_id) VALUES (seq_cot_id.CURRVAL-6,seq_spc_id.CURRVAL-4);
+INSERT INTO tm_compotypeasspec (cts_cot_id, cts_spc_id) VALUES (seq_cot_id.CURRVAL-7,seq_spc_id.CURRVAL-4);
 INSERT INTO tm_compotypeasspec (cts_cot_id, cts_spc_id) VALUES (seq_cot_id.CURRVAL-7,seq_spc_id.CURRVAL-3);
 INSERT INTO tm_compotypeasspec (cts_cot_id, cts_spc_id) VALUES (seq_cot_id.CURRVAL,seq_spc_id.CURRVAL-2);
 INSERT INTO tm_compotypeasspec (cts_cot_id, cts_spc_id) VALUES (seq_cot_id.CURRVAL,seq_spc_id.CURRVAL-1);
@@ -291,22 +292,22 @@ INSERT INTO tm_compotypeasmarque (ctm_cot_id, ctm_mar_id) VALUES (seq_cot_id.CUR
 COMMIT;
 		
 -- tm_specasvalue
-INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-11,'2400 MHZ');
-INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-11,'2666 MHZ');
-INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-11,'2800 MHZ');
-INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-11,'3200 MHZ');
-INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-10,'1GB');
-INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-10,'2GB');
-INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-10,'4GB');
-INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-10,'8GB');
-INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-10,'16GB');
-INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-10,'32GB');
-INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-10,'64GB');
-INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-10,'128GB');
-INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-9,'7200 Tours/minutes');
-INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-9,'10000 Tours/minutes');
-INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-9,'SSD');
-INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-9,'SSD PCI-express');
+INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-12,'2400 MHZ');
+INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-12,'2666 MHZ');
+INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-12,'2800 MHZ');
+INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-12,'3200 MHZ');
+INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-11,'1GB');
+INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-11,'2GB');
+INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-11,'4GB');
+INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-11,'8GB');
+INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-11,'16GB');
+INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-11,'32GB');
+INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-11,'64GB');
+INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-11,'128GB');
+INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-10,'7200 Tours/minutes');
+INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-10,'10000 Tours/minutes');
+INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-10,'SSD');
+INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-10,'SSD PCI-express');
 INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-9,'1 GO'); 
 INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-9,'2 GO'); 
 INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-9,'4 GO');
@@ -400,14 +401,14 @@ INSERT INTO tm_compoasspecvalue (cov_spv_id, cov_cmp_id) VALUES (seq_spv_id.CURR
 INSERT INTO tm_compoasspecvalue (cov_spv_id, cov_cmp_id) VALUES (seq_spv_id.CURRVAL-20, seq_cmp_id.CURRVAL-19); 
 INSERT INTO tm_compoasspecvalue (cov_spv_id, cov_cmp_id) VALUES (seq_spv_id.CURRVAL-42, seq_cmp_id.CURRVAL-18);
 INSERT INTO tm_compoasspecvalue (cov_spv_id, cov_cmp_id) VALUES (seq_spv_id.CURRVAL-15, seq_cmp_id.CURRVAL-18); 
-INSERT INTO tm_compoasspecvalue (cov_spv_id, cov_cmp_id) VALUES (seq_spv_id.CURRVAL-30, seq_cmp_id.CURRVAL-17); 
+INSERT INTO tm_compoasspecvalue (cov_spv_id, cov_cmp_id) VALUES (seq_spv_id.CURRVAL-30, seq_cmp_id.CURRVAL-17); --
 INSERT INTO tm_compoasspecvalue (cov_spv_id, cov_cmp_id) VALUES (seq_spv_id.CURRVAL-56, seq_cmp_id.CURRVAL-17); 
 INSERT INTO tm_compoasspecvalue (cov_spv_id, cov_cmp_id) VALUES (seq_spv_id.CURRVAL-32, seq_cmp_id.CURRVAL-16);  
 INSERT INTO tm_compoasspecvalue (cov_spv_id, cov_cmp_id) VALUES (seq_spv_id.CURRVAL-54, seq_cmp_id.CURRVAL-16); 
 INSERT INTO tm_compoasspecvalue (cov_spv_id, cov_cmp_id) VALUES (seq_spv_id.CURRVAL-31, seq_cmp_id.CURRVAL-15);  
 INSERT INTO tm_compoasspecvalue (cov_spv_id, cov_cmp_id) VALUES (seq_spv_id.CURRVAL-54, seq_cmp_id.CURRVAL-15);
 INSERT INTO tm_compoasspecvalue (cov_spv_id, cov_cmp_id) VALUES (seq_spv_id.CURRVAL-31, seq_cmp_id.CURRVAL-14); 
-INSERT INTO tm_compoasspecvalue (cov_spv_id, cov_cmp_id) VALUES (seq_spv_id.CURRVAL-53, seq_cmp_id.CURRVAL-14); 
+INSERT INTO tm_compoasspecvalue (cov_spv_id, cov_cmp_id) VALUES (seq_spv_id.CURRVAL-53, seq_cmp_id.CURRVAL-14); --
 INSERT INTO tm_compoasspecvalue (cov_spv_id, cov_cmp_id) VALUES (seq_spv_id.CURRVAL-66, seq_cmp_id.CURRVAL-13); 
 INSERT INTO tm_compoasspecvalue (cov_spv_id, cov_cmp_id) VALUES (seq_spv_id.CURRVAL-57, seq_cmp_id.CURRVAL-13); 
 INSERT INTO tm_compoasspecvalue (cov_spv_id, cov_cmp_id) VALUES (seq_spv_id.CURRVAL-67, seq_cmp_id.CURRVAL-12);
