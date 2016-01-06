@@ -314,7 +314,7 @@ INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NE
 INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-9,'6 GO'); 
 INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-9,'12 GO');
 INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-8,'1.2 GHz'); 
-INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-8,'3.5 GHZ'); 
+INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-8,'3.5 GHz'); 
 INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-8,'7.0 GHz'); 
 INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-7,'AMD Socket AM3'); 
 INSERT INTO tm_specasvalue (spv_id, spv_spc_id, spv_value) VALUES (seq_spv_id.NEXTVAL,seq_spc_id.CURRVAL-7,'AMD Socket FM2'); 

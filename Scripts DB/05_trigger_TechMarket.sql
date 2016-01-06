@@ -15,6 +15,7 @@ DROP TRIGGER tr_cha_valider;
 DROP TRIGGER tr_com_changeStockAtt;
 
 -- Création des Triggers ------------------------------------------------------------------------------------------------------------------------------ 
+/*
 CREATE TRIGGER tr_cha_valider
   AFTER UPDATE OF cha_etat  
   ON tm_changestockenatt
@@ -53,3 +54,4 @@ EXCEPTION
     RAISE_APPLICATION_ERROR(-20122, 'Erreur non-supportée pour la commande :' || TO_CHAR(:new.com_id));
 END;
 /
+*/

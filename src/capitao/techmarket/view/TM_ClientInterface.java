@@ -354,9 +354,8 @@ public class TM_ClientInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_tf_prixMaxKeyTyped
 
     private void jbt_GoPanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_GoPanActionPerformed
-        TM_PanierInterface pan = TM_PanierInterface.getInstance();
+        TM_PanierInterface pan = TM_PanierInterface.getInstance(alc);
         pan.setVisible(true);
-        pan.alistComp = alc;
     }//GEN-LAST:event_jbt_GoPanActionPerformed
 
     private void men_help_aproposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_men_help_aproposActionPerformed
@@ -373,9 +372,13 @@ public class TM_ClientInterface extends javax.swing.JFrame {
             alcToCp.add(lc.getCompo());
         }
         TM_Composant comp = ComposantsTrouvee.get(list_composants.getSelectedIndex());
-        if (! alcToCp.contains(comp))
+        System.out.println(comp.toString());
+        if (! alcToCp.contains(comp)){
+            System.out.println("Sa passe");
             alc.add(new TM_LigneCommande(comp, 1));
+        }
         else{
+            System.out.println("Sa passe pas");
             for (TM_LigneCommande lc : alc){
                 if (lc.equals(comp))
                     lc.setQte(lc.getQte() +1);

@@ -51,7 +51,7 @@ public class ComposantTypeDao {
         try {
             Connection con = ConnexionBase.get();
             PreparedStatement stmt = con.prepareStatement(
-                    "INSERT INTO vw_categorie_compo (cot_id,cot_nom) "
+                    "INSERT INTO vw_categorie_compo "
                   + "VALUES (seq_cot_id.nextval, '"+ct.getNom()+"')"
             );
             stmt.executeUpdate();

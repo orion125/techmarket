@@ -187,7 +187,7 @@ public class TM_RD_Composant extends javax.swing.JFrame {
     }//GEN-LAST:event_btSupprActionPerformed
 
     public void open(TM_Composant comp){
-        TM_CU_Composant cuCompoFrame = TM_CU_Composant.getInstance(comp);
+        TM_CU_Composant cuCompoFrame = TM_CU_Composant.getInstance(this,comp);
         cuCompoFrame.initGen(comp, mod);
         cuCompoFrame.setVisible(true);
     }    

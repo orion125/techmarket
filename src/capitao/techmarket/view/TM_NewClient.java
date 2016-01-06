@@ -83,6 +83,12 @@ public class TM_NewClient extends javax.swing.JFrame {
             }
         });
 
+        tfTel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfTelKeyPressed(evt);
+            }
+        });
+
         menuMain.setText("Fichier");
 
         menuFermer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.ALT_MASK));
@@ -196,6 +202,10 @@ public class TM_NewClient extends javax.swing.JFrame {
     private void menuFermerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFermerActionPerformed
         this.dispose();
     }//GEN-LAST:event_menuFermerActionPerformed
+
+    private void tfTelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfTelKeyPressed
+        capitao.outils.filterTools.filterTel(evt);
+    }//GEN-LAST:event_tfTelKeyPressed
 
     /**
      * @param args the command line arguments

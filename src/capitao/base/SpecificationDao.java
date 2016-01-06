@@ -140,6 +140,7 @@ public class SpecificationDao {
    
     
     public static void insert (TM_Specification s) {
+            int step = 1;
         try {
             Connection con = ConnexionBase.get();
             ArrayList<TM_ComposantType> cts = s.getCompoTypes();  
@@ -147,8 +148,11 @@ public class SpecificationDao {
                     "INSERT INTO vw_spec "
                   + "VALUES (seq_spc_id.nextval, '"+s.getNom()+"')"
             );
+            System.out.println("INSERT INTO vw_spec "
+                  + "VALUES (seq_spc_id.nextval, '"+s.getNom()+"')");
             stmt.executeUpdate();
             stmt.close();
+            step++;
             for (int i = 0; i < cts.size (); i++){
                 PreparedStatement stmtInsertc = con.prepareCall(
                         "INSERT INTO vw_spec_as_categorie "
@@ -159,7 +163,7 @@ public class SpecificationDao {
             }
             insertValPos(s,true);
         } catch (SQLException ex) {
-            System.err.println("SpecificationDao.insert(): " + ex.getMessage());
+            System.err.println("SpecificationDao.insert(): " +step+" "+ ex.getMessage());
         }   
     } // insert
     

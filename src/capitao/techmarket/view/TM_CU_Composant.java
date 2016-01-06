@@ -46,17 +46,21 @@ public class TM_CU_Composant extends javax.swing.JFrame {
     public ArrayList<TM_Marque> alistMarques = new ArrayList<TM_Marque>();
     public ArrayList<TM_ComposantType> alistCt = new ArrayList<TM_ComposantType>();
     public JLabel[] labelSpecUsed = new JLabel[10];
-    //public JComboBox comboSpecUsed;
+    TM_RD_Composant parent;
     public int nbSpecUsed = 0;
     
     private TM_Composant compoCourant = new TM_Composant();
     private TableModel compoTableModel;
     public int row;
     public boolean premier = true;
-    public static TM_CU_Composant getInstance(TM_Composant composant) {
+    public boolean mod = false;
+    
+       
+    public static TM_CU_Composant getInstance(TM_RD_Composant parent,TM_Composant composant) {
         if (MyWindows == null){
             MyWindows = new TM_CU_Composant(composant);
         }
+        MyWindows.parent = parent;
         return MyWindows;    
     }   
     
@@ -106,11 +110,13 @@ public class TM_CU_Composant extends javax.swing.JFrame {
         //principal
         listTypeCompo.setEnabled(!mod);
         if (composant != null && mod){
+            this.mod = true;
             compoCourant = composant;
             ComposantDao.setSpecAsValue(compoCourant);
             //System.out.println(composant.toString());
             selectCompoType(compoCourant.getCompoType());
             int i = (compoCourant.getCompoType()).getId()-1;
+            tfPrix.setText(""+compoCourant.getPrix());
             listTypeCompo.select(i);
             int j = -1;
             for (TM_Marque m : alistMarqueDispo){
@@ -123,7 +129,9 @@ public class TM_CU_Composant extends javax.swing.JFrame {
             this.setTitle("Modifier le composant : " +compoCourant.getNom());
             tfName.setText(compoCourant.getNom());
         }else{
+            this.mod = false;
             compoCourant = new TM_Composant();
+            tfPrix.setText("0.0");
             listSpecUsed.removeAll();
             this.setTitle("Ajout de composant");
             tfName.setText(null);
@@ -153,7 +161,14 @@ public class TM_CU_Composant extends javax.swing.JFrame {
     }
     
     public void createMod(){
-        return;
+        compoCourant.setNom(tfName.getText());
+        compoCourant.setPrix(new Double(tfPrix.getText()));
+        if (mod){
+            ComposantDao.update(compoCourant);
+        }else{
+            ComposantDao.insert(compoCourant);
+        }
+        this.parent.initList();
     }
     
     public void loadlistSpec(){
@@ -251,6 +266,8 @@ public class TM_CU_Composant extends javax.swing.JFrame {
         btRemoveSpec = new javax.swing.JButton();
         listMarque = new java.awt.List();
         lbMarque = new java.awt.Label();
+        lbPrix = new java.awt.Label();
+        tfPrix = new java.awt.TextField();
         jPanSpecDet = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtableSpecUsed = new javax.swing.JTable();
@@ -262,9 +279,9 @@ public class TM_CU_Composant extends javax.swing.JFrame {
         men_help_apropos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(655, 550));
+        setPreferredSize(new java.awt.Dimension(655, 595));
         setResizable(false);
-        setSize(new java.awt.Dimension(655, 550));
+        setSize(new java.awt.Dimension(655, 595));
 
         btValider.setText("Valider");
         btValider.addActionListener(new java.awt.event.ActionListener() {
@@ -313,23 +330,32 @@ public class TM_CU_Composant extends javax.swing.JFrame {
             }
         });
 
+        listMarque.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                listMarqueItemStateChanged(evt);
+            }
+        });
+
         lbMarque.setText("Marques");
+
+        lbPrix.setText("Prix :");
+
+        tfPrix.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfPrixKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panAddModLayout = new javax.swing.GroupLayout(panAddMod);
         panAddMod.setLayout(panAddModLayout);
         panAddModLayout.setHorizontalGroup(
             panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAddModLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btValider)
-                .addGap(111, 111, 111))
             .addGroup(panAddModLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAddModLayout.createSequentialGroup()
                         .addComponent(listSpecDispo, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btAddNewSpec, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btRemoveSpec, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -349,43 +375,59 @@ public class TM_CU_Composant extends javax.swing.JFrame {
                             .addGroup(panAddModLayout.createSequentialGroup()
                                 .addComponent(lbMarque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(listMarque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(listMarque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAddModLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lbPrix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(panAddModLayout.createSequentialGroup()
+                        .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfPrix, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(panAddModLayout.createSequentialGroup()
+                .addGap(119, 119, 119)
+                .addComponent(btValider)
+                .addContainerGap(109, Short.MAX_VALUE))
         );
         panAddModLayout.setVerticalGroup(
             panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAddModLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbSpecUsed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbSpecDispo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panAddModLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(listSpecDispo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(listSpecUsed, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panAddModLayout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(btAddNewSpec, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btRemoveSpec, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbPrix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panAddModLayout.createSequentialGroup()
-                        .addComponent(lbTypeAssoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
-                        .addGroup(panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(listMarque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(listTypeCompo, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE))
+                        .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbSpecUsed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbSpecDispo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panAddModLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(listSpecDispo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(listSpecUsed, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(panAddModLayout.createSequentialGroup()
+                                .addGap(76, 76, 76)
+                                .addComponent(btAddNewSpec, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btRemoveSpec, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panAddModLayout.createSequentialGroup()
+                                .addComponent(lbTypeAssoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(2, 2, 2)
+                                .addGroup(panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(listMarque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(listTypeCompo, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)))
+                            .addComponent(lbMarque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btValider))
                     .addGroup(panAddModLayout.createSequentialGroup()
-                        .addComponent(lbMarque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfPrix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -471,7 +513,7 @@ public class TM_CU_Composant extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panAddMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 20, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanSpecDet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -514,6 +556,14 @@ public class TM_CU_Composant extends javax.swing.JFrame {
        //System.out.println(alistCt.get(listTypeCompo.getSelectedIndex()).toString());
     }//GEN-LAST:event_listTypeCompoItemStateChanged
 
+    private void tfPrixKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPrixKeyPressed
+        capitao.outils.filterTools.filterPositiveInt(evt);
+    }//GEN-LAST:event_tfPrixKeyPressed
+
+    private void listMarqueItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listMarqueItemStateChanged
+        compoCourant.setMarque(alistMarqueDispo.get(listMarque.getSelectedIndex()));
+    }//GEN-LAST:event_listMarqueItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAddNewSpec;
@@ -525,6 +575,7 @@ public class TM_CU_Composant extends javax.swing.JFrame {
     private javax.swing.JTable jtableSpecUsed;
     private java.awt.Label lbMarque;
     private java.awt.Label lbName;
+    private java.awt.Label lbPrix;
     private java.awt.Label lbSpcsChoosed;
     private java.awt.Label lbSpecDispo;
     private java.awt.Label lbSpecUsed;
@@ -539,5 +590,6 @@ public class TM_CU_Composant extends javax.swing.JFrame {
     private javax.swing.JMenu menuMain;
     private javax.swing.JPanel panAddMod;
     private java.awt.TextField tfName;
+    private java.awt.TextField tfPrix;
     // End of variables declaration//GEN-END:variables
 }

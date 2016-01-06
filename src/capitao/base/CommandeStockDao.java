@@ -13,7 +13,7 @@ import capitao.techmarket.domaine.TM_ComposantAsStock;
 import capitao.techmarket.domaine.TM_Emplacement;
 import capitao.techmarket.domaine.TM_LigneCommande;
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -31,12 +31,12 @@ public class CommandeStockDao {
         ArrayList<TM_Composant> cmpLst = ComposantDao.getListeComp();
         ArrayList<TM_ComposantAsStock> lst = new ArrayList<TM_ComposantAsStock>();
         for (TM_Composant c : cmpLst){
-            lst.add(setStockComp(c));
+            lst.add(getStockComp(c));
         }
         return lst;
     }
     
-    public static TM_ComposantAsStock setStockComp (TM_Composant c) {
+    public static TM_ComposantAsStock getStockComp (TM_Composant c) {
         TM_ComposantAsStock lst = new TM_ComposantAsStock();
         try {
             Connection con = ConnexionBase.get();
@@ -56,11 +56,26 @@ public class CommandeStockDao {
             }
             stmt.close();
         } catch (SQLException ex) {
-            System.err.println("CommandeStockDao.setStockComp(): " + ex.getMessage());
+            System.err.println("CommandeStockDao.getStockComp(): " + ex.getMessage());
             return null;
         }
         return lst;
     } // setStockComp  
+    
+    public static void setStockComp (TM_ComposantAsStock cas){
+        try {
+            Connection con = ConnexionBase.get();
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(
+                    "UPDATE vw_stock SET cos_emp_id = "+cas.getEmplacement().getId()+" "
+                  + "WHERE cos_cmp_id = "+cas.getComposantConcernee().getId()
+            );
+            
+            stmt.close();
+        } catch (SQLException ex) {
+            System.err.println("CommandeStockDao.setStockComp(): " + ex.getMessage());
+        }
+    }
     
     public static TM_Emplacement getEmplaceComp (int empId){
         ArrayList<TM_Emplacement> lst = getEmplacements();
@@ -121,8 +136,7 @@ public class CommandeStockDao {
         }
         return idCom;
     }
-    
-    public static void genererMoveStock(TM_Commande com){
+       public static void genererMoveStock(TM_Commande com){
         try{
             Connection con = ConnexionBase.get();
             Statement stmt = con.createStatement();
@@ -147,6 +161,35 @@ public class CommandeStockDao {
         }catch (SQLException ex) {
             System.err.println("CommandeStockDao.genererMoveStock(): " + ex.getMessage());
         }
+    } 
+    public static void genererMoveStock(int ajout, TM_ComposantAsStock cos){
+        try{
+            Connection con = ConnexionBase.get();
+            Statement stmt = con.createStatement();
+            Date today = new Date();   
+            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            System.out.println(df.format(today));
+            stmt.executeUpdate("INSERT INTO vw_changstockatt VALUES ("
+                    +"seq_cha_id.nextval,'Achat de "+ajout+" "+cos.
+                    getComposantConcernee().getNom()+"',1,"+ajout+","
+                    +"TO_DATE('"+df.format(today)+"','dd-mm-yyyy'),"
+                    +cos.getComposantConcernee().getId()+")");
+         
+            ResultSet rs = stmt.executeQuery("SELECT cos_nbstockvirtuel "
+                + "FROM vw_stock WHERE cos_cmp_id = "
+                    +cos.getComposantConcernee().getId());
+            int stockVirtuelActu = 0;
+            while (rs.next()){
+                stockVirtuelActu = rs.getInt("cos_nbstockvirtuel");
+            }
+            stmt.executeUpdate("UPDATE vw_stock SET cos_nbstockvirtuel = "
+                     +(stockVirtuelActu+(ajout))+" "
+                 +"WHERE cos_cmp_id = "+cos.getComposantConcernee().getId());
+            
+            stmt.close() ;
+        }catch (SQLException ex) {
+            System.err.println("CommandeStockDao.genererMoveStock(): " + ex.getMessage());
+        }
     }
     
     public static void validerMoveStockEnAtt(TM_ChangementStockEnAttente csa){
@@ -156,26 +199,28 @@ public class CommandeStockDao {
             ResultSet rs = stmt.executeQuery("SELECT cos_nbstockvirtuel "
                         + "FROM vw_stock WHERE cos_cmp_id = "
                         +csa.getCompAStock().getComposantConcernee().getId());
-                int stockVirtuelActu = 0;
-                while (rs.next()){
-                    stockVirtuelActu = rs.getInt("cos_nbstockvirtuel");
-                }
-                stmt.executeUpdate("UPDATE vw_stock SET cos_nbstockvirtuel = "+(stockVirtuelActu+csa.getQte())
-                    +" WHERE cos_cmp_id = "+csa.getId());
-                stmt.close();
+            int stockVirtuelActu = 0;
+            while (rs.next()){
+                stockVirtuelActu = rs.getInt("cos_nbstockvirtuel");
+            }
+            stmt.executeUpdate("UPDATE vw_stock SET cos_nbstockvirtuel = "+(stockVirtuelActu+csa.getQte())
+                +" WHERE cos_cmp_id = "+csa.getId());
+            stmt.executeUpdate("UPDATE vw_changstockatt SET cha_etat = 0 "
+                    + "WHERE cha_id ="+csa.getId());
+            stmt.close();
         }catch (SQLException ex){
             System.err.println("CommandeStockDao.validerMoveStockEnAtt(): "+ex.getMessage());
         }
     }
     
-    public static ArrayList<TM_ChangementStockEnAttente> recupMoveStockEnAtt(){
+    public static ArrayList<TM_ChangementStockEnAttente> recupMoveStockEnAtt(TM_Composant c){
         ArrayList<TM_ChangementStockEnAttente> lst = new ArrayList<TM_ChangementStockEnAttente>();
         try{
             Connection con = ConnexionBase.get();
             Statement st = con.createStatement();  
             ResultSet rs = st.executeQuery("SELECT cha_id, cha_comment,cha_etat,cha_qte,cha_datechange,cha_cos_cmp_id "
-                    + "FROM vw_vw_changstockatt "
-                    + "WHERE cha_etat = 1");
+                    + "FROM vw_changstockatt "
+                    + "WHERE cha_etat = 1 AND cha_cos_cmp_id = "+c.getId());
             ArrayList<TM_ComposantAsStock> asLst =  getAllStock();
             while (rs.next()){
                 TM_ComposantAsStock asCible = null;
@@ -183,7 +228,8 @@ public class CommandeStockDao {
                     if (as.getComposantConcernee().getId() == rs.getInt("cha_cos_cmp_id"))
                         asCible = as;
                 }
-                lst.add(new TM_ChangementStockEnAttente(asCible, 
+                lst.add(new TM_ChangementStockEnAttente(rs.getInt("cha_id"),
+                        asCible, 
                         rs.getDate("cha_datechange"), 
                         rs.getInt("cha_qte"),
                         rs.getString("cha_comment")));

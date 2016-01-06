@@ -116,7 +116,7 @@ public class TM_Specification {
     public boolean hasValPos(String s){
         int pos = -1;
         for (int i = 0; i < this.valpos.size();i++){
-            if (valpos.get(i).equals(s)){
+            if (valpos.get(i).getValue().equals(s)){
                 pos = i;
             }
         }

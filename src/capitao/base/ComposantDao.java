@@ -135,7 +135,7 @@ public class ComposantDao {
             }
             PreparedStatement stmtInsertStock = con.prepareCall(
                     "INSERT INTO vw_stock "
-                  + "VALUES (0,0,null,"+c.getId()+")"
+                  + "VALUES (0,0,1,seq_cmp_id.currval)"
             );
             stmtInsertStock.executeUpdate();
             stmtInsertStock.close();

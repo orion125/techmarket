@@ -85,4 +85,9 @@ public class TM_ChangementStockEnAttente {
     public boolean equals (TM_ChangementStockEnAttente o){
         return (this.getId() == o.getId());
     }
+
+    @Override
+    public String toString() {
+        return this.getDateDuChangement() + " " + this.getCommentaire();
+    }
 }

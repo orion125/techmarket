@@ -5,6 +5,7 @@
  */
 package capitao.techmarket.view;
 
+import capitao.base.CommandeStockDao;
 import capitao.techmarket.domaine.TM_ChangementStockEnAttente;
 import capitao.techmarket.domaine.TM_Composant;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
  */
 public class TM_ApproLivraison extends javax.swing.JFrame {
     ArrayList<TM_ChangementStockEnAttente> alistChangeStock = new ArrayList<>();
+    TM_ChangementStockEnAttente changeStockSelected;
     TM_Composant compoConcerne;
     public static TM_ApproLivraison myWindows = null;
     
@@ -22,6 +24,7 @@ public class TM_ApproLivraison extends javax.swing.JFrame {
         if (myWindows == null){
             myWindows = new TM_ApproLivraison(comp);
         }
+        myWindows.initList();
         return myWindows;
     }
     
@@ -34,6 +37,15 @@ public class TM_ApproLivraison extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
+    
+    private void initList(){
+        listLivraisonEnAtt.removeAll();
+        alistChangeStock = CommandeStockDao.recupMoveStockEnAtt(compoConcerne);
+        for (TM_ChangementStockEnAttente change : alistChangeStock){
+            listLivraisonEnAtt.add(change.toString());
+        }
+    }
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,7 +58,7 @@ public class TM_ApproLivraison extends javax.swing.JFrame {
 
         listLivraisonEnAtt = new java.awt.List();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jbtConf = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuMain = new javax.swing.JMenu();
         menuFermer = new javax.swing.JMenuItem();
@@ -64,8 +76,13 @@ public class TM_ApproLivraison extends javax.swing.JFrame {
 
         jLabel1.setText("Livraisons ou approvisionnements en attente");
 
-        jButton1.setText("Confirmer");
-        jButton1.setToolTipText("Confirmer la réception ou la livraison sélectionnée");
+        jbtConf.setText("Confirmer");
+        jbtConf.setToolTipText("Confirmer la réception ou la livraison sélectionnée");
+        jbtConf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtConfActionPerformed(evt);
+            }
+        });
 
         menuMain.setText("Fichier");
 
@@ -106,7 +123,7 @@ public class TM_ApproLivraison extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(jbtConf)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -114,7 +131,7 @@ public class TM_ApproLivraison extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1)
+                    .addComponent(jbtConf)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -135,8 +152,14 @@ public class TM_ApproLivraison extends javax.swing.JFrame {
     }//GEN-LAST:event_men_help_aproposActionPerformed
 
     private void listLivraisonEnAttItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listLivraisonEnAttItemStateChanged
-        // changement de position dans l'arrayList
+        changeStockSelected = alistChangeStock.get(listLivraisonEnAtt.getSelectedIndex());
     }//GEN-LAST:event_listLivraisonEnAttItemStateChanged
+
+    private void jbtConfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfActionPerformed
+        CommandeStockDao.validerMoveStockEnAtt(changeStockSelected);
+        alistChangeStock.remove(alistChangeStock.get(listLivraisonEnAtt.getSelectedIndex()));
+        initList();
+    }//GEN-LAST:event_jbtConfActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,9 +197,9 @@ public class TM_ApproLivraison extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JButton jbtConf;
     private java.awt.List listLivraisonEnAtt;
     private javax.swing.JMenu men_help;
     private javax.swing.JMenuItem men_help_apropos;

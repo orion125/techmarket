@@ -65,7 +65,17 @@ public class TM_SpecificationAsValue {
         }
         return true;
     }
-
+    
+    public boolean equals(String s) {
+        if (s == "") {
+            return false;
+        }
+        if (!this.getValue().equals(s)) {
+            return false;
+        }
+        return true;
+    }
+    
     @Override
     public String toString() {
         return spec.toString()+" "+this.getValue(); 

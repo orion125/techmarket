@@ -18,10 +18,11 @@ public class TM_PanierInterface extends javax.swing.JFrame {
     public static TM_PanierInterface MyPanWindows = null;
     public ArrayList<TM_LigneCommande> alistComp = new ArrayList<>();
             
-    public static TM_PanierInterface getInstance(){
+    public static TM_PanierInterface getInstance(ArrayList<TM_LigneCommande> alistComp){
         if (MyPanWindows == null){
             MyPanWindows = new TM_PanierInterface();
         }
+        MyPanWindows.alistComp = alistComp;
         MyPanWindows.valideur();
         MyPanWindows.initList();
         return MyPanWindows;

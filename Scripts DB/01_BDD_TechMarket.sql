@@ -49,6 +49,7 @@ SPOOL .\Logs\07_synonymes_TechMarket.log
 @.\07_synonymes_TechMarket.sql;
 SPOOL OFF
 
+CONNECT TechMarket_data/TechMarket_data@HEGLOCAL
 -- Partage des droits sur les séquences
 SPOOL .\Logs\08_grantsequence_TechMarket.log
 @.\08_grantsequence_TechMarket.sql

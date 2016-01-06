@@ -28,6 +28,11 @@ public class TM_ComposantAsStock {
         this.emplacement = emplacement;
     }
 
+    @Override
+    public String toString() {
+        return this.getComposantConcernee().getNom() ;
+    }
+
     public int getNbEnStockVirtuelle() {
         return nbEnStockVirtuelle;
     }

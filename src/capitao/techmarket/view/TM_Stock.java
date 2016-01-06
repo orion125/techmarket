@@ -5,6 +5,7 @@
  */
 package capitao.techmarket.view;
 
+import capitao.base.CommandeStockDao;
 import capitao.outils.filterTools;
 import capitao.techmarket.domaine.TM_Composant;
 import capitao.techmarket.domaine.TM_ComposantAsStock;
@@ -24,7 +25,6 @@ public class TM_Stock extends javax.swing.JFrame {
     public ArrayList<TM_ComposantAsStock> alistCompoToStock = new ArrayList<>();
     public ArrayList<TM_Emplacement> alistEmplacement = new ArrayList<>();
     public TM_ComposantAsStock compoActu;
-    public TM_ComposantAsStock tcs_temp;
     
     public static TM_Stock getInstance(){
         if (MyWindows == null){
@@ -33,9 +33,6 @@ public class TM_Stock extends javax.swing.JFrame {
         return MyWindows;
     }    
     
-    /**
-     * Creates new form TM_CRUD_Marque
-     */
     private TM_Stock() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -44,19 +41,10 @@ public class TM_Stock extends javax.swing.JFrame {
     }
     
     private void updateData(){
-        // donnée de test
-        TM_ComposantType ct = new TM_ComposantType(3, "Carte graphique");
-        alistEmplacement.add(new TM_Emplacement("A1"));
-        alistEmplacement.add(new TM_Emplacement("E6"));
-        alistEmplacement.add(new TM_Emplacement("B1"));
-        TM_Composant compTemps = new TM_Composant("NVIDIA GeForce 960",ct);
-        alistCompoToStock.add(new TM_ComposantAsStock(0, 0, compTemps, alistEmplacement.get(0))); 
-        compTemps = new TM_Composant("NVIDIA GeForce 980",ct);
-        alistCompoToStock.add(new TM_ComposantAsStock(0, 0, compTemps, alistEmplacement.get(1))); 
-        compTemps = new TM_Composant("NVIDIA GeForce 970",ct);
-        alistCompoToStock.add(new TM_ComposantAsStock(0, 0, compTemps, alistEmplacement.get(2))); 
+        alistEmplacement = CommandeStockDao.getEmplacements();
+        alistCompoToStock = CommandeStockDao.getAllStock();
         for (int i = 0;i<alistCompoToStock.size();i++){
-            listComposants.add(alistCompoToStock.get(i).getComposantConcernee().getNom());
+            listComposants.add(alistCompoToStock.get(i).toString());
         }
         initCombo();
     }
@@ -71,8 +59,15 @@ public class TM_Stock extends javax.swing.JFrame {
         if (comp!=null){
             tfStockPhysique.setText(Integer.toString(comp.getNbEnStockPhysique()));
             tfStockVirtuelle.setText(Integer.toString(comp.getNbEnStockVirtuelle()));
-            jCbEmplacementPossible.setSelectedItem(comp.getEmplacement());
+            jCbEmplacementPossible.setSelectedIndex(getId(comp.getEmplacement()));
         } 
+    }
+    
+    private int getId(TM_Emplacement emplac){
+        for (int i = 0; i < alistEmplacement.size(); i++){
+            if (emplac.equals(alistEmplacement.get(i))) return i;
+        }
+        return -1;
     }
     
     private void initCombo(){
@@ -80,9 +75,10 @@ public class TM_Stock extends javax.swing.JFrame {
     }
     
     private void updateComboSelect(){
-        tcs_temp = alistCompoToStock.get(listComposants.getSelectedIndex());
+        compoActu = alistCompoToStock.get(listComposants.getSelectedIndex());
         TM_Emplacement empl_temp = alistEmplacement.get(jCbEmplacementPossible.getSelectedIndex());
-        tcs_temp.setEmplacement(empl_temp);
+        compoActu.setEmplacement(empl_temp);
+        CommandeStockDao.setStockComp(compoActu);
     }
     
     /**
@@ -265,8 +261,8 @@ public class TM_Stock extends javax.swing.JFrame {
     }//GEN-LAST:event_menuFermerActionPerformed
 
     private void listComposantsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listComposantsItemStateChanged
-        tcs_temp = alistCompoToStock.get(listComposants.getSelectedIndex());
-        updateGui(true, tcs_temp ); 
+        compoActu = alistCompoToStock.get(listComposants.getSelectedIndex());
+        updateGui(true, compoActu ); 
         tfAddToVirtuelle.setText("1");
     }//GEN-LAST:event_listComposantsItemStateChanged
 
@@ -279,8 +275,9 @@ public class TM_Stock extends javax.swing.JFrame {
     }//GEN-LAST:event_tfAddToVirtuelleKeyTyped
 
     private void jbtAddStockVirtuelleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddStockVirtuelleActionPerformed
-        tcs_temp.addStockVirtuelle(Integer.parseInt(tfAddToVirtuelle.getText()));
-        updateGui(true, tcs_temp); 
+        compoActu.addStockVirtuelle(Integer.parseInt(tfAddToVirtuelle.getText()));
+        CommandeStockDao.genererMoveStock(Integer.parseInt(tfAddToVirtuelle.getText()), compoActu);
+        updateGui(true, compoActu); 
     }//GEN-LAST:event_jbtAddStockVirtuelleActionPerformed
 
     private void tfAddToVirtuelleKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfAddToVirtuelleKeyReleased
@@ -297,7 +294,7 @@ public class TM_Stock extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jbtUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtUpdateActionPerformed
-        TM_ApproLivraison appLivWindows = TM_ApproLivraison.getInstance(tcs_temp.getComposantConcernee());
+        TM_ApproLivraison appLivWindows = TM_ApproLivraison.getInstance(compoActu.getComposantConcernee());
         appLivWindows.setVisible(true);
     }//GEN-LAST:event_jbtUpdateActionPerformed
 
