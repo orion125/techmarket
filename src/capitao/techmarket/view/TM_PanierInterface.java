@@ -23,6 +23,7 @@ public class TM_PanierInterface extends javax.swing.JFrame {
             MyPanWindows = new TM_PanierInterface();
         }
         MyPanWindows.valideur();
+        MyPanWindows.initList();
         return MyPanWindows;
     }
     
@@ -32,6 +33,20 @@ public class TM_PanierInterface extends javax.swing.JFrame {
     private TM_PanierInterface() {
         initComponents();
         this.setLocationRelativeTo(null);
+    }
+    
+    private void initList(){
+        double prixTot = 0.0;
+        for (TM_LigneCommande lc : alistComp){
+            list_compoCommandes.add(lc.toString());
+            prixTot += lc.getCompo().getPrix() * lc.getQte();
+        }
+        java.text.DecimalFormat deuxDecim = new java.text.DecimalFormat();
+ 
+        deuxDecim.setMaximumFractionDigits(2);
+        deuxDecim.setMinimumFractionDigits(2);
+        double prixTotAu5ct = (Math.round(prixTot/0.05)*0.05);
+        lbTotTtc.setText("Total : "+deuxDecim.format(prixTotAu5ct));
     }
 
     /**
@@ -47,6 +62,7 @@ public class TM_PanierInterface extends javax.swing.JFrame {
         lb_listTitle = new javax.swing.JLabel();
         jbt_panSuppr = new javax.swing.JButton();
         jbt_panBuy = new javax.swing.JButton();
+        lbTotTtc = new java.awt.Label();
         jMenuBar1 = new javax.swing.JMenuBar();
         men_help = new javax.swing.JMenu();
         men_help_apropos1 = new javax.swing.JMenuItem();
@@ -82,6 +98,9 @@ public class TM_PanierInterface extends javax.swing.JFrame {
             }
         });
 
+        lbTotTtc.setAlignment(java.awt.Label.RIGHT);
+        lbTotTtc.setText("Total : ");
+
         men_help.setText("Aide");
 
         men_help_apropos1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
@@ -101,18 +120,21 @@ public class TM_PanierInterface extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(list_compoCommandes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(lb_listTitle)
                         .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(list_compoCommandes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 97, Short.MAX_VALUE)
-                        .addComponent(jbt_panBuy)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbt_panSuppr, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbTotTtc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jbt_panBuy)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jbt_panSuppr, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -120,9 +142,11 @@ public class TM_PanierInterface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lb_listTitle)
-                .addGap(4, 4, 4)
-                .addComponent(list_compoCommandes, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(list_compoCommandes, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbTotTtc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbt_panBuy)
                     .addComponent(jbt_panSuppr))
@@ -192,6 +216,7 @@ public class TM_PanierInterface extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JButton jbt_panBuy;
     private javax.swing.JButton jbt_panSuppr;
+    private java.awt.Label lbTotTtc;
     private javax.swing.JLabel lb_listTitle;
     private java.awt.List list_compoCommandes;
     private javax.swing.JMenu men_help;
