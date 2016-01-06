@@ -5,6 +5,9 @@
  */
 package capitao.techmarket.view;
 
+import capitao.base.ManagerDao;
+import capitao.techmarket.domaine.TM_Manager;
+import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
@@ -27,7 +30,6 @@ public class TM_Login extends javax.swing.JFrame {
     }   
     
     public static void choix(String args) {
-        // TODO code application logic here
         if (args.equals("Client")){
             TM_ClientInterface.getInstance().setVisible(true);
         }else if (args.equals("Manager")){
@@ -51,8 +53,13 @@ public class TM_Login extends javax.swing.JFrame {
     }
     
     public boolean infoCorrect(){
-        return (jtf_Username.getText().equals("Admin") 
-             && (new String(jpw_Password.getPassword()).equals("1234")));
+        TM_Manager temp = new TM_Manager(jtf_Username.getText(),
+                                new String(jpw_Password.getPassword()));
+        TM_Manager mainAdm = new TM_Manager("Admin","1234"); // admin de test
+        ArrayList<TM_Manager> manList = ManagerDao.getListeManager();
+        //manList = new ArrayList<>();
+        manList.add(mainAdm);
+        return manList.contains(temp);
     }
     
     /**
@@ -73,6 +80,7 @@ public class TM_Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TekMarket : Connexion");
+        setResizable(false);
 
         jtf_Username.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {

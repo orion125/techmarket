@@ -377,7 +377,7 @@ public class TM_ClientInterface extends javax.swing.JFrame {
             alc.add(new TM_LigneCommande(comp, 1));
         else{
             for (TM_LigneCommande lc : alc){
-                if (lc.getCompo().equals(comp))
+                if (lc.equals(comp))
                     lc.setQte(lc.getQte() +1);
             }
         }

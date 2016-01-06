@@ -59,19 +59,24 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="list_compoCommandes" alignment="1" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="lb_listTitle" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Component id="list_compoCommandes" alignment="1" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="97" max="32767" attributes="0"/>
-                      <Component id="jbt_panBuy" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jbt_panSuppr" min="-2" pref="167" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lbTotTtc" alignment="1" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="jbt_panBuy" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jbt_panSuppr" min="-2" pref="167" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -83,9 +88,11 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lb_listTitle" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-              <Component id="list_compoCommandes" pref="171" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="list_compoCommandes" min="-2" pref="194" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="lbTotTtc" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="14" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jbt_panBuy" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbt_panSuppr" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -127,6 +134,12 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbt_panBuyActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="java.awt.Label" name="lbTotTtc">
+      <Properties>
+        <Property name="alignment" type="int" value="2"/>
+        <Property name="text" type="java.lang.String" value="Total : "/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
