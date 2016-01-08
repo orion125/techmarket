@@ -119,18 +119,18 @@ public class CommandeStockDao {
             int com_id = 0;
             st.executeUpdate("INSERT INTO vw_commande "
                    + "VALUES (seq_com_id.nextval,"+com.getCli().getId()+")"
-                , com_id
+                , new String[] { "com_id" }
             );
-            ResultSet generatedKeys = st.getGeneratedKeys();
-            if (generatedKeys.next()) com_id = generatedKeys.getInt("com_id");
-            com.setId(com_id);
+            ResultSet rsComId = st.getGeneratedKeys();
+            if (rsComId.next()) 
+                com.setId(rsComId.getInt(1));
+            System.out.println(com.getId());
             
             for (TM_LigneCommande l : com.getaListComposantCommandes()){
                 st.executeUpdate("INSERT INTO vw_ligne_commande VALUES ("+l.getCompo().getId()+
                         ",seq_com_id.currval,"+ l.getQte()+")");
             }
             st.close();
-            System.out.println(com.getId()+" "+com_id);
             genererMoveStock(com);
         }catch (SQLException ex) {
             System.err.println("CommandeStockDao.creeCommande(): " + ex.getMessage());
