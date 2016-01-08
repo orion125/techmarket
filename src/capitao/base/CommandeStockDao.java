@@ -115,18 +115,15 @@ public class CommandeStockDao {
         int idCom = -1;
         try{
             Connection con = ConnexionBase.get();
-            PreparedStatement st = con.prepareStatement("INSERT INTO vw_commande "
-                   + "VALUES (seq_com_id.nextval,"+com.getCli().getId()+")",
-                    new String[] { "com_id" }
+            Statement st = con.createStatement();
+            int com_id = 0;
+            st.executeUpdate("INSERT INTO vw_commande "
+                   + "VALUES (seq_com_id.nextval,"+com.getCli().getId()+")"
+                , com_id
             );
-            Long com_id = null;
-            if (st.executeUpdate() > 0){
-                ResultSet generatedKeys = st.getGeneratedKeys();
-                if (null != generatedKeys && generatedKeys.next()) {
-                    com_id = generatedKeys.getLong(1);
-                    com.setId(com_id.intValue());
-                }
-            }
+            ResultSet generatedKeys = st.getGeneratedKeys();
+            com.setId(com_id);
+            
             for (TM_LigneCommande l : com.getaListComposantCommandes()){
                 st.executeUpdate("INSERT INTO vw_ligne_commande VALUES ("+l.getCompo().getId()+
                         ",seq_com_id.currval,"+ l.getQte()+")");
