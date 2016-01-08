@@ -122,6 +122,7 @@ public class CommandeStockDao {
                 , com_id
             );
             ResultSet generatedKeys = st.getGeneratedKeys();
+            if (generatedKeys.next()) com_id = generatedKeys.getInt("com_id");
             com.setId(com_id);
             
             for (TM_LigneCommande l : com.getaListComposantCommandes()){
