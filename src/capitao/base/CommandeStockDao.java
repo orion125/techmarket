@@ -13,6 +13,7 @@ import capitao.techmarket.domaine.TM_ComposantAsStock;
 import capitao.techmarket.domaine.TM_Emplacement;
 import capitao.techmarket.domaine.TM_LigneCommande;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -114,21 +115,24 @@ public class CommandeStockDao {
         int idCom = -1;
         try{
             Connection con = ConnexionBase.get();
-            Statement st = con.createStatement();
-            st.executeUpdate("INSERT INTO vw_commande VALUES (seq_com_id.nextval,"+com.getCli().getId()+")");
+            PreparedStatement st = con.prepareStatement("INSERT INTO vw_commande "
+                   + "VALUES (seq_com_id.nextval,"+com.getCli().getId()+")",
+                    new String[] { "com_id" }
+            );
+            Long com_id = null;
+            if (st.executeUpdate() > 0){
+                ResultSet generatedKeys = st.getGeneratedKeys();
+                if (null != generatedKeys && generatedKeys.next()) {
+                    com_id = generatedKeys.getLong(1);
+                    com.setId(com_id.intValue());
+                }
+            }
             for (TM_LigneCommande l : com.getaListComposantCommandes()){
                 st.executeUpdate("INSERT INTO vw_ligne_commande VALUES ("+l.getCompo().getId()+
                         ",seq_com_id.currval,"+ l.getQte()+")");
             }
             st.close();
-            
-            Statement stSelect = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT seq_com_id.currval FROM DUAL");
-            while (rs.next()){
-                idCom = rs.getInt("seq_com_id.currval");
-            }
-            com.setId(idCom);
-            stSelect.close();
+            System.out.println(com.getId()+" "+com_id);
             genererMoveStock(com);
         }catch (SQLException ex) {
             System.err.println("CommandeStockDao.creeCommande(): " + ex.getMessage());
