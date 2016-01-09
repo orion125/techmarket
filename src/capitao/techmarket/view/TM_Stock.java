@@ -21,7 +21,7 @@ import javax.swing.JTextField;
  */
 public class TM_Stock extends javax.swing.JFrame {
 
-    public static TM_Stock MyWindows = null;
+    private static TM_Stock MyWindows = null;
     public ArrayList<TM_ComposantAsStock> alistCompoToStock = new ArrayList<>();
     public ArrayList<TM_Emplacement> alistEmplacement = new ArrayList<>();
     public TM_ComposantAsStock compoActu;

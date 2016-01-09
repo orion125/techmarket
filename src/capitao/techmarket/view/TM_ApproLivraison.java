@@ -18,9 +18,9 @@ public class TM_ApproLivraison extends javax.swing.JFrame {
     ArrayList<TM_ChangementStockEnAttente> alistChangeStock = new ArrayList<>();
     TM_ChangementStockEnAttente changeStockSelected;
     TM_Composant compoConcerne;
-    public static TM_ApproLivraison myWindows = null;
+    private static TM_ApproLivraison myWindows = null;
     
-     public static TM_ApproLivraison getInstance(TM_Composant comp){
+    public static TM_ApproLivraison getInstance(TM_Composant comp){
         if (myWindows == null){
             myWindows = new TM_ApproLivraison(comp);
         }

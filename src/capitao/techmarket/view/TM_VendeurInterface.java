@@ -18,7 +18,7 @@ import javax.swing.*;
  */
 public class TM_VendeurInterface extends javax.swing.JFrame {
     
-    public static TM_VendeurInterface MyWindows = null;
+    private static TM_VendeurInterface MyWindows = null;
     
     public static TM_VendeurInterface getInstance(){
         if (MyWindows == null){

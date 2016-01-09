@@ -14,7 +14,7 @@ import capitao.techmarket.domaine.TM_Client;
  */
 public class TM_NewClient extends javax.swing.JFrame {
    
-    public static TM_NewClient MyWindows = null;   
+    private static TM_NewClient MyWindows = null;   
     public static TM_ClientSelect MyWindowsparent = null;
     TM_Client newCli = null;
 

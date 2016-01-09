@@ -10,9 +10,9 @@ package capitao.techmarket.view;
  * @author jonathan.capitao
  */
 public class TM_APropos extends javax.swing.JFrame {
-    public static TM_APropos myWindows = null;
+    private static TM_APropos myWindows = null;
     
-     public static TM_APropos getInstance(){
+    public static TM_APropos getInstance(){
         if (myWindows == null){
             myWindows = new TM_APropos();
         }

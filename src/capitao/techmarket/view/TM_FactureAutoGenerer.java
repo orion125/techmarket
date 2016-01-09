@@ -31,7 +31,7 @@ import javax.swing.text.html.StyleSheet;
  */
 public class TM_FactureAutoGenerer extends javax.swing.JFrame {
     
-    public static TM_FactureAutoGenerer MyPanWindows = null;
+    private static TM_FactureAutoGenerer MyPanWindows = null;
     public static TM_Commande comData;
        
     public static TM_FactureAutoGenerer getInstance(TM_Commande com){

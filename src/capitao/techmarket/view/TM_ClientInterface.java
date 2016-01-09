@@ -33,7 +33,7 @@ import sun.java2d.SurfaceData;
  */
 public class TM_ClientInterface extends javax.swing.JFrame {
 
-    public static TM_ClientInterface MyWindows = null;
+    private static TM_ClientInterface MyWindows = null;
     public ArrayList<TM_ComposantType> CompoType = new ArrayList();
     public ArrayList<TM_Marque> Marques = new ArrayList();
     public ArrayList<TM_Specification> Specs = new ArrayList();

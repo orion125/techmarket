@@ -19,7 +19,7 @@ public class TM_RD_Composant extends javax.swing.JFrame {
     private ArrayList<TM_Composant> alComposants = new ArrayList<TM_Composant>();
     public boolean mod = false;
 
-    public static TM_RD_Composant MyWindows = null;
+    private static TM_RD_Composant MyWindows = null;
     
     public static TM_RD_Composant getInstance(){
         if (MyWindows == null){

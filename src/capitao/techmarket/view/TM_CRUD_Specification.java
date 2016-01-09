@@ -26,7 +26,7 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
     TM_Specification specActu;   
     boolean typeIsInt = false;
     
-    public static TM_CRUD_Specification MyWindows = null;
+    private static TM_CRUD_Specification MyWindows = null;
     
     public static TM_CRUD_Specification getInstance(){
         if (MyWindows == null){
@@ -132,19 +132,35 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
     public void valider(){
         ArrayList<TM_ComposantType> ctUsed = getCompoTypeUtilis();
         if (mod.equals("Add")){
-            if (!tfName.getText().equals("")){
+            if (!(tfName.getText().equals("")) &&
+                    (listTypeCompoUsed.getItemCount() > 0) &&
+                    (listValeurSpec.getItemCount() > 0)){
                 specActu = new TM_Specification(0,tfName.getText(), ctUsed);
                 setSpv(specActu);
                 SpecificationDao.insert(specActu);
+                spcs.add(specActu);
+            } else {
+                JOptionPane.showMessageDialog(this
+                        , "Veuillez remplir toutes les données de la page"
+                        , "Erreur : Donnée manquante"
+                        , JOptionPane.ERROR_MESSAGE
+                );
             }
-            spcs.add(specActu);
         }
         if (mod.equals("Mod")){
-            if (!tfName.getText().equals("")){
+            if (!(tfName.getText().equals("")) && 
+                    (listTypeCompoUsed.getItemCount() > 0) &&
+                    (listValeurSpec.getItemCount() > 0)){
                 specActu.setNom(tfName.getText());
                 specActu.setCompoTypes(ctUsed);
                 setSpv(specActu);
                 SpecificationDao.update(specActu);
+            } else {
+                JOptionPane.showMessageDialog(this
+                        , "Veuillez remplir toutes les données de la page"
+                        , "Erreur : Donnée manquante"
+                        , JOptionPane.ERROR_MESSAGE
+                );
             }
         }
         loadList();

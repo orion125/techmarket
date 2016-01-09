@@ -39,7 +39,7 @@ import sun.security.krb5.JavaxSecurityAuthKerberosAccess;
  */
 public class TM_CU_Composant extends javax.swing.JFrame {
     
-    public static TM_CU_Composant MyWindows = null;
+    private static TM_CU_Composant MyWindows = null;
     public ArrayList<TM_Specification> alistSpec = new ArrayList();
     public ArrayList<TM_Specification> alistSpecDispo = new ArrayList<>();
     public ArrayList<TM_Marque> alistMarqueDispo = new ArrayList<TM_Marque>();

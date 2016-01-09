@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class TM_Login extends javax.swing.JFrame {
 
-    public static TM_Login MyWindows = null;
+    private static TM_Login MyWindows = null;
     /**
      * Creates new form TM_LoginOrClient
      */
@@ -41,7 +41,7 @@ public class TM_Login extends javax.swing.JFrame {
     /**
      * Creates new form TM_Login
      */
-    public TM_Login() {
+    private TM_Login() {
         initComponents();
         this.setLocationRelativeTo(null);
         loginActivation ();

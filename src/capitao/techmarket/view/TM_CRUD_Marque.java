@@ -22,7 +22,7 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
     ArrayList<TM_ComposantType> ct;
     String mod = "Add";
     TM_Marque marqueActu;
-    public static TM_CRUD_Marque MyWindows = null;
+    private static TM_CRUD_Marque MyWindows = null;
     
     public static TM_CRUD_Marque getInstance(){
         if (MyWindows == null){

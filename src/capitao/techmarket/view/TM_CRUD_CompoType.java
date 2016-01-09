@@ -20,7 +20,7 @@ public class TM_CRUD_CompoType extends javax.swing.JFrame {
     String mod = "Add";
     TM_ComposantType ct;
     
-    public static TM_CRUD_CompoType MyWindows = null;
+    private static TM_CRUD_CompoType MyWindows = null;
     
     public static TM_CRUD_CompoType getInstance(){
         if (MyWindows == null){

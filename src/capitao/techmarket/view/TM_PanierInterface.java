@@ -17,7 +17,7 @@ import java.util.Locale;
  */
 public class TM_PanierInterface extends javax.swing.JFrame {
 
-    public static TM_PanierInterface MyPanWindows = null;
+    private static TM_PanierInterface MyPanWindows = null;
     public ArrayList<TM_LigneCommande> alistComp = new ArrayList<>();
             
     public static TM_PanierInterface getInstance(ArrayList<TM_LigneCommande> alistComp){

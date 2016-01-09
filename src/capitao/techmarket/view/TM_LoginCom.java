@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class TM_LoginCom extends javax.swing.JFrame {
 
-    public static TM_LoginCom MyWindows = null;
+    private static TM_LoginCom MyWindows = null;
     public static java.awt.List listToUnlock = null;
     /**
      * Creates new form TM_LoginOrClient    /**
@@ -44,7 +44,7 @@ public class TM_LoginCom extends javax.swing.JFrame {
     /**
      * Creates new form TM_Login
      */
-    public TM_LoginCom() {
+    private TM_LoginCom() {
         initComponents();
         this.setLocationRelativeTo(null);
         loginActivation ();

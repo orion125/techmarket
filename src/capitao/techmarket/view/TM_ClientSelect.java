@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  * @author jonathan.capitao
  */
 public class TM_ClientSelect extends javax.swing.JFrame {
-    public static TM_ClientSelect MyPanWindows = null;
+    private static TM_ClientSelect MyPanWindows = null;
     public ArrayList<TM_LigneCommande> alistComp = new ArrayList<>();
     public ArrayList<TM_Client> alistClient = new ArrayList<>();
     public TM_Client cli = null;
