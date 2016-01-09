@@ -10,13 +10,17 @@ import capitao.techmarket.domaine.TM_Client;
 import capitao.techmarket.domaine.TM_Commande;
 import capitao.techmarket.domaine.TM_Composant;
 import capitao.techmarket.domaine.TM_LigneCommande;
+import java.awt.BorderLayout;
 import java.awt.print.PrinterException;
+import java.io.File;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.text.Document;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
@@ -48,7 +52,7 @@ public class TM_FactureAutoGenerer extends javax.swing.JFrame {
     }
     
     private void genFact(){
-        String conf = FileToStr.read("./config.cfg");
+        String conf = FileToStr.read(new File("").getAbsolutePath() +"/config.cfg");
         StringTokenizer stLigne = new StringTokenizer(conf,";");
         String[] data = new String [3];
         int i = 0;
@@ -60,6 +64,7 @@ public class TM_FactureAutoGenerer extends javax.swing.JFrame {
             }
             i++;
         }
+        
         HTMLEditorKit kit = new HTMLEditorKit();
         jEdpan_facture.setEditorKit(kit);
         StyleSheet styleSheet = kit.getStyleSheet();
@@ -68,22 +73,39 @@ public class TM_FactureAutoGenerer extends javax.swing.JFrame {
         Document doc = kit.createDefaultDocument();
         jEdpan_facture.setDocument(doc);
         
-        SimpleDateFormat dt = new SimpleDateFormat("dd-mm-yyyy"); 
-        Date dateActu = new Date(System.currentTimeMillis()); 
-        
-        String htmlFact = "<td>"+comData.getCli().getNom()+" "
-                +comData.getCli().getPrenom() 
-                +"</td><td align=\"right\">"+data[0]+"</td></br><td>"
-                +comData.getCli().getAddress()
-                + "</td><td align=\"right\">"+data[1]+" "+data[2]+"</td>"
-                + "</br></br>Genève, le "+dt.format(dateActu)+"</br>"
-                + "Facture de la commande n°"+comData.getId()+"</br>";
-        htmlFact += "<table class=\"art\" >";
+        SimpleDateFormat dt = new SimpleDateFormat("dd-MM-yyyy"); 
+        Date dateActu = new Date(); 
+        NumberFormat money = NumberFormat.getCurrencyInstance(); 
+        String htmlFact = "<table><tr>"
+            + "<td width=\"280px\">"+comData.getCli().getNom()+" "+comData.getCli().getPrenom() 
+            + "</td><td width=\"280px\" align=\"right\" >"+data[0]+"</td></tr>"
+            + "<tr><td width=\"280px\">"+comData.getCli().getAddress()+"</td>"
+            + "<td width=\"280px\" align=\"right\">"+data[1]+" "+data[2]+"</td>"
+            + "<tr></tr><tr>Genève, le "+dt.format(dateActu)+"</tr><tr></tr>"
+            + "</table><br>";
+        htmlFact += "<table><tr>Facture de la commande n°"+comData.getId()+"</tr>"
+                + "<tr></tr></table>";
+        htmlFact += "<table class=\"art\" >"
+                + "<tr><th width=\"280px\">Article</th><th width=\"280px\">Prix</th>";
         for (TM_LigneCommande lc : comData.getaListComposantCommandes()){
-            htmlFact += "<tr><td>"+lc.getCompo().getNom()+" "+lc.getQte()
-                    + "</td><td>"+ lc.getCompo().getPrix()*lc.getQte()
-                    + "</td></tr>";
+            htmlFact += "<tr>"
+                        + "<td width=\"280px\" >"
+                            +lc.getCompo().getNom()+" x"+lc.getQte()+"</td>"
+                        + "<td width=\"280px\" align=\"right\">"
+                            + money.format(lc.getCompo().getPrix()*lc.getQte())+"</td>"
+                        + "</tr>";
         }
+        double totComArrondi = comData.getValTotCommande();
+        double tva = totComArrondi*0.08;
+        htmlFact += "<tr> "+"<td width=\"280px\"></td>"
+                + "<td class=\"art\" width=\"280px\" align=\"right\" >"
+                + "Total  : "+money.format(totComArrondi)+"</td></tr>";
+        htmlFact += "<tr> "+"<td width=\"280px\"></td>"
+                + "<td class=\"art\" width=\"280px\" align=\"right\" >"
+                + "TVA(8%) : "+money.format(tva)+"</td></tr>";
+        htmlFact += "<tr> "+"<td width=\"280px\"></td>"
+                + "<td class=\"art\" width=\"280px\" align=\"right\" >"
+                + "Total NET : "+money.format(totComArrondi+tva)+"</td>"+"</tr>";
         jEdpan_facture.setText(htmlFact);
     }
 

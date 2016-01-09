@@ -14,6 +14,7 @@ import capitao.techmarket.domaine.TM_ComposantType;
 import capitao.techmarket.domaine.TM_LigneCommande;
 import capitao.techmarket.domaine.TM_Specification;
 import capitao.techmarket.domaine.TM_SpecificationAsValue;
+import capitao.outils.filterTools;
 import java.awt.CheckboxGroup;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import javax.swing.JMenuItem;
 import jdk.nashorn.internal.objects.NativeArray;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 import sun.java2d.SurfaceData;
 
 /**
@@ -97,16 +99,7 @@ public class TM_ClientInterface extends javax.swing.JFrame {
         }
     }
     
-    public void chiffreObliger (KeyEvent evt){       
-            char c = evt.getKeyChar() ;
-                
-        if (!   ((c==KeyEvent.VK_BACK_SPACE) || (c==KeyEvent.VK_DELETE) 
-            ||  (c== KeyEvent.VK_ENTER)      || (c == KeyEvent.VK_TAB) 
-            ||  (Character.isDigit(c)))) 
-        {
-           evt.consume() ;
-        } 
-    }
+
     
     public void menuCompTypeActionPerformed(String Source){
         for (int i = 0; i < CompoType.size(); i++) {
@@ -114,6 +107,11 @@ public class TM_ClientInterface extends javax.swing.JFrame {
                initMarkList(CompoType.get(i));
                initSpecList(CompoType.get(i));
                cp = CompoType.get(i);
+               list_composants.removeAll();
+               list_marque.setEnabled(true);
+               list_spec.setEnabled(true);
+               tf_prixMax.setEnabled(true);
+               tf_prixMin.setEnabled(true);
            }
        } 
     }
@@ -131,18 +129,31 @@ public class TM_ClientInterface extends javax.swing.JFrame {
         else s = null;
         list_composants.removeAll();
         ComposantsTrouvee = new ArrayList<>();
+        double min = (tf_prixMin.getText().length() > 0)? 
+        Double.parseDouble(tf_prixMin.getText()) : 0.0;
+        double max = (tf_prixMax.getText().length() > 0)? 
+        Double.parseDouble(tf_prixMax.getText()) : 9999999.95;
         for (TM_Composant c : allComp){
             ComposantDao.setSpecAsValue(c);
-            if (verif(c,m,s)){
+            if (verif(c,m,s, max, min)){
                 ComposantsTrouvee.add(c);
                 list_composants.add(c.toString());
             }
         }
     }
     
-    public boolean verif (TM_Composant c, TM_Marque m, TM_SpecificationAsValue s){
-        boolean vs = false; boolean vm = false;
+    public boolean verif (TM_Composant c, TM_Marque m, TM_SpecificationAsValue s,
+                            double prixMax, double prixMin){
+        boolean vpmin = true; boolean vpmax = true;
+        boolean vs = true; boolean vm = true;
+        if (prixMax > 0){
+            if (c.getPrix() > prixMax) vpmax = false;
+        }
+        if (prixMin > 0){
+            if (c.getPrix() < prixMin) vpmin = false;
+        }
         if (m != null){
+            vm = false;
             if (c.getMarque().equals(m)) vm= true;
         }
         
@@ -153,7 +164,7 @@ public class TM_ClientInterface extends javax.swing.JFrame {
                spv.getSpec().toString();
             }
         }
-        return vs&&vm&&verif(c);
+        return vpmin&&vpmax&&vs&&vm&&verif(c);
     }
     
     public boolean verif (TM_Composant c){
@@ -175,11 +186,11 @@ public class TM_ClientInterface extends javax.swing.JFrame {
         list_spec = new java.awt.List();
         lbPrixMin = new java.awt.Label();
         lbPrixMax = new java.awt.Label();
-        tf_prixMin = new javax.swing.JTextField();
-        tf_prixMax = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jbt_GoPan = new javax.swing.JButton();
         jbt_PanAdd = new javax.swing.JButton();
+        tf_prixMin = new java.awt.TextField();
+        tf_prixMax = new java.awt.TextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuMain = new javax.swing.JMenu();
         menuFermer = new javax.swing.JMenuItem();
@@ -199,14 +210,14 @@ public class TM_ClientInterface extends javax.swing.JFrame {
         lb_Spec.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         lb_Spec.setText("Spécifications");
 
-        list_composants.setMultipleMode(true);
-
+        list_marque.setEnabled(false);
         list_marque.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 list_marqueItemStateChanged(evt);
             }
         });
 
+        list_spec.setEnabled(false);
         list_spec.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 list_specItemStateChanged(evt);
@@ -216,19 +227,6 @@ public class TM_ClientInterface extends javax.swing.JFrame {
         lbPrixMin.setText("Prix minimal");
 
         lbPrixMax.setText("Prix maximal");
-
-        tf_prixMin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tf_prixMinKeyTyped(evt);
-            }
-        });
-
-        tf_prixMax.setToolTipText("");
-        tf_prixMax.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tf_prixMaxKeyTyped(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel1.setText("Liste des composants");
@@ -244,6 +242,30 @@ public class TM_ClientInterface extends javax.swing.JFrame {
         jbt_PanAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbt_PanAddActionPerformed(evt);
+            }
+        });
+
+        tf_prixMin.setEnabled(false);
+        tf_prixMin.addTextListener(new java.awt.event.TextListener() {
+            public void textValueChanged(java.awt.event.TextEvent evt) {
+                tf_prixGestTextValueChanged(evt);
+            }
+        });
+        tf_prixMin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tf_prixMinKeyPressed(evt);
+            }
+        });
+
+        tf_prixMax.setEnabled(false);
+        tf_prixMax.addTextListener(new java.awt.event.TextListener() {
+            public void textValueChanged(java.awt.event.TextEvent evt) {
+                tf_prixGestTextValueChanged(evt);
+            }
+        });
+        tf_prixMax.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tf_prixMaxKeyPressed(evt);
             }
         });
 
@@ -300,11 +322,10 @@ public class TM_ClientInterface extends javax.swing.JFrame {
                                 .addComponent(list_spec, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tf_prixMax, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lbPrixMax, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(tf_prixMin, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lbPrixMin, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(lbPrixMin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tf_prixMin, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tf_prixMax, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(list_composants, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -344,14 +365,6 @@ public class TM_ClientInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tf_prixMinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_prixMinKeyTyped
-        chiffreObliger(evt);
-    }//GEN-LAST:event_tf_prixMinKeyTyped
-
-    private void tf_prixMaxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_prixMaxKeyTyped
-        chiffreObliger(evt);
-    }//GEN-LAST:event_tf_prixMaxKeyTyped
 
     private void jbt_GoPanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_GoPanActionPerformed
         TM_PanierInterface pan = TM_PanierInterface.getInstance(alc);
@@ -396,6 +409,31 @@ public class TM_ClientInterface extends javax.swing.JFrame {
             loadCompo();
     }//GEN-LAST:event_list_specItemStateChanged
 
+    private void tf_prixMinKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_prixMinKeyPressed
+        filterTools.filterPositiveInt(evt);
+    }//GEN-LAST:event_tf_prixMinKeyPressed
+
+    private void tf_prixMaxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_prixMaxKeyPressed
+        filterTools.filterPositiveInt(evt);
+    }//GEN-LAST:event_tf_prixMaxKeyPressed
+
+    private void tf_prixGestTextValueChanged(java.awt.event.TextEvent evt) {//GEN-FIRST:event_tf_prixGestTextValueChanged
+        double min = (tf_prixMin.getText().length() > 0)? 
+                Double.parseDouble(tf_prixMin.getText()) : 0.0;
+        double max = (tf_prixMax.getText().length() > 0)? 
+                Double.parseDouble(tf_prixMax.getText()) : 9999999.95;
+        if (min > max){
+            JOptionPane.showMessageDialog(this,
+                    "Erreur le prix minimal ne peut pas dépasser le prix maximal",
+                    "Erreur : Prix minimal trop élevé",
+                    JOptionPane.ERROR_MESSAGE);
+            tf_prixMin.setText("");
+        }else{
+            loadCompo();
+        }
+    }//GEN-LAST:event_tf_prixGestTextValueChanged
+
+    
     /**
      * @param args the command line arguments
      */
@@ -449,7 +487,7 @@ public class TM_ClientInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem men_help_apropos;
     private javax.swing.JMenuItem menuFermer;
     private javax.swing.JMenu menuMain;
-    private javax.swing.JTextField tf_prixMax;
-    private javax.swing.JTextField tf_prixMin;
+    private java.awt.TextField tf_prixMax;
+    private java.awt.TextField tf_prixMin;
     // End of variables declaration//GEN-END:variables
 }

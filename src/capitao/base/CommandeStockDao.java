@@ -142,21 +142,25 @@ public class CommandeStockDao {
         try{
             Connection con = ConnexionBase.get();
             Statement stmt = con.createStatement();
-            Date today = new Date(System.currentTimeMillis());
-            DateFormat df = new SimpleDateFormat("dd-mm-yyyy");
+            Date today = new Date();   
+            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
             for (TM_LigneCommande l : com.getaListComposantCommandes()){
                 stmt.executeUpdate("INSERT INTO vw_changstockatt VALUES ("
-                        +"seq_cha_id.nextval,'Vente de '"+l.getQte()+" "+l.getCompo().getNom()
-                        +" pour la commande n°"+com.getId()+", 1,"+l.getQte()*-1+","
-                        +"TO_DATE('"+df.format(today)
-                        +"','dd-mm-yyyy'),"+l.getCompo().getId()+")");
+                        +"seq_cha_id.nextval, "
+                        + "'Vente de "+l.getQte()+" "+l.getCompo().getNom()
+                            +" pour la commande n°"+com.getId()+"' ,"
+                        + " 1,"+l.getQte()*-1+","
+                        +"TO_DATE('"+df.format(today)+"','dd-mm-yyyy'),"
+                        +l.getCompo().getId()+")");
+                // cha_id, cha_comment,cha_etat,cha_qte,cha_datechange, 
                 ResultSet rs = stmt.executeQuery("SELECT cos_nbstockvirtuel "
                         + "FROM vw_stock WHERE cos_cmp_id = "+l.getCompo().getId());
                 int stockVirtuelActu = 0;
                 while (rs.next()){
                     stockVirtuelActu = rs.getInt("cos_nbstockvirtuel");
                 }
-                stmt.executeUpdate("UPDATE vw_stock SET cos_nbstockvirtuel = "+(stockVirtuelActu+(l.getQte()*-1))
+                stmt.executeUpdate("UPDATE vw_stock SET cos_nbstockvirtuel = "
+                    +(stockVirtuelActu+(l.getQte()*-1))
                     +" WHERE cos_cmp_id = "+l.getCompo().getId());
             }
             stmt.close() ;

@@ -23,11 +23,13 @@ public class TM_ClientSelect extends javax.swing.JFrame {
     public ArrayList<TM_LigneCommande> alistComp = new ArrayList<>();
     public ArrayList<TM_Client> alistClient = new ArrayList<>();
     public TM_Client cli = null;
+    
             
     public static TM_ClientSelect getInstance(ArrayList<TM_LigneCommande> alistC){
         if (MyPanWindows == null){
             MyPanWindows = new TM_ClientSelect(alistC);
         }
+        TM_LoginCom.getInstance(MyPanWindows.lst_Clients).setVisible(true);
         return MyPanWindows;
     }
     
@@ -41,7 +43,6 @@ public class TM_ClientSelect extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         initListClient();
     }
-    
     public void initListClient(){
         // donnée de test
         //alistClient.add(new TM_Client(-1,"Jean","Manos","12 Rue du test","022 333 12 12","JeanManois@gmail.com"));
@@ -108,6 +109,7 @@ public class TM_ClientSelect extends javax.swing.JFrame {
             }
         });
 
+        lst_Clients.setEnabled(false);
         lst_Clients.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 lst_ClientsItemStateChanged(evt);

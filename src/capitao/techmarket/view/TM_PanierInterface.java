@@ -7,7 +7,9 @@ package capitao.techmarket.view;
 
 import capitao.techmarket.domaine.TM_Composant;
 import capitao.techmarket.domaine.TM_LigneCommande;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  *
@@ -38,16 +40,14 @@ public class TM_PanierInterface extends javax.swing.JFrame {
     
     private void initList(){
         double prixTot = 0.0;
+        list_compoCommandes.removeAll();
         for (TM_LigneCommande lc : alistComp){
             list_compoCommandes.add(lc.toString());
             prixTot += lc.getCompo().getPrix() * lc.getQte();
         }
-        java.text.DecimalFormat deuxDecim = new java.text.DecimalFormat();
- 
-        deuxDecim.setMaximumFractionDigits(2);
-        deuxDecim.setMinimumFractionDigits(2);
-        double prixTotAu5ct = (Math.round(prixTot/0.05)*0.05);
-        lbTotTtc.setText("Total : "+deuxDecim.format(prixTotAu5ct));
+        Locale caLoc = new Locale("fr","CH");
+        NumberFormat money = NumberFormat.getCurrencyInstance(caLoc); 
+        lbTotTtc.setText("Total : "+money.format(prixTot));
     }
 
     /**

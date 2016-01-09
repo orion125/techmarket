@@ -115,6 +115,9 @@
     <Component class="java.awt.TextField" name="tf_search">
     </Component>
     <Component class="java.awt.List" name="lst_Clients">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="lst_ClientsItemStateChanged"/>
       </Events>

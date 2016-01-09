@@ -97,12 +97,10 @@
                               <Component id="list_spec" min="-2" pref="206" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="tf_prixMax" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
                                   <Component id="lbPrixMax" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="tf_prixMin" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
-                                      <Component id="lbPrixMin" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="lbPrixMin" alignment="1" min="-2" pref="101" max="-2" attributes="0"/>
+                                  <Component id="tf_prixMin" min="-2" pref="70" max="-2" attributes="0"/>
+                                  <Component id="tf_prixMax" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -173,16 +171,19 @@
       </Properties>
     </Component>
     <Component class="java.awt.List" name="list_composants">
-      <Properties>
-        <Property name="multipleMode" type="boolean" value="true"/>
-      </Properties>
     </Component>
     <Component class="java.awt.List" name="list_marque">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="list_marqueItemStateChanged"/>
       </Events>
     </Component>
     <Component class="java.awt.List" name="list_spec">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="list_specItemStateChanged"/>
       </Events>
@@ -196,19 +197,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Prix maximal"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="tf_prixMin">
-      <Events>
-        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tf_prixMinKeyTyped"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="tf_prixMax">
-      <Properties>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
-      </Properties>
-      <Events>
-        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tf_prixMaxKeyTyped"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -232,6 +220,24 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbt_PanAddActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="java.awt.TextField" name="tf_prixMin">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="textValueChanged" listener="java.awt.event.TextListener" parameters="java.awt.event.TextEvent" handler="tf_prixGestTextValueChanged"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tf_prixMinKeyPressed"/>
+      </Events>
+    </Component>
+    <Component class="java.awt.TextField" name="tf_prixMax">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="textValueChanged" listener="java.awt.event.TextListener" parameters="java.awt.event.TextEvent" handler="tf_prixGestTextValueChanged"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tf_prixMaxKeyPressed"/>
       </Events>
     </Component>
   </SubComponents>

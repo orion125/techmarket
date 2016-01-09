@@ -5,6 +5,8 @@
  */
 package capitao.techmarket.domaine;
 
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -38,8 +40,10 @@ public class TM_LigneCommande {
 
     @Override
     public String toString() {
+        Locale caLoc = new Locale("fr","CH");
+        NumberFormat money = NumberFormat.getCurrencyInstance(caLoc); 
         return this.getCompo().getNom() + " x" + this.getQte()
-                +" "+ this.getCompo().getPrix()*this.getQte();
+                +" "+ money.format(this.getCompo().getPrix()*this.getQte());
     }
 
 

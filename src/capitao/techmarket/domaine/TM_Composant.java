@@ -5,7 +5,9 @@
  */
 package capitao.techmarket.domaine;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Objects;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
@@ -19,7 +21,7 @@ public class TM_Composant extends AbstractTableModel {
     private String nom;
     private TM_Marque marque;
     private TM_ComposantType compoType;
-    private double prix;
+    private double prix = 0.00;
     private ArrayList<TM_SpecificationAsValue> specifications = new ArrayList<>();
     private final ArrayList<TableModelListener> compoTabModeListener = new ArrayList<>();
 
@@ -227,7 +229,9 @@ public class TM_Composant extends AbstractTableModel {
 
     @Override
     public String toString() {
-        return nom + " " + prix + " CHF";
+        Locale caLoc = new Locale("fr","CH");
+        NumberFormat money = NumberFormat.getCurrencyInstance(caLoc); 
+        return nom + " " + money.format(prix);
     }
 
     public double getPrix() {
