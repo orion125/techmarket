@@ -25,7 +25,6 @@ import jdk.nashorn.internal.objects.NativeArray;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
-import sun.java2d.SurfaceData;
 
 /**
  *

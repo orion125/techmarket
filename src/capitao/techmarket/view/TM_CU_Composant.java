@@ -32,7 +32,6 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
-import sun.security.krb5.JavaxSecurityAuthKerberosAccess;
 /**
  *
  * @author jonathan.capitao
