@@ -4,9 +4,11 @@
  * and open the template in the editor.
  */
 package capitao.techmarket.view;
+import capitao.outils.FileToStr;
 import capitao.outils.importSql;
 import java.io.File;
 import java.sql.SQLException;
+import java.util.StringTokenizer;
 import javax.swing.*;
 
 
@@ -17,6 +19,8 @@ import javax.swing.*;
 public class TM_VendeurInterface extends javax.swing.JFrame {
     
     private static TM_VendeurInterface MyWindows = null;
+    String[] data = new String [3];
+    
     
     public static TM_VendeurInterface getInstance(){
         if (MyWindows == null){
@@ -29,7 +33,25 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
      */
     private TM_VendeurInterface() {
         initComponents();
+        initFen();
         this.setLocationRelativeTo(null);
+    }
+    
+    private void initFen(){
+        String conf = FileToStr.read(new File("").getAbsolutePath() +"/config.cfg");
+        StringTokenizer stLigne = new StringTokenizer(conf,";");
+        int i = 0;
+        while (stLigne.hasMoreTokens()) {
+            StringTokenizer stData = new StringTokenizer(stLigne.nextToken(),":");
+            while (stData.hasMoreTokens()){
+                 stData.nextToken();
+                 data[i] = stData.nextToken();
+            }
+            i++;
+        }
+        tfSoc.setText(data[0]);
+        tfAddress.setText(data[1]);
+        tfCP.setText(data[2]);
     }
 
     /**
@@ -41,6 +63,12 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lbSoc = new java.awt.Label();
+        lbAdresse = new java.awt.Label();
+        lbCodePost = new java.awt.Label();
+        tfSoc = new java.awt.TextField();
+        tfAddress = new java.awt.TextField();
+        tfCP = new java.awt.TextField();
         mainMenuBarre = new javax.swing.JMenuBar();
         menuAdmin = new javax.swing.JMenu();
         menuImport = new javax.swing.JMenuItem();
@@ -59,12 +87,31 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
         setTitle("TekMarket Manager");
         setResizable(false);
 
-        menuAdmin.setText("Administration");
-        menuAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuAdminActionPerformed(evt);
+        lbSoc.setText("Societé");
+
+        lbAdresse.setText("Adresse ");
+
+        lbCodePost.setText("Code postale");
+
+        tfSoc.addTextListener(new java.awt.event.TextListener() {
+            public void textValueChanged(java.awt.event.TextEvent evt) {
+                tfSocTextValueChanged(evt);
             }
         });
+
+        tfAddress.addTextListener(new java.awt.event.TextListener() {
+            public void textValueChanged(java.awt.event.TextEvent evt) {
+                tfAddressTextValueChanged(evt);
+            }
+        });
+
+        tfCP.addTextListener(new java.awt.event.TextListener() {
+            public void textValueChanged(java.awt.event.TextEvent evt) {
+                tfCPTextValueChanged(evt);
+            }
+        });
+
+        menuAdmin.setText("Administration");
 
         menuImport.setText("Import");
         menuImport.addActionListener(new java.awt.event.ActionListener() {
@@ -150,11 +197,39 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbCodePost, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfCP, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbAdresse, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbSoc, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(tfSoc, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbSoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfSoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbAdresse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbCodePost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfCP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();
@@ -210,10 +285,29 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
         TM_APropos.getInstance().setVisible(true);
     }//GEN-LAST:event_men_help_aproposActionPerformed
 
-    private void menuAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAdminActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuAdminActionPerformed
+    private void tfSocTextValueChanged(java.awt.event.TextEvent evt) {//GEN-FIRST:event_tfSocTextValueChanged
+        maj();
+    }//GEN-LAST:event_tfSocTextValueChanged
 
+    private void tfAddressTextValueChanged(java.awt.event.TextEvent evt) {//GEN-FIRST:event_tfAddressTextValueChanged
+        maj();
+    }//GEN-LAST:event_tfAddressTextValueChanged
+
+    private void tfCPTextValueChanged(java.awt.event.TextEvent evt) {//GEN-FIRST:event_tfCPTextValueChanged
+        maj();
+    }//GEN-LAST:event_tfCPTextValueChanged
+
+    public void maj(){
+        int lign = 1;
+        data[0] = tfSoc.getText();
+        data[1] = tfAddress.getText();
+        data[2] = tfCP.getText();
+        String[] configContent = new String[lign];
+        configContent[0] = "Societe:"+data[0]+";SocAdr:"
+                +data[1]+";CodePost:"+data[2];
+        FileToStr.write(new File("").getAbsolutePath() +"/config.cfg", configContent);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -251,6 +345,9 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private java.awt.Label lbAdresse;
+    private java.awt.Label lbCodePost;
+    private java.awt.Label lbSoc;
     private javax.swing.JMenuBar mainMenuBarre;
     private javax.swing.JMenu men_help;
     private javax.swing.JMenuItem men_help_apropos;
@@ -263,5 +360,8 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuSpecification;
     private javax.swing.JMenuItem menuStock;
     private javax.swing.JMenuItem menuTypeCompo;
+    private java.awt.TextField tfAddress;
+    private java.awt.TextField tfCP;
+    private java.awt.TextField tfSoc;
     // End of variables declaration//GEN-END:variables
 }
