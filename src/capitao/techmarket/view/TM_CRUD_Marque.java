@@ -11,6 +11,7 @@ import capitao.techmarket.domaine.TM_ComposantType;
 import capitao.techmarket.domaine.TM_Marque;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -54,6 +55,12 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
             if (!tfName.getText().equals("")){
                 marqueActu = new TM_Marque(0,tfName.getText(), ctUsed);
                 MarqueDao.insert(marqueActu);
+            }else{
+                JOptionPane.showMessageDialog(this
+                        , "Veuillez remplir toutes les données de la page"
+                        , "Erreur : Données manquantes"
+                        , JOptionPane.ERROR_MESSAGE
+                );
             }
         }
         if (mod.equals("Mod")){
@@ -61,6 +68,12 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
                 marqueActu.setNom(tfName.getText());
                 marqueActu.setCompoType(ctUsed);
                 MarqueDao.update(marqueActu);
+            }else{
+                JOptionPane.showMessageDialog(this
+                        , "Veuillez remplir toutes les données de la page"
+                        , "Erreur : Données manquantes"
+                        , JOptionPane.ERROR_MESSAGE
+                );
             }
         }
         listMarque.removeAll();

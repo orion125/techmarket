@@ -9,6 +9,7 @@ import capitao.base.ComposantTypeDao;
 import capitao.techmarket.domaine.TM_ComposantType;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -49,12 +50,24 @@ public class TM_CRUD_CompoType extends javax.swing.JFrame {
             if (!tfName.getText().equals("")){
                 ct = new TM_ComposantType(tfName.getText());
                 ComposantTypeDao.insert(ct);
+            }else{
+                JOptionPane.showMessageDialog(this
+                        , "Veuillez remplir toutes les données de la page"
+                        , "Erreur : Données manquantes"
+                        , JOptionPane.ERROR_MESSAGE
+                );
             }
         }
         if (mod.equals("Mod")){
             if (!tfName.getText().equals("")){
                 ct.setNom(tfName.getText());
                 ComposantTypeDao.update(ct);
+            }else{
+                JOptionPane.showMessageDialog(this
+                        , "Veuillez remplir toutes les données de la page"
+                        , "Erreur : Données manquantes"
+                        , JOptionPane.ERROR_MESSAGE
+                );
             }
         }
         listCompoType.removeAll();

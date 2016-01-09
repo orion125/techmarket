@@ -142,7 +142,7 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this
                         , "Veuillez remplir toutes les données de la page"
-                        , "Erreur : Donnée manquante"
+                        , "Erreur : Données manquantes"
                         , JOptionPane.ERROR_MESSAGE
                 );
             }
@@ -158,7 +158,7 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this
                         , "Veuillez remplir toutes les données de la page"
-                        , "Erreur : Donnée manquante"
+                        , "Erreur : Données manquantes"
                         , JOptionPane.ERROR_MESSAGE
                 );
             }
