@@ -7,7 +7,6 @@ package capitao.base;
 
 
 import capitao.techmarket.domaine.TM_ComposantType;
-// import capitao.techmarket.domaine.TM_Commande;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

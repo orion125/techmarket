@@ -8,12 +8,9 @@ package capitao.outils;
 
 import capitao.base.ConnexionBase;
 import java.io.BufferedReader;
- 
 import java.io.File;
 import java.io.FileReader;
- 
 import java.sql.SQLException;
-import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.Statement;
 

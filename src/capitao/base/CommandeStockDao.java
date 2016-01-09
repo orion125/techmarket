@@ -6,14 +6,12 @@
 package capitao.base;
 
 import capitao.techmarket.domaine.TM_ChangementStockEnAttente;
-import capitao.techmarket.domaine.TM_Client;
 import capitao.techmarket.domaine.TM_Commande;
 import capitao.techmarket.domaine.TM_Composant;
 import capitao.techmarket.domaine.TM_ComposantAsStock;
 import capitao.techmarket.domaine.TM_Emplacement;
 import capitao.techmarket.domaine.TM_LigneCommande;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
