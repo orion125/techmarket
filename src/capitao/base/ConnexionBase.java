@@ -1,4 +1,3 @@
-
 package capitao.base;
 
 import capitao.base.oracle.Outils;
