@@ -385,13 +385,10 @@ public class TM_ClientInterface extends javax.swing.JFrame {
             alcToCp.add(lc.getCompo());
         }
         TM_Composant comp = ComposantsTrouvee.get(list_composants.getSelectedIndex());
-        System.out.println(comp.toString());
         if (! alcToCp.contains(comp)){
-            System.out.println("Sa passe");
             alc.add(new TM_LigneCommande(comp, 1));
         }
         else{
-            System.out.println("Sa passe pas");
             for (TM_LigneCommande lc : alc){
                 if (lc.equals(comp))
                     lc.setQte(lc.getQte() +1);

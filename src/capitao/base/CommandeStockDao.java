@@ -123,9 +123,7 @@ public class CommandeStockDao {
             );
             ResultSet rsComId = st.getGeneratedKeys();
             if (rsComId.next()) 
-                com.setId(rsComId.getInt(1));
-            System.out.println(com.getId());
-            
+                com.setId(rsComId.getInt(1));            
             for (TM_LigneCommande l : com.getaListComposantCommandes()){
                 st.executeUpdate("INSERT INTO vw_ligne_commande VALUES ("+l.getCompo().getId()+
                         ",seq_com_id.currval,"+ l.getQte()+")");
@@ -174,7 +172,6 @@ public class CommandeStockDao {
             Statement stmt = con.createStatement();
             Date today = new Date();   
             DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-            System.out.println(df.format(today));
             stmt.executeUpdate("INSERT INTO vw_changstockatt VALUES ("
                     +"seq_cha_id.nextval,'Achat de "+ajout+" "+cos.
                     getComposantConcernee().getNom()+"',1,"+ajout+","
