@@ -248,6 +248,19 @@ public class SpecificationDao {
         int step = 0;
         try {
             Connection con = ConnexionBase.get(); 
+            Statement stSelect = con.createStatement();
+            ResultSet rs = stSelect.executeQuery(
+                    "SELECT spv_id "
+                  + "FROM vw_valeur_spec "
+                  + "WHERE spv_spc_id = "+s.getId());
+            ArrayList alId = new ArrayList();
+            Statement stDelete = con.createStatement();
+            while (rs.next()) {
+                stDelete.executeUpdate("DELETE "
+                        +"FROM vw_valeur_spec_as_compo "
+                        +"WHERE cov_spv_id="+rs.getInt("spv_id"));  
+            }
+            stDelete.close();
             step++;
             PreparedStatement stmtCleanval = con.prepareStatement(
                     "DELETE "
@@ -264,7 +277,8 @@ public class SpecificationDao {
             );
             stmtClean.executeUpdate();
             stmtClean.close();
-            step++;     
+            step++;  
+              
             PreparedStatement stmt = con.prepareStatement(
                   "DELETE "
                 + "FROM vw_spec "

@@ -44,12 +44,12 @@ public class filterTools {
 
         if (!   ((c==KeyEvent.VK_BACK_SPACE) || (c==KeyEvent.VK_DELETE)
            ||  (c== KeyEvent.VK_ENTER)      || (c == KeyEvent.VK_TAB)
-           ||  (Character.isDigit(c)) || c==KeyEvent.VK_PLUS))
+           ||  (Character.isDigit(c)) || c=='+'))
         {
             evt.consume() ;
         } else {
             if ((((java.awt.TextField)evt.getSource()).getCaretPosition() > 0) &&
-                c==KeyEvent.VK_PLUS){
+                c=='+'){
                 evt.consume();
             }
         }   
