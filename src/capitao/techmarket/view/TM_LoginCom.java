@@ -8,7 +8,6 @@ package capitao.techmarket.view;
 import capitao.base.ManagerDao;
 import capitao.techmarket.domaine.TM_Manager;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 /**

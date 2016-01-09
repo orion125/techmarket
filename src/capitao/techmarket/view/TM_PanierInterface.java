@@ -5,7 +5,6 @@
  */
 package capitao.techmarket.view;
 
-import capitao.techmarket.domaine.TM_Composant;
 import capitao.techmarket.domaine.TM_LigneCommande;
 import java.text.NumberFormat;
 import java.util.ArrayList;

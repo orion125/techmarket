@@ -6,21 +6,14 @@
 package capitao.techmarket.view;
 
 import capitao.outils.FileToStr;
-import capitao.techmarket.domaine.TM_Client;
 import capitao.techmarket.domaine.TM_Commande;
-import capitao.techmarket.domaine.TM_Composant;
 import capitao.techmarket.domaine.TM_LigneCommande;
-import java.awt.BorderLayout;
 import java.awt.print.PrinterException;
 import java.io.File;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFileChooser;
 import javax.swing.text.Document;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;

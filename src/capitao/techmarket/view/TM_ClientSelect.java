@@ -9,7 +9,6 @@ import capitao.base.ClientDao;
 import capitao.base.CommandeStockDao;
 import capitao.techmarket.domaine.TM_Client;
 import capitao.techmarket.domaine.TM_Commande;
-import capitao.techmarket.domaine.TM_Composant;
 import capitao.techmarket.domaine.TM_LigneCommande;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;

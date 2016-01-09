@@ -9,8 +9,6 @@ import capitao.base.ComposantTypeDao;
 import capitao.base.SpecificationDao;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
-import java.awt.event.*;
-import capitao.outils.filterTools;
 import capitao.techmarket.domaine.TM_ComposantType;
 import capitao.techmarket.domaine.TM_Specification;
 import capitao.techmarket.domaine.TM_SpecificationAsValue;

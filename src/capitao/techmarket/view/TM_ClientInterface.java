@@ -15,15 +15,9 @@ import capitao.techmarket.domaine.TM_LigneCommande;
 import capitao.techmarket.domaine.TM_Specification;
 import capitao.techmarket.domaine.TM_SpecificationAsValue;
 import capitao.outils.filterTools;
-import java.awt.CheckboxGroup;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
-import javax.swing.Action;
 import javax.swing.JMenuItem;
-import jdk.nashorn.internal.objects.NativeArray;
-import java.awt.*;
-import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**

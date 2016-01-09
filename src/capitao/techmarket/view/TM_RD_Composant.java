@@ -7,7 +7,6 @@ package capitao.techmarket.view;
 
 import capitao.base.ComposantDao;
 import capitao.techmarket.domaine.TM_Composant;
-import java.awt.Dimension;
 import java.util.ArrayList;
 
 /**

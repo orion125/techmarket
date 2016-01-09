@@ -7,9 +7,7 @@ package capitao.techmarket.view;
 
 import capitao.base.CommandeStockDao;
 import capitao.outils.filterTools;
-import capitao.techmarket.domaine.TM_Composant;
 import capitao.techmarket.domaine.TM_ComposantAsStock;
-import capitao.techmarket.domaine.TM_ComposantType;
 import capitao.techmarket.domaine.TM_Emplacement;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
