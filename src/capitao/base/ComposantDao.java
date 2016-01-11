@@ -79,8 +79,10 @@ public class ComposantDao {
         TM_Specification s = new TM_Specification(id);
         ArrayList<TM_Specification> specs = SpecificationDao.getListeSpec();
         for (TM_Specification sp : specs ){
-            if (sp.equals(s))
+            if (sp.equals(s)){
                 s = sp;
+                s.setValpos(SpecificationDao.getSpecAsValue(s));
+            }
         }
         return s;
     }

@@ -196,7 +196,7 @@ public class TM_Composant extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
       switch(columnIndex){
-            case 0 : return ((TM_SpecificationAsValue)specifications.get(rowIndex));
+            case 0 : return ((TM_SpecificationAsValue)specifications.get(rowIndex)).getSpec().toString();
             case 1 : return ((TM_SpecificationAsValue)specifications.get(rowIndex)).getValue();
             default : return null;
         }

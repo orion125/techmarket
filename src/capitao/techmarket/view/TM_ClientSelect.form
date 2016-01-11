@@ -113,6 +113,9 @@
       </Events>
     </Component>
     <Component class="java.awt.TextField" name="tf_search">
+      <Events>
+        <EventHandler event="textValueChanged" listener="java.awt.event.TextListener" parameters="java.awt.event.TextEvent" handler="tf_searchTextValueChanged"/>
+      </Events>
     </Component>
     <Component class="java.awt.List" name="lst_Clients">
       <Properties>

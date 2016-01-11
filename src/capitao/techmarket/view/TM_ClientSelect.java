@@ -16,6 +16,7 @@ public class TM_ClientSelect extends javax.swing.JFrame {
     private static TM_ClientSelect MyPanWindows = null;
     public ArrayList<TM_LigneCommande> alistComp = new ArrayList<>();
     public ArrayList<TM_Client> alistClient = new ArrayList<>();
+    public ArrayList<TM_Client> clientRechercher = new ArrayList<TM_Client>();
     public TM_Client cli = null;
     
             
@@ -35,14 +36,14 @@ public class TM_ClientSelect extends javax.swing.JFrame {
         alistComp = alistC;
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        alistClient = ClientDao.getListeClient();
+        clientRechercher = alistClient;
         initListClient();
     }
     public void initListClient(){
-        // donnée de test
-        //alistClient.add(new TM_Client(-1,"Jean","Manos","12 Rue du test","022 333 12 12","JeanManois@gmail.com"));
-        alistClient = ClientDao.getListeClient();
-        for (int i = 0; i < alistClient.size(); i++){
-            lst_Clients.add(alistClient.get(i).toString());
+        for (int i = 0; i < clientRechercher.size(); i++){
+            lst_Clients.add(clientRechercher.get(i).toString());
         }
     }
     
@@ -51,14 +52,15 @@ public class TM_ClientSelect extends javax.swing.JFrame {
     public void setClient(TM_Client newCli){
         this.cli = newCli;
         alistClient.add(newCli);
+        clientRechercher.add(newCli);
         lst_Clients.add(newCli.toString());
         filterList(newCli);
     }
     
     public void filterList (TM_Client cliChercher){
         int id = -1;
-        for (int i = 0; i < alistClient.size() ; i++ )  {
-            if (alistClient.get(i).equals(cliChercher))
+        for (int i = 0; i < clientRechercher.size() ; i++ )  {
+            if (clientRechercher.get(i).equals(cliChercher))
                 id = i;
         }
         if (id > -1){
@@ -66,6 +68,18 @@ public class TM_ClientSelect extends javax.swing.JFrame {
             lst_Clients.select(id); // sélection du client dans la list
         }
         return ;
+    }
+    
+    public void searchCli (){
+        lst_Clients.removeAll();
+        TM_Client cliSearch = new TM_Client(-1, tf_search.getText(), tf_search.getText()
+                , "", "", tf_search.getText());
+        clientRechercher = new ArrayList<TM_Client>();
+        for (TM_Client cli : alistClient){
+            if (cli.equals(cliSearch))
+                clientRechercher.add(cli);
+        }
+        initListClient();
     }
     
     public int getLastComId(){
@@ -100,6 +114,12 @@ public class TM_ClientSelect extends javax.swing.JFrame {
         jbtValider.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtValiderActionPerformed(evt);
+            }
+        });
+
+        tf_search.addTextListener(new java.awt.event.TextListener() {
+            public void textValueChanged(java.awt.event.TextEvent evt) {
+                tf_searchTextValueChanged(evt);
             }
         });
 
@@ -199,7 +219,7 @@ public class TM_ClientSelect extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtNewCliActionPerformed
 
     private void lst_ClientsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_lst_ClientsItemStateChanged
-        cli = alistClient.get(lst_Clients.getSelectedIndex());
+        cli = clientRechercher.get(lst_Clients.getSelectedIndex());
     }//GEN-LAST:event_lst_ClientsItemStateChanged
 
     private void men_help_apropos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_men_help_apropos1ActionPerformed
@@ -209,6 +229,10 @@ public class TM_ClientSelect extends javax.swing.JFrame {
     private void menuFermerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFermerActionPerformed
         this.dispose();
     }//GEN-LAST:event_menuFermerActionPerformed
+
+    private void tf_searchTextValueChanged(java.awt.event.TextEvent evt) {//GEN-FIRST:event_tf_searchTextValueChanged
+        searchCli();
+    }//GEN-LAST:event_tf_searchTextValueChanged
 
    /**
      * @param args the command line arguments

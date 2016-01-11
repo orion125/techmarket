@@ -177,6 +177,9 @@
       </SubComponents>
     </Container>
     <Component class="java.awt.List" name="listCompoType">
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="listCompoTypeItemStateChanged"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btAdd">
       <Properties>
@@ -189,6 +192,7 @@
     <Component class="javax.swing.JButton" name="btMod">
       <Properties>
         <Property name="text" type="java.lang.String" value="Modifier"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btModActionPerformed"/>

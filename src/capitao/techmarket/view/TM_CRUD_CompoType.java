@@ -141,6 +141,12 @@ public class TM_CRUD_CompoType extends javax.swing.JFrame {
         tfName.getAccessibleContext().setAccessibleDescription("");
         lbName.getAccessibleContext().setAccessibleName("");
 
+        listCompoType.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                listCompoTypeItemStateChanged(evt);
+            }
+        });
+
         btAdd.setText("Ajouter");
         btAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,6 +155,7 @@ public class TM_CRUD_CompoType extends javax.swing.JFrame {
         });
 
         btMod.setText("Modifier");
+        btMod.setEnabled(false);
         btMod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btModActionPerformed(evt);
@@ -244,6 +251,10 @@ public class TM_CRUD_CompoType extends javax.swing.JFrame {
     private void men_help_aproposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_men_help_aproposActionPerformed
         TM_APropos.getInstance().setVisible(true);
     }//GEN-LAST:event_men_help_aproposActionPerformed
+
+    private void listCompoTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listCompoTypeItemStateChanged
+        btMod.setEnabled(true);
+    }//GEN-LAST:event_listCompoTypeItemStateChanged
 
     public void resize(boolean minmax){
         int width = 0;

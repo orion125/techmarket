@@ -262,6 +262,9 @@
       </SubComponents>
     </Container>
     <Component class="java.awt.List" name="listMarque">
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="listMarqueItemStateChanged"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btAdd">
       <Properties>
@@ -274,6 +277,7 @@
     <Component class="javax.swing.JButton" name="btMod">
       <Properties>
         <Property name="text" type="java.lang.String" value="Modifier"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btModActionPerformed"/>
@@ -282,6 +286,7 @@
     <Component class="javax.swing.JButton" name="btSuppr">
       <Properties>
         <Property name="text" type="java.lang.String" value="Supprimer"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSupprActionPerformed"/>

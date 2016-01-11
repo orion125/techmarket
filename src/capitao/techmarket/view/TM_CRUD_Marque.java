@@ -276,6 +276,12 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
         lbName.getAccessibleContext().setAccessibleName("");
         lbTypeUsed.getAccessibleContext().setAccessibleDescription("");
 
+        listMarque.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                listMarqueItemStateChanged(evt);
+            }
+        });
+
         btAdd.setText("Ajouter");
         btAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -284,6 +290,7 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
         });
 
         btMod.setText("Modifier");
+        btMod.setEnabled(false);
         btMod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btModActionPerformed(evt);
@@ -291,6 +298,7 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
         });
 
         btSuppr.setText("Supprimer");
+        btSuppr.setEnabled(false);
         btSuppr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSupprActionPerformed(evt);
@@ -410,6 +418,11 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
         mar.remove(listMarque.getSelectedIndex());
         listMarque.remove(listMarque.getSelectedIndex());
     }//GEN-LAST:event_btSupprActionPerformed
+
+    private void listMarqueItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listMarqueItemStateChanged
+        btMod.setEnabled(true);
+        btSuppr.setEnabled(true);
+    }//GEN-LAST:event_listMarqueItemStateChanged
 
     public void resize(boolean minmax){
         int width = 0;

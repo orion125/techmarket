@@ -56,7 +56,11 @@ public class TM_Client {
 
     @Override
     public boolean equals(Object obj) {
-        return (this.toString().equals(obj.toString()));
+        TM_Client cli = (TM_Client)obj;
+        return ((this.getNom().toLowerCase().equals(cli.getNom().toLowerCase())) ||
+                (this.getPrenom().toLowerCase().equals(cli.getPrenom().toLowerCase())) ||
+                (this.getMail().toLowerCase().equals(cli.getMail().toLowerCase())));
+                        
     }
     
     

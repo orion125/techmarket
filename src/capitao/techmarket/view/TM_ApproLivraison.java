@@ -39,6 +39,7 @@ public class TM_ApproLivraison extends javax.swing.JFrame {
         for (TM_ChangementStockEnAttente change : alistChangeStock){
             listLivraisonEnAtt.add(change.toString());
         }
+        System.out.println(compoConcerne.getId());
     }
   
 

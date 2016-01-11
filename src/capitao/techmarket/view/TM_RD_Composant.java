@@ -70,6 +70,12 @@ public class TM_RD_Composant extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(290, 343));
         setType(java.awt.Window.Type.POPUP);
 
+        listComposants.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                listComposantsItemStateChanged(evt);
+            }
+        });
+
         btAdd.setText("Ajouter");
         btAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,6 +84,7 @@ public class TM_RD_Composant extends javax.swing.JFrame {
         });
 
         btMod.setText("Modifier");
+        btMod.setEnabled(false);
         btMod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btModActionPerformed(evt);
@@ -85,6 +92,7 @@ public class TM_RD_Composant extends javax.swing.JFrame {
         });
 
         btSuppr.setText("Supprimer");
+        btSuppr.setEnabled(false);
         btSuppr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSupprActionPerformed(evt);
@@ -179,6 +187,11 @@ public class TM_RD_Composant extends javax.swing.JFrame {
         alComposants.remove(listComposants.getSelectedIndex());
         loadList();
     }//GEN-LAST:event_btSupprActionPerformed
+
+    private void listComposantsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listComposantsItemStateChanged
+        btMod.setEnabled(true);
+        btSuppr.setEnabled(true);
+    }//GEN-LAST:event_listComposantsItemStateChanged
 
     public void open(TM_Composant comp){
         TM_CU_Composant cuCompoFrame = TM_CU_Composant.getInstance(this,comp);

@@ -78,6 +78,7 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
         resize(true);
         mod = "Mod";
         specActu = spcs.get(listSpec.getSelectedIndex());
+        specActu.setValpos(SpecificationDao.getSpecAsValue(specActu));
         tfName.setText(specActu.toString());
         actu();
     }
@@ -210,6 +211,12 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(295, 527));
         setResizable(false);
 
+        listSpec.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                listSpecItemStateChanged(evt);
+            }
+        });
+
         btAdd.setText("Ajouter");
         btAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,6 +225,7 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
         });
 
         btMod.setText("Modifier");
+        btMod.setEnabled(false);
         btMod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btModActionPerformed(evt);
@@ -225,6 +233,7 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
         });
 
         btSuppr.setText("Supprimer");
+        btSuppr.setEnabled(false);
         btSuppr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSupprActionPerformed(evt);
@@ -541,6 +550,11 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
     private void btSupprActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSupprActionPerformed
         suppr(spcs.get(listSpec.getSelectedIndex()));
     }//GEN-LAST:event_btSupprActionPerformed
+
+    private void listSpecItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listSpecItemStateChanged
+        btMod.setEnabled(true);
+        btSuppr.setEnabled(true);
+    }//GEN-LAST:event_listSpecItemStateChanged
 
     public void suppr(TM_Specification s){
         SpecificationDao.delete(s);
