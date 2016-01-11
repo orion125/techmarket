@@ -8,7 +8,7 @@
 
 // Le nom des champs, fk et table dont le nom est trop long a été abrégé dans le Script SQL correspondant.
 
-Pour lancer l'application aller dans la dossier "dist" et double-cliquer sur CAPITAO_TechMarket.jar
+Pour lancer l'application aller dans la dossier "distribution" et double-cliquer sur CAPITAO_TechMarket.jar
 Pour installer la Base de données oracle, lancer le serveur oracle puis aller dans le dossier "Scripts DB" et lancer install_TechMarket.bat
 
 Ceci est la feuille de route permettant d'utiliser le prototype de l'application TekMarket.
