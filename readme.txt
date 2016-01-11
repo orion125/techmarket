@@ -5,21 +5,17 @@
 * Language : JAVA (JDK 8)                                                                                                              *
 * IDE	   : Netbeans                                                                                                                  *
 ****************************************************************************************************************************************
- 
+
 // Le nom des champs, fk et table dont le nom est trop long a été abrégé dans le Script SQL correspondant.
 
-Pour l'exécuter, lancez NetBeans, puis ouvrez le dossier "CAPITAO_TechMarket" avec le menu "File"
--> "Open Project", sélectionnez le projet et appuyez sur F6 (ou le menu Run -> Run Project).  
-// la version finale de l'application s'ouvrira soit avec un JAR, soit avec un .exe .
-
+Pour lancer l'application aller dans la dossier "dist" et double-cliquer sur CAPITAO_TechMarket.jar
+Pour installer la Base de données oracle, lancer le serveur oracle puis aller dans le dossier "Scripts DB" et lancer install_TechMarket.bat
 
 Ceci est la feuille de route permettant d'utiliser le prototype de l'application TekMarket.
 
 Celle-ci est répartie en 2 sections :
 	Section Client
 	Section Vendeur/Manager
-
-
 
 L'accès client ne demande aucune connexion. Il suffit de cliquer sur le bouton "Accès client" pour entrer
 
@@ -104,7 +100,8 @@ de l'application. Les identifiants sont "Admin" et mot de passe "1234".
 					à l'apprivisionnement ou la livraison sélectionnée)
 		Aide 
 			-> sous-menu À propos : Permet d'accéder aux informations relatives à la création de l'application.
-
+	La fenètre elle-même permet d'éditer la configuration de l'application.
+	
 Sur les fenètres autres que la fenètre principale de l'application du vendeur/manager, seulement les menus suivants sont présents.
 	Fichier 
 		-> sous-menu Fermer   : Ferme la fenètre courante. (raccourci indiqué à côté)
