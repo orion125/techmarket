@@ -16,6 +16,12 @@ public class ConnexionBase {
     catch (SQLException e) {System.out.println("ConnexionBase: " + e.getMessage()); e.printStackTrace();}
     catch (ClassNotFoundException e) {System.out.println("ConnexionBase: " + e.getMessage()); e.printStackTrace();}
   } // Constructeur
+  
+    private static void connect (String password) {
+    try {con = Outils.connect(NOM_BASE);}
+    catch (SQLException e) {System.out.println("ConnexionBase: " + e.getMessage()); e.printStackTrace();}
+    catch (ClassNotFoundException e) {System.out.println("ConnexionBase: " + e.getMessage()); e.printStackTrace();}
+  } // Constructeur
 
   /** Retourne la connexion */
   public static Connection get () {
