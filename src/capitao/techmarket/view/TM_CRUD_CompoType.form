@@ -83,13 +83,11 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="btAdd" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="btAdd" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btMod" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btSuppr" min="-2" max="-2" attributes="0"/>
+                      <Component id="btMod" min="-2" pref="125" max="-2" attributes="0"/>
                   </Group>
                   <Component id="lbListCompoType" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="listCompoType" min="-2" pref="261" max="-2" attributes="0"/>
@@ -111,7 +109,6 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btAdd" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btMod" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btSuppr" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -196,11 +193,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btModActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btSuppr">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Supprimer"/>
-      </Properties>
     </Component>
     <Component class="java.awt.Label" name="lbListCompoType">
       <Properties>

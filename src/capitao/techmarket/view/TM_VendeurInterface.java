@@ -2,7 +2,7 @@ package capitao.techmarket.view;
 
 import capitao.outils.FileToStr;
 import capitao.outils.importSql;
-import capitao.outils.
+import capitao.outils.ExtensionFileFilter;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.StringTokenizer;

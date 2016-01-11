@@ -13,7 +13,7 @@ import javax.swing.filechooser.FileFilter;
  *
  * @author jonathan.capitao
  */
-class ExtensionFileFilter extends FileFilter {
+public class ExtensionFileFilter extends FileFilter {
   String description;
 
   String extensions[];

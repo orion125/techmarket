@@ -73,19 +73,6 @@ public class ComposantTypeDao {
         }   
     } // update
     
-    public static void delete (TM_ComposantType ct) {
-        try {
-            Connection con = ConnexionBase.get();
-            PreparedStatement stmt = con.prepareStatement(
-                      "DELETE "
-                      + "vw_categorie_compo "
-                      + "WHERE cot_id = "+ct.getId()
-            );
-            stmt.executeUpdate();
-            stmt.close();
-        } catch (SQLException ex) {
-            System.err.println("ComposantTypeDao.update(): " + ex.getMessage());
-        }   
-    } // update
+  
     
 }
