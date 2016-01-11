@@ -2,10 +2,12 @@ package capitao.techmarket.view;
 
 import capitao.outils.FileToStr;
 import capitao.outils.importSql;
+import capitao.outils.
 import java.io.File;
 import java.sql.SQLException;
 import java.util.StringTokenizer;
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 
 
 /**
@@ -241,6 +243,9 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
     private void menuImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuImportActionPerformed
         //Create a file chooser
         JFileChooser fc_import =new JFileChooser("./data");
+        FileFilter filter1 = new ExtensionFileFilter("Fichier de base de données", new String[] {"sql"});
+        fc_import.setFileFilter( filter1 );
+        fc_import.setAcceptAllFileFilterUsed(false);
         int result= fc_import.showOpenDialog(null);
         if(result==JFileChooser.CANCEL_OPTION)
             return;
