@@ -102,7 +102,7 @@ COMMIT;
 -- Insertion des données ---------------------------------------------------------------------------------------------------
 -- tm_manager
 
-INSERT INTO tm_manager (man_id, man_username, man_password) VALUES (seq_man_id.NEXTVAL,'Admin','Carrer1234');
+INSERT INTO tm_manager (man_id, man_username, man_password) VALUES (seq_man_id.NEXTVAL,'Admin2','Carrer1234');
 INSERT INTO tm_manager (man_id, man_username, man_password) VALUES (seq_man_id.NEXTVAL,'VendeurA','Test5151');
 INSERT INTO tm_manager (man_id, man_username, man_password) VALUES (seq_man_id.NEXTVAL,'VendeurB','Tarte2Test');
 COMMIT;
