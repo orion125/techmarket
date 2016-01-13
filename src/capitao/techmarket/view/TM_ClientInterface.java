@@ -51,6 +51,8 @@ public class TM_ClientInterface extends javax.swing.JFrame {
         initCompoTypeList ();
     }
     
+    // Initlise le menu et l'arrayList contenant la liste des composant
+    // et attribue le listener d'évenements
     private void initCompoTypeList (){     
         CompoType = ComposantTypeDao.getListeCatCompo() ; 
         JMenuItem menElemActu = null;
@@ -66,6 +68,7 @@ public class TM_ClientInterface extends javax.swing.JFrame {
         }
     }
     
+    // Initialise la liste & arraylist des marque
     private void initMarkList(TM_ComposantType cp){
         Marques = MarqueDao.getListeMarque(cp);
         list_marque.removeAll();
@@ -75,21 +78,21 @@ public class TM_ClientInterface extends javax.swing.JFrame {
         }
     }
    
-    
+    // Initialise la liste & arraylist des spécification
     private void initSpecList(TM_ComposantType cp){
         Specs = SpecificationDao.getListeSpec(cp);
         list_spec.removeAll();
         for (TM_Specification s : Specs) {
             for (TM_SpecificationAsValue spv : s.getValpos()){
                 SpecV.add(spv);
-                list_spec.add(spv.toString());
+                list_spec.add(spv.toStringListe());
             }
             this.validate();
         }
     }
     
-
-    
+    // Sous la sélection d'une catégorie de composant
+    // Met à jour le GUI et appel l'initialisation des listes & arraylist
     public void menuCompTypeActionPerformed(String Source){
         for (int i = 0; i < CompoType.size(); i++) {
            if (((TM_ComposantType)CompoType.get(i)).equals(Source)){
@@ -105,6 +108,7 @@ public class TM_ClientInterface extends javax.swing.JFrame {
        } 
     }
     
+    // Charge les composants par rapport au filtre
     private void loadCompo(){
         TM_Marque m ;
         TM_SpecificationAsValue s;
@@ -124,6 +128,7 @@ public class TM_ClientInterface extends javax.swing.JFrame {
         Double.parseDouble(tf_prixMax.getText()) : 9999999.95;
         for (TM_Composant c : allComp){
             ComposantDao.setSpecAsValue(c);
+            // Appel la vérification de composant par rapport au critère
             if (verif(c,m,s, max, min)){
                 ComposantsTrouvee.add(c);
                 list_composants.add(c.toString());
@@ -131,6 +136,7 @@ public class TM_ClientInterface extends javax.swing.JFrame {
         }
     }
     
+    // Vérifie si un composant correspond à une liste de critères
     public boolean verif (TM_Composant c, TM_Marque m, TM_SpecificationAsValue s,
                             double prixMax, double prixMin){
         boolean vpmin = true; boolean vpmax = true;
@@ -156,6 +162,7 @@ public class TM_ClientInterface extends javax.swing.JFrame {
         return vpmin&&vpmax&&vs&&vm&&verif(c);
     }
     
+    // vérifie si un composant fait partie d'une catégorie de composant
     public boolean verif (TM_Composant c){
         return c.getCompoType().equals(cp);
     }
@@ -369,30 +376,15 @@ public class TM_ClientInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_menuFermerActionPerformed
 
     private void jbt_PanAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_PanAddActionPerformed
-        ArrayList<TM_Composant> alcToCp = new ArrayList<TM_Composant>();
-        for (TM_LigneCommande lc : alc){
-            alcToCp.add(lc.getCompo());
-        }
-        TM_Composant comp = ComposantsTrouvee.get(list_composants.getSelectedIndex());
-        if (! alcToCp.contains(comp)){
-            alc.add(new TM_LigneCommande(comp, 1));
-        }
-        else{
-            for (TM_LigneCommande lc : alc){
-                if (lc.equals(comp))
-                    lc.setQte(lc.getQte() +1);
-            }
-        }
+        panAdd();
     }//GEN-LAST:event_jbt_PanAddActionPerformed
 
     private void list_marqueItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_list_marqueItemStateChanged
-       // if (list_spec.getSelectedIndexes().length > 0) 
-            loadCompo();
+        loadCompo();
     }//GEN-LAST:event_list_marqueItemStateChanged
 
     private void list_specItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_list_specItemStateChanged
-        //if (list_marque.getSelectedIndexes().length > 0) 
-            loadCompo();
+        loadCompo();
     }//GEN-LAST:event_list_specItemStateChanged
 
     private void tf_prixMinKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_prixMinKeyPressed
@@ -404,6 +396,11 @@ public class TM_ClientInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_tf_prixMaxKeyPressed
 
     private void tf_prixGestTextValueChanged(java.awt.event.TextEvent evt) {//GEN-FIRST:event_tf_prixGestTextValueChanged
+        verifPrix();
+    }//GEN-LAST:event_tf_prixGestTextValueChanged
+    // Vérifie si les valeurs entrées dans les champs de prix minimal et maximal
+    // sont cohérente.
+    void verifPrix(){
         double min = (tf_prixMin.getText().length() > 0)? 
                 Double.parseDouble(tf_prixMin.getText()) : 0.0;
         double max = (tf_prixMax.getText().length() > 0)? 
@@ -417,8 +414,8 @@ public class TM_ClientInterface extends javax.swing.JFrame {
         }else{
             loadCompo();
         }
-    }//GEN-LAST:event_tf_prixGestTextValueChanged
-
+    }
+    
     
     /**
      * @param args the command line arguments
@@ -455,7 +452,25 @@ public class TM_ClientInterface extends javax.swing.JFrame {
             }
         });
     }
-
+    // Ajoute un composant dans la panier si il n'y est pas déjà
+    // sinon augmente la quantitée de se composant présent dans la panier
+    // Format TM_LigneCommande
+    private void panAdd() {
+        ArrayList<TM_Composant> alcToCp = new ArrayList<TM_Composant>();
+        for (TM_LigneCommande lc : alc){
+            alcToCp.add(lc.getCompo());
+        }
+        TM_Composant comp = ComposantsTrouvee.get(list_composants.getSelectedIndex());
+        if (! alcToCp.contains(comp)){
+            alc.add(new TM_LigneCommande(comp, 1));
+        }
+        else{
+            for (TM_LigneCommande lc : alc){
+                if (lc.equals(comp))
+                    lc.setQte(lc.getQte() +1);
+            }
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;

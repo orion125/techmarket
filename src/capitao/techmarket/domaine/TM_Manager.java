@@ -22,6 +22,8 @@ public class TM_Manager {
         return hash;
     }
 
+    // On vérifie le manager (pour la connexion entre autre)
+    // Nom d'utilisateur et mot de passe uniquement sont vérifier
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

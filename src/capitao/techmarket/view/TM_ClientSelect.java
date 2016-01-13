@@ -47,8 +47,6 @@ public class TM_ClientSelect extends javax.swing.JFrame {
         }
     }
     
-    
-    
     public void setClient(TM_Client newCli){
         this.cli = newCli;
         alistClient.add(newCli);

@@ -18,29 +18,19 @@ public class TM_ComposantType {
         this.nom = nom;
     }
     
-    /**
-     * @return the id
-     */
     public int getId() {
         return id;
     }
 
-
-    /**
-     * @return the nom
-     */
     public String getNom() {
         return nom;
     }
 
-    /**
-     * @param nom the nom to set
-     */
     public void setNom(String nom) {
         this.nom = nom;
     }
 
-
+    // Pour une catégorie de composant on peut vérifie avec le nom
     public boolean equals (String nom){
         if (this.getNom().equals(nom)){
             return true;
@@ -48,6 +38,8 @@ public class TM_ComposantType {
             return false;
         }
     } 
+    
+    // Ou avec une catégorie de composant complête
     public boolean equals (TM_ComposantType cp){
         if (this.getNom().equals(cp.getNom())){
             return true;
@@ -55,7 +47,8 @@ public class TM_ComposantType {
             return false;
         }
     }
-  
+    
+    // Ou encore avec l'id uniquement
     public boolean equals (int id){
         if (this.getId()== id){
             return true;

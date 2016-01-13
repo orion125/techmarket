@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class SpecificationDao {
   
-    /** Retourne la liste des employés, dans l'ordre des nom et prénom. */
+    // Retourne la liste des spécification 
     public static ArrayList getListeSpec () {
         ArrayList<TM_ComposantType> ar = ComposantTypeDao.getListeCatCompo();
         ArrayList lst = new ArrayList();
@@ -49,8 +49,9 @@ public class SpecificationDao {
             return null;
         }
         return lst;
-    } // getListeEmployes
+    } // getListeSpec
     
+    // Retourne la liste des spécifications pour une catégorie de composant donnée
     public static ArrayList<TM_Specification> getListeSpec(TM_ComposantType ct){
         ArrayList<TM_ComposantType> ar = ComposantTypeDao.getListeCatCompo();
         ArrayList lst = new ArrayList();
@@ -85,8 +86,9 @@ public class SpecificationDao {
             return null;
         }
         return lst;
-    } // getListeEmployes  
+    } // getListeSpec (TM_ComposantType)
     
+    // Récupère les valeurs d'une spécification
     public static ArrayList<TM_SpecificationAsValue> getSpecAsValue(TM_Specification spec){
         ArrayList<TM_SpecificationAsValue> lst = new ArrayList<TM_SpecificationAsValue>();
         try {
@@ -95,8 +97,7 @@ public class SpecificationDao {
             ResultSet rs = stmt.executeQuery(
                     "SELECT spv_id, spv_value "
                   + "FROM vw_valeur_spec "
-                  + "WHERE spv_spc_id = "+spec.getId()/*+" "
-                  + "ORDER BY spv_value"*/
+                  + "WHERE spv_spc_id = "+spec.getId()
             );
 
             while (rs.next()) {
@@ -108,9 +109,10 @@ public class SpecificationDao {
             return null;  
         }
         return lst;
-    }
+    } // getSpecAsValue
     
-    public static ArrayList getCompType(int marid){
+    // Récupère les catégories de composant disponible pour une spécification
+    public static ArrayList getCompType(int specId){
         ArrayList lst = new ArrayList();
         try {
             Connection con = ConnexionBase.get();
@@ -118,7 +120,7 @@ public class SpecificationDao {
             ResultSet rs = stmt.executeQuery(
                     "SELECT cts_cot_id "
                   + "FROM vw_spec_as_categorie "
-                  + "WHERE cts_spc_id = "+marid
+                  + "WHERE cts_spc_id = "+specId
             );
 
             while (rs.next()) {
@@ -130,9 +132,9 @@ public class SpecificationDao {
             return null;
         }
         return lst;
-    }
+    } // getCompType
    
-    
+    // Crée une spécification
     public static void insert (TM_Specification s) {
             int step = 1;
         try {
@@ -161,6 +163,7 @@ public class SpecificationDao {
         }   
     } // insert
     
+    // Insert dans la base de données les valeurs possibles pour une spécification.
     public static void insertValPos(TM_Specification s, boolean isInsert){
         try {
             Connection con = ConnexionBase.get();
@@ -179,8 +182,9 @@ public class SpecificationDao {
         } catch (SQLException ex) {
             System.err.println("SpecificationDao.insertValPos(): " + ex.getMessage());
         }   
-    }
+    } // insertValPos
     
+    // Modifie une spécification
     public static void update (TM_Specification s) {
         int step = 0;
         try {
@@ -212,13 +216,8 @@ public class SpecificationDao {
                 stmtInsert.close();
             }
             step++;
-      /*      PreparedStatement stmtCleanval = con.prepareStatement(
-                    "DELETE "
-                  + "FROM vw_valeur_spec "
-                  + "WHERE spv_spc_id = "+s.getId()
-            );
-            stmtCleanval.executeUpdate();
-            stmtCleanval.close();*/
+            // On vérifie ici si la valeur de la spécification éxistait 
+            // déjà pour éviter de la réinsérer pour rien.
             ArrayList<TM_SpecificationAsValue> als = getSpecAsValue(s);
             ArrayList<TM_SpecificationAsValue> alsNew = new ArrayList<TM_SpecificationAsValue>();
             for (TM_SpecificationAsValue spvmain : s.getValpos()){
@@ -228,6 +227,7 @@ public class SpecificationDao {
                 }
                 if (test) alsNew.add(spvmain); 
             }
+            // On utilise un ArrayList temporaire pour préparer l'insertion puis on insert.
             ArrayList<TM_SpecificationAsValue> temp = s.getValpos();
             s.setValpos(alsNew);
             step++;            
@@ -238,6 +238,7 @@ public class SpecificationDao {
         }   
     } // update
     
+    // Supprime une spécification
     public static void delete (TM_Specification s) {
         int step = 0;
         try {
@@ -285,4 +286,4 @@ public class SpecificationDao {
             System.err.println("SpecificationDao.delete() - etape "+step+" : " + ex.getMessage());
         }   
     } // delete
-}
+} // SpecificationDao

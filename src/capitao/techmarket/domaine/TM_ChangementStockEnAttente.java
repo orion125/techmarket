@@ -15,17 +15,19 @@ public class TM_ChangementStockEnAttente {
     private String commentaire;
     private boolean etat = true;
 
+    // Constructeur
     public TM_ChangementStockEnAttente(TM_ComposantAsStock compAStock, Date dateDuChangement, int qte, String commentaire) {
         this(-1,compAStock,dateDuChangement,qte,commentaire);
-    }
+    } // TM_ChangementStockEnAttente
     
+    // Constructeur
     public TM_ChangementStockEnAttente(int id , TM_ComposantAsStock compAStock, Date dateDuChangement, int qte, String commentaire) {
         this.id = id;
         this.compAStock = compAStock;
         this.dateDuChangement = dateDuChangement;
         this.qte = qte;
         this.commentaire = commentaire;        
-    }
+    } // TM_ChangementStockEnAttente
     
     
     public Date getDateDuChangement() {
@@ -77,9 +79,10 @@ public class TM_ChangementStockEnAttente {
         this.id = id;
     }
     
+    // On crée vérifie uniquement les changements de stocks par ID
     public boolean equals (TM_ChangementStockEnAttente o){
         return (this.getId() == o.getId());
-    }
+    } // equals
 
     @Override
     public String toString() {

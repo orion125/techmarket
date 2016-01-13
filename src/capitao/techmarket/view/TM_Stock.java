@@ -33,6 +33,7 @@ public class TM_Stock extends javax.swing.JFrame {
         updateData();
     }
     
+    // Charge/Recharge les arrayList 
     private void updateData(){
         alistEmplacement = CommandeStockDao.getEmplacements();
         alistCompoToStock = CommandeStockDao.getAllStock();
@@ -42,6 +43,7 @@ public class TM_Stock extends javax.swing.JFrame {
         initCombo();
     }
     
+    // Met à jour l'interface graphique par rapport au composant sélectionné.
     private void updateGui(boolean stat, TM_ComposantAsStock comp){
         jbtAddStockVirtuelle.setEnabled(stat);
         jbtUpdate.setEnabled(stat);
@@ -56,6 +58,7 @@ public class TM_Stock extends javax.swing.JFrame {
         } 
     }
     
+    // Récupère l'id d'un emplacement
     private int getId(TM_Emplacement emplac){
         for (int i = 0; i < alistEmplacement.size(); i++){
             if (emplac.equals(alistEmplacement.get(i))) return i;
@@ -63,10 +66,12 @@ public class TM_Stock extends javax.swing.JFrame {
         return -1;
     }
     
+    // Initialise le combobox permettant de choisir l'emplacement
     private void initCombo(){
         jCbEmplacementPossible.setModel(new DefaultComboBoxModel(alistEmplacement.toArray()));
     }
     
+    // Gére la modification du contenu du combobox.
     private void updateComboSelect(){
         compoActu = alistCompoToStock.get(listComposants.getSelectedIndex());
         TM_Emplacement empl_temp = alistEmplacement.get(jCbEmplacementPossible.getSelectedIndex());

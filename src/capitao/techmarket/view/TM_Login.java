@@ -40,12 +40,14 @@ public class TM_Login extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         loginActivation ();
     }
-
+    
+    // Vérifie que les champs sont remplie.
     public void loginActivation (){
         jbtLogin.setEnabled(!(jtf_Username.getText().equals(""))
                           && (jpw_Password.getPassword().length > 0));
     }
     
+    // Vérifie que les information de login correpondent à un des manager
     public boolean infoCorrect(){
         TM_Manager temp = new TM_Manager(jtf_Username.getText(),
                                 new String(jpw_Password.getPassword()));

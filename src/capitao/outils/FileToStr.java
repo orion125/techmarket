@@ -11,8 +11,9 @@ import java.io.OutputStreamWriter;
 */
 public class FileToStr {
 
-  private static final int EOF = -1;
+    private static final int EOF = -1;
   
+    // Lit un fichier texte et retourne son contenu.
     public static String read (String fileName) {
         try {
             FileInputStream fileToRead = new FileInputStream(fileName);
@@ -35,6 +36,7 @@ public class FileToStr {
         }
     } // read
 
+    // Ecrit dans un fichier texte
     public static void write (String fileName, String[] str) {
         try {
             OutputStreamWriter writer = new OutputStreamWriter(
@@ -54,5 +56,4 @@ public class FileToStr {
             System.err.println("Erreur Systême : "+e1.getMessage());
         }
     } // write
-    
 } // FileToStr

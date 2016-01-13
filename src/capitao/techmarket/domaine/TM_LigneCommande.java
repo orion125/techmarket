@@ -45,7 +45,8 @@ public class TM_LigneCommande {
                 +" "+ money.format(this.getCompo().getPrix()*this.getQte());
     }
 
-
+    // La vérification d'une ligne de commande avec une autre permet de voir
+    // si les 2 concerne le même objet (utiliser pour le panier entre autre
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -60,6 +61,8 @@ public class TM_LigneCommande {
         }
         return true;
     } 
+    
+    // La vérification d'une ligne de commande avec un composant
     public boolean equals(TM_Composant cmp) {
         if (cmp == null) {
             return false;

@@ -14,6 +14,6 @@ public class TM_Main {
     public static void main(String[] args) {
         // TODO code application logic here
         TM_Login.getInstance().setVisible(true);
-    }
+    } // main
     
-}
+} // TM_Main

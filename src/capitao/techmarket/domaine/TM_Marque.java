@@ -22,9 +22,10 @@ public class TM_Marque {
         this.compoTypes = compoTypes;
     }
     
+    // Vérifie si une marque est relié a une catégorie de composant donnée
     public boolean hasTypeComposant(TM_ComposantType compoType){ 
         for (int i = 1; i <= this.compoTypes.size(); i++) {
-            if (compoType == this.compoTypes.get(i)){
+            if (compoType.equals(this.compoTypes.get(i))){
                 return true;
             }
         }
@@ -39,30 +40,18 @@ public class TM_Marque {
         this.compoTypes = cts;
     }
     
-    /**
-     * @return the id
-     */
     public int getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(int id) {
         this.id = id;
     }
 
-    /**
-     * @return the nom
-     */
-    public String getNom() {
+        public String getNom() {
         return nom;
     }
 
-    /**
-     * @param nom the nom to set
-     */
     public void setNom(String nom) {
         this.nom = nom;
     }
@@ -78,6 +67,7 @@ public class TM_Marque {
         return hash;
     }
 
+    // La marque se vérifie en utilisant le nom et l'id
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

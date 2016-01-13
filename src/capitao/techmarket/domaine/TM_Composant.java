@@ -26,6 +26,7 @@ public class TM_Composant extends AbstractTableModel {
         return hash;
     }
 
+    // Pour un composant on ne vérifie que le prix et le nom
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -45,7 +46,7 @@ public class TM_Composant extends AbstractTableModel {
             return false;
         }
         return true;
-    }
+    } // equals
 
 
     public TM_Composant() {
@@ -104,23 +105,14 @@ public class TM_Composant extends AbstractTableModel {
         return nom;
     }
 
-    /**
-     * @param nom the nom to set
-     */
     public void setNom(String nom) {
         this.nom = nom;
     }
 
-    /**
-     * @return the marqueId
-     */
     public TM_Marque getMarque() {
         return marque;
     }
 
-    /**
-     * @param marqueId the marqueId to set
-     */
     public void setMarque(TM_Marque marque) {
         this.marque = marque;
     }
@@ -134,22 +126,41 @@ public class TM_Composant extends AbstractTableModel {
         return specifications.get(i);
     }
     
+    private void setSpecifications(ArrayList<TM_SpecificationAsValue> specifications) {
+        this.specifications = specifications;
+    }  
+    
+    @Override
+    public String toString() {
+        Locale caLoc = new Locale("fr","CH");
+        // Crée un format de money pour le prix
+        NumberFormat money = NumberFormat.getCurrencyInstance(caLoc); 
+        return nom + " " + money.format(prix);
+    }
+
+    public double getPrix() {
+        return prix;
+    }
+
+    public void setPrix(double prix) {
+        this.prix = prix;
+    }
+    
+    // Méthodes utilisés pour le AbstractTableModel
+    
     public void addSpecification(TM_SpecificationAsValue spec) {
         specifications.add(spec);
         fireTableRowsInserted(specifications.size(), specifications.size());
-    }
+    } // addSpecification
     
     public void removeSpecification(TM_SpecificationAsValue spec){
         specifications.remove(spec);
-    }
+    }//removeSpecification 
+    
     public void removeSpecification(int i){
         specifications.remove(i);
         fireTableRowsDeleted(specifications.size(), specifications.size());
     }
-
-    private void setSpecifications(ArrayList<TM_SpecificationAsValue> specifications) {
-        this.specifications = specifications;
-    }  
     
     @Override
     public int getRowCount() {
@@ -196,7 +207,7 @@ public class TM_Composant extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
       switch(columnIndex){
-            case 0 : return ((TM_SpecificationAsValue)specifications.get(rowIndex)).getSpec().toString();
+            case 0 : return ((TM_SpecificationAsValue)specifications.get(rowIndex));
             case 1 : return ((TM_SpecificationAsValue)specifications.get(rowIndex)).getValue();
             default : return null;
         }
@@ -212,6 +223,7 @@ public class TM_Composant extends AbstractTableModel {
                 if (specAsValue.getSpec().hasValPos(aValue.toString())){
                     specAsValue.setValue(aValue.toString());
                 }else{
+                // Génère le message d'erreur contenant les valeurs possibles.
                     JOptionPane.showMessageDialog(null, 
                             "Veuillez remplir le champs avec une valeur contenue dans {" +
                             specAsValue.getSpec().printValPos()+"]",
@@ -220,20 +232,5 @@ public class TM_Composant extends AbstractTableModel {
                 return;
             default : return;
         }
-    }
-
-    @Override
-    public String toString() {
-        Locale caLoc = new Locale("fr","CH");
-        NumberFormat money = NumberFormat.getCurrencyInstance(caLoc); 
-        return nom + " " + money.format(prix);
-    }
-
-    public double getPrix() {
-        return prix;
-    }
-
-    public void setPrix(double prix) {
-        this.prix = prix;
     }
 }

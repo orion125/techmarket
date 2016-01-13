@@ -13,8 +13,10 @@ import java.sql.Statement;
  */
 public class importSql {
  
-    public static void resetDatabase(File f) throws SQLException
+    // Importe des données dans une base de données
+    public static void importDB(File f) throws SQLException
     {
+        // Lecture du fichier
         String s  = new String();
         StringBuffer sb = new StringBuffer();
  
@@ -29,7 +31,9 @@ public class importSql {
             }
             br.close();
             // On sépare chaque instruction sql avec ";" pour chaque requète
-            String[] inst = sb.toString().split(";");
+            String[] inst = sb.toString().split(";"); 
+                
+        // Traitement des insertion dans la base de données
             Connection con = ConnexionBase.get();
             Statement st = con.createStatement();
             for(int i = 0; i<inst.length; i++)
@@ -51,5 +55,5 @@ public class importSql {
             System.out.println(sb.toString());
         }
  
-    }   
-}
+    } // importDB   
+} // importSql

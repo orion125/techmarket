@@ -21,6 +21,7 @@ import java.util.ArrayList;
  */
 public class CommandeStockDao {
     
+    // Recupére le stock de tous les composants
     public static ArrayList<TM_ComposantAsStock> getAllStock(){
         ArrayList<TM_Composant> cmpLst = ComposantDao.getListeComp();
         ArrayList<TM_ComposantAsStock> lst = new ArrayList<TM_ComposantAsStock>();
@@ -28,8 +29,9 @@ public class CommandeStockDao {
             lst.add(getStockComp(c));
         }
         return lst;
-    }
+    } // getAllStock
     
+    // Récupère le stock d'un composant.
     public static TM_ComposantAsStock getStockComp (TM_Composant c) {
         TM_ComposantAsStock lst = new TM_ComposantAsStock();
         try {
@@ -54,8 +56,9 @@ public class CommandeStockDao {
             return null;
         }
         return lst;
-    } // setStockComp  
+    } // getStockComp  
     
+    // Modifie le stock d'un composant
     public static void setStockComp (TM_ComposantAsStock cas){
         try {
             Connection con = ConnexionBase.get();
@@ -69,8 +72,9 @@ public class CommandeStockDao {
         } catch (SQLException ex) {
             System.err.println("CommandeStockDao.setStockComp(): " + ex.getMessage());
         }
-    }
+    } // setStockComp
     
+    // Récupère l'emplacement du stock pour un composant
     public static TM_Emplacement getEmplaceComp (int empId){
         ArrayList<TM_Emplacement> lst = getEmplacements();
         for (TM_Emplacement e : lst){
@@ -79,8 +83,9 @@ public class CommandeStockDao {
             }
         }
         return new TM_Emplacement(-1, "Innexistant");
-    }
+    } // getEmplaceComp
     
+    // Récupère la liste des emplacements
     public static ArrayList<TM_Emplacement> getEmplacements (){
         ArrayList<TM_Emplacement> lst = new ArrayList<TM_Emplacement>();
         try {
@@ -102,8 +107,9 @@ public class CommandeStockDao {
             return null;
         }
         return lst;
-    }
+    } // getEmplacements
     
+    // Crée une commande
     public static int creeCommande(TM_Commande com){
         int idCom = -1;
         try{
@@ -128,8 +134,10 @@ public class CommandeStockDao {
             return idCom;
         }
         return idCom;
-    }
-       public static void genererMoveStock(TM_Commande com){
+    } // creeCommande
+    
+    // Genère les mouvements de stock pour une commande
+    public static void genererMoveStock(TM_Commande com){
         try{
             Connection con = ConnexionBase.get();
             Statement stmt = con.createStatement();
@@ -158,7 +166,9 @@ public class CommandeStockDao {
         }catch (SQLException ex) {
             System.err.println("CommandeStockDao.genererMoveStock(): " + ex.getMessage());
         }
-    } 
+    }  // genererMoveStock(TM_Commande)
+    
+    // Genère le mouvement de stock pour un approvisionnement
     public static void genererMoveStock(int ajout, TM_ComposantAsStock cos){
         try{
             Connection con = ConnexionBase.get();
@@ -186,8 +196,9 @@ public class CommandeStockDao {
         }catch (SQLException ex) {
             System.err.println("CommandeStockDao.genererMoveStock(): " + ex.getMessage());
         }
-    }
+    } // genererMoveStock(int,TM_ComposantAsStock)
     
+    // Confirme un changement de stock et l'applique
     public static void validerMoveStockEnAtt(TM_ChangementStockEnAttente csa){
         try{
             Connection con = ConnexionBase.get();
@@ -207,8 +218,9 @@ public class CommandeStockDao {
         }catch (SQLException ex){
             System.err.println("CommandeStockDao.validerMoveStockEnAtt(): "+ex.getMessage());
         }
-    }
+    } // validerMoveStockEnAtt
     
+    // Recupère les mouvements de stock en attente pour un composant
     public static ArrayList<TM_ChangementStockEnAttente> recupMoveStockEnAtt(TM_Composant c){
         ArrayList<TM_ChangementStockEnAttente> lst = new ArrayList<TM_ChangementStockEnAttente>();
         try{
@@ -236,5 +248,5 @@ public class CommandeStockDao {
             return null;
         }    
         return lst;
-    }
-}
+    } // recupMoveStockEnAtt
+} // CommandeStockDao

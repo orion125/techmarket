@@ -54,6 +54,9 @@ public class TM_Client {
         return getNom()+" "+getPrenom()+" "+getAddress(); 
     }
 
+    // Cette équivalence de clients est uniquement utiliser pour la recherche.
+    // Elle est permissive car la fenètre en question crée un client temporaire
+    // ayant les champs, nom prenom et email identique
     @Override
     public boolean equals(Object obj) {
         TM_Client cli = (TM_Client)obj;

@@ -33,13 +33,13 @@ public class TM_ApproLivraison extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     
+    // Initialise la liste des changements de stocks
     private void initList(){
         listLivraisonEnAtt.removeAll();
         alistChangeStock = CommandeStockDao.recupMoveStockEnAtt(compoConcerne);
         for (TM_ChangementStockEnAttente change : alistChangeStock){
             listLivraisonEnAtt.add(change.toString());
         }
-        System.out.println(compoConcerne.getId());
     }
   
 

@@ -38,8 +38,9 @@ public class TM_FactureAutoGenerer extends javax.swing.JFrame {
         this.comData = com;
         genFact();
     }
-    
+    // Génère la facture par rapport à la commande.
     private void genFact(){
+        // Ouvre le fichier de config et le stock dans data
         String conf = FileToStr.read(new File("").getAbsolutePath() +"/config.cfg");
         StringTokenizer stLigne = new StringTokenizer(conf,";");
         String[] data = new String [3];
@@ -52,7 +53,7 @@ public class TM_FactureAutoGenerer extends javax.swing.JFrame {
             }
             i++;
         }
-        
+        // Prépare un kit CSS pour le jEditorPane
         HTMLEditorKit kit = new HTMLEditorKit();
         jEdpan_facture.setEditorKit(kit);
         StyleSheet styleSheet = kit.getStyleSheet();
@@ -61,9 +62,12 @@ public class TM_FactureAutoGenerer extends javax.swing.JFrame {
         Document doc = kit.createDefaultDocument();
         jEdpan_facture.setDocument(doc);
         
+        // Prépare un format de date
         SimpleDateFormat dt = new SimpleDateFormat("dd-MM-yyyy"); 
         Date dateActu = new Date(); 
+        // Prépare un format de money
         NumberFormat money = NumberFormat.getCurrencyInstance(); 
+        // Génère la facture en html (utile pour les allignements entre autre.
         String htmlFact = "<table><tr>"
             + "<td width=\"280px\">"+comData.getCli().getNom()+" "+comData.getCli().getPrenom() 
             + "</td><td width=\"280px\" align=\"right\" >"+data[0]+"</td></tr>"
@@ -75,6 +79,7 @@ public class TM_FactureAutoGenerer extends javax.swing.JFrame {
                 + "<tr></tr></table>";
         htmlFact += "<table class=\"art\" >"
                 + "<tr><th width=\"280px\">Article</th><th width=\"280px\">Prix</th>";
+        // Récupère le contenu de la commande et l'écrit en html.
         for (TM_LigneCommande lc : comData.getaListComposantCommandes()){
             htmlFact += "<tr>"
                         + "<td width=\"280px\" >"
@@ -83,6 +88,7 @@ public class TM_FactureAutoGenerer extends javax.swing.JFrame {
                             + money.format(lc.getCompo().getPrix()*lc.getQte())+"</td>"
                         + "</tr>";
         }
+        // Calcule des totaux & TVA
         double totComArrondi = comData.getValTotCommande();
         double tva = totComArrondi*0.08;
         htmlFact += "<tr> "+"<td width=\"280px\"></td>"

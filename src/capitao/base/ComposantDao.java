@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class ComposantDao {
   
-    /** Liste des composants **/
+    // Liste des composants
     public static ArrayList<TM_Composant> getListeComp () {
         ArrayList<TM_Composant> lst = new ArrayList<TM_Composant>();
         try {
@@ -46,9 +46,9 @@ public class ComposantDao {
             return null;
         }
         return lst;
-    } // getListeEmployes
+    } // getListeComp
     
-    /** Récupère les valeurs de spécification auquel un composant est relié **/
+    // Récupère les valeurs de spécification auquel un composant est relié
     public static void setSpecAsValue(TM_Composant c){
         ArrayList<TM_SpecificationAsValue> lst = new ArrayList<TM_SpecificationAsValue>();
         try {
@@ -72,9 +72,9 @@ public class ComposantDao {
             System.err.println("ComposantDao.setSpecAsValue(): " + ex.getMessage());
             return;  
         }
-    }
-    
-    /** Récupère la spécification relié à un id **/
+    } // setSpecAsValue
+     
+    // Récupère la spécification relié à un id
     public static TM_Specification getSpecForVal(int id){
         TM_Specification s = new TM_Specification(id);
         ArrayList<TM_Specification> specs = SpecificationDao.getListeSpec();
@@ -85,7 +85,7 @@ public class ComposantDao {
             }
         }
         return s;
-    }
+    } // getSpecForVal
     
     /** Récupère le type de composant relié à un id **/
     public static TM_ComposantType getCompType(int cotid){
@@ -96,9 +96,9 @@ public class ComposantDao {
             }
         }
         return new TM_ComposantType(-1,"inconnu");
-    }
+    } // getCompType
     
-    /** Récupère la marque relié à un id **/
+    // Récupère la marque relié à un id
     public static TM_Marque getMarque(int marid){
         ArrayList<TM_Marque> marques = MarqueDao.getListeMarque();
         for (TM_Marque m : marques){
@@ -107,9 +107,9 @@ public class ComposantDao {
             }
         }
         return new TM_Marque(-1,"inconnu",new ArrayList<TM_ComposantType>());
-    }
+    } // getMarque
     
-    /** Insert un composant **/
+    // Crée un composant 
     public static void insert (TM_Composant c) {
         try {
             Connection con = ConnexionBase.get();
@@ -141,8 +141,7 @@ public class ComposantDao {
         }   
     } // insert
     
-    /** Modifie un composant **/
-
+    // Modifie un composant 
     public static void update (TM_Composant c) {
         int step = 0;
         try {
@@ -183,7 +182,7 @@ public class ComposantDao {
     } // update
     
     
-    /** Supprime un composant **/
+    // Supprime un composant 
     public static void delete (TM_Composant c) {
         int step = 0;
         try {
@@ -215,4 +214,4 @@ public class ComposantDao {
             System.err.println("ComposantDao.delete() - etape "+step+" : " + ex.getMessage());
         }   
     } // delete
-}
+} // ComposantDao

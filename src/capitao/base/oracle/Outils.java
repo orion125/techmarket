@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class Outils {
 
-  /** Retourne une connexion avec une base de données MySQL. */
+  // Retourne une connexion avec une base de données Oracle. 
   public static Connection connect (String nomBase) throws ClassNotFoundException, SQLException {
     Class.forName("oracle.jdbc.OracleDriver");
     Properties props = new Properties();

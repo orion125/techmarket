@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class ManagerDao {
   
-    /** Retourne la liste des manager */
+    // Retourne la liste des manager 
     public static ArrayList getListeManager () {
       ArrayList lst = new ArrayList();
       try {
@@ -38,6 +38,6 @@ public class ManagerDao {
       return lst;
     } // getListeManager
     
-}
+} // ManagerDao
  
 

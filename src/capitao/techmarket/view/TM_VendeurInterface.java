@@ -35,7 +35,9 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     
+    // Initialise la fénètre
     private void initFen(){
+        // Charge le fichier de configuration et l'affiche dans les champs textes.
         String conf = FileToStr.read(new File("").getAbsolutePath() +"/config.cfg");
         StringTokenizer stLigne = new StringTokenizer(conf,";");
         int i = 0;
@@ -52,6 +54,32 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
         tfCP.setText(data[2]);
     }
 
+    // Gére l'import de donnée SQL
+    public void menuImport() {
+        // initialise le dossier de destination 
+        // (emplacement exécutable /data/) 
+        JFileChooser fc_import =new JFileChooser("./data");
+        
+        // Crée le filtre d'import en .sql et l'attribue à l'explorateur de fichier
+        FileFilter filter1 = new ExtensionFileFilter("Fichier de base de données", new String[] {"sql"});
+        fc_import.setFileFilter( filter1 );
+        fc_import.setAcceptAllFileFilterUsed(false);
+        int result= fc_import.showOpenDialog(null);
+        if(result==JFileChooser.CANCEL_OPTION)
+            return;
+        // Récupère l'emplacement exacte du fichier
+        String BD=fc_import.getSelectedFile().getAbsolutePath();
+        File fileBD = fc_import.getSelectedFile();
+        try {
+            // Importe le fichier de donnée SQL.
+            importSql.importDB(fileBD);
+        } catch (SQLException ex) {
+            System.err.println("TM_VendeurInterface.menuImportActionPerformed: " + ex.getMessage());
+        } catch (Exception ex){
+            System.err.println("TM_VendeurInterface.menuImportActionPerformed: " + ex.getMessage());
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -241,23 +269,7 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuImportActionPerformed
-        //Create a file chooser
-        JFileChooser fc_import =new JFileChooser("./data");
-        FileFilter filter1 = new ExtensionFileFilter("Fichier de base de données", new String[] {"sql"});
-        fc_import.setFileFilter( filter1 );
-        fc_import.setAcceptAllFileFilterUsed(false);
-        int result= fc_import.showOpenDialog(null);
-        if(result==JFileChooser.CANCEL_OPTION)
-            return;
-        String BD=fc_import.getSelectedFile().getAbsolutePath();
-        File fileBD = fc_import.getSelectedFile();
-        try {
-            importSql.resetDatabase(fileBD);
-        } catch (SQLException ex) {
-            System.err.println("TM_VendeurInterface.menuImportActionPerformed: " + ex.getMessage());
-        } catch (Exception ex){
-            System.err.println("TM_VendeurInterface.menuImportActionPerformed: " + ex.getMessage());
-        }
+        menuImport();
     }//GEN-LAST:event_menuImportActionPerformed
 
     private void menuQuitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuQuitterActionPerformed

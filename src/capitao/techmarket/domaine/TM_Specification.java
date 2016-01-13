@@ -20,7 +20,6 @@ public class TM_Specification {
         this(id, nom, compoTypes, new ArrayList<TM_SpecificationAsValue>());
     }
 
-
     public TM_Specification(int id, String nom, ArrayList<TM_ComposantType> compoTypes, ArrayList<TM_SpecificationAsValue> valpos ) {
         this.id = id;
         this.nom = nom;
@@ -45,17 +44,7 @@ public class TM_Specification {
         return nom;
     }
 
-
-    public String getValMin(){
-        return getValpos().get(0).getValue();
-    }
-    
-    
-    public String getValMax(){
-        return getValpos().get(valpos.size()-1).getValue();
-    }
-    
-    
+    // Vérifie si une spécification est relié a une catégorie de composant donnée
     public boolean hasTypeComposant(TM_ComposantType compoType){ 
         for (int i = 1; i <= this.compoTypes.size(); i++) {
             if (compoType == this.compoTypes.get(i)){
@@ -65,30 +54,18 @@ public class TM_Specification {
         return false;
     }
     
-    /**
-     * @return the id
-     */
     public int getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(int id) {
         this.id = id;
     }
 
-    /**
-     * @return the nom
-     */
     public String getNom() {
         return nom;
     }
 
-    /**
-     * @param nom the nom to set
-     */
     public void setNom(String nom) {
         this.nom = nom;
     }
@@ -100,6 +77,8 @@ public class TM_Specification {
     public void addValpos (TM_SpecificationAsValue spv) {
         this.valpos.add(spv);
     }
+    
+    // Sert à lister les valeur possible d'une spécification
     public String printValPos(){
         String valPostoString = "";
         for (int i = 0; i < this.valpos.size();i++){
@@ -108,6 +87,7 @@ public class TM_Specification {
         return valPostoString;
     }
     
+    // Vérifie une valeur est posséder par une spécification
     public boolean hasValPos(String s){
         int pos = -1;
         for (int i = 0; i < this.valpos.size();i++){

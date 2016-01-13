@@ -25,6 +25,7 @@ public class TM_CRUD_CompoType extends javax.swing.JFrame {
         return MyWindows;
     }    
     
+    // Initialise la liste des catégories de composants
     public void initList(){
         CompoType = ComposantTypeDao.getListeCatCompo() ;
         for (TM_ComposantType ct : CompoType) 
@@ -40,6 +41,8 @@ public class TM_CRUD_CompoType extends javax.swing.JFrame {
         initList();
     }
 
+    // Détermine le type d'action a effectué et vérifie si les champs son remplie
+    // puis appel le DAO pour l'ajout ou la modification des données
     public void valider(){
         if (mod.equals("Add")){
             if (!tfName.getText().equals("")){
@@ -256,6 +259,7 @@ public class TM_CRUD_CompoType extends javax.swing.JFrame {
         btMod.setEnabled(true);
     }//GEN-LAST:event_listCompoTypeItemStateChanged
 
+    // Adapte la taille de la fenètre pour cacher les champs de modification en mode liste
     public void resize(boolean minmax){
         int width = 0;
         if (minmax){

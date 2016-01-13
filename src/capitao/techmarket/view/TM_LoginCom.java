@@ -25,16 +25,7 @@ public class TM_LoginCom extends javax.swing.JFrame {
         MyWindows.listToUnlock = listToUnlock;
         return MyWindows;    
     }   
-    
-    public static void choix(String args) {
-        if (args.equals("Client")){
-            TM_ClientInterface.getInstance().setVisible(true);
-        }else if (args.equals("Manager")){
-            TM_VendeurInterface.getInstance().setVisible(true);
-        }
-        MyWindows.dispose();
-    }     
-    
+      
     /**
      * Creates new form TM_Login
      */
@@ -44,11 +35,13 @@ public class TM_LoginCom extends javax.swing.JFrame {
         loginActivation ();
     }
 
+    // Vérifie que les champs nom d'utilisateur et mot de passe sont remplie
     public void loginActivation (){
         jbtLogin.setEnabled(!(jtf_Username.getText().equals(""))
                           && (jpw_Password.getPassword().length > 0));
     }
     
+    // Vérifie que les information de login correpondent à un des manager
     public boolean infoCorrect(){
         TM_Manager temp = new TM_Manager(jtf_Username.getText(),
                                 new String(jpw_Password.getPassword()));

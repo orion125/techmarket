@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class MarqueDao {
   
-    /** Retourne la liste des employés, dans l'ordre des nom et prénom. */
+    // Retourne la liste des marques 
     public static ArrayList getListeMarque () {
         ArrayList<TM_ComposantType> ar = ComposantTypeDao.getListeCatCompo();
         ArrayList lst = new ArrayList();
@@ -47,9 +47,10 @@ public class MarqueDao {
             return null;
         }
         return lst;
-    } // getListeEmployes
+    } // getListeMarque
     
-       public static ArrayList getListeMarque (TM_ComposantType ct) {
+    // Récupère la liste des marque pour une catégorie de composant donnée
+    public static ArrayList getListeMarque (TM_ComposantType ct) {
         ArrayList<TM_ComposantType> ar = ComposantTypeDao.getListeCatCompo();
         ArrayList lst = new ArrayList();
         try {
@@ -81,8 +82,9 @@ public class MarqueDao {
             return null;
         }
         return lst;
-    } // getListeEmployes
+    } // getListeMarque (TM_ComposantType)
     
+    // Récupère le type de composant pour une marque
     public static ArrayList getCompType(int marid){
         ArrayList lst = new ArrayList();
         try {
@@ -103,9 +105,9 @@ public class MarqueDao {
             return null;
         }
         return lst;
-    }
+    } // getCompType
    
-    
+    // Crée une marque
     public static void insert (TM_Marque m) {
         try {
             Connection con = ConnexionBase.get();
@@ -130,6 +132,7 @@ public class MarqueDao {
         }   
     } // insert
     
+    // Modifier une marque
     public static void update (TM_Marque m) {
         int step = 0;
         try {
@@ -165,6 +168,7 @@ public class MarqueDao {
         }   
     } // update
     
+    // Supprimer une marque
     public static void delete (TM_Marque m) {
         int step = 0;
         try {
@@ -190,4 +194,4 @@ public class MarqueDao {
             System.err.println("MarqueDao.delete() - etape "+step+" : " + ex.getMessage());
         }   
     } // delete
-}
+} // MarqueDao

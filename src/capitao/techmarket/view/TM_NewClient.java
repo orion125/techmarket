@@ -30,7 +30,33 @@ public class TM_NewClient extends javax.swing.JFrame {
         this.MyWindowsparent = parent;
         this.setLocationRelativeTo(null);
     }
-
+    
+    // Crée un nouveau client.
+    public void creeClient(){
+        String[] dataCli = new String[5];
+        // Vérification des données obligatoire
+        if (!(tfNom.getText().equals("")) && !(tfPrenom.getText().equals(""))){
+            dataCli[0] = tfPrenom.getText();
+            dataCli[1] = tfNom.getText(); 
+            // Teste des données facultative et initialisation à null si vide
+            dataCli[2] =  (tfAdresse.getText().equals("")) ? null : tfAdresse.getText();
+            dataCli[3] =  (tfTel.getText().equals("")) ? null : tfTel.getText() ;
+            dataCli[4] =  (tfMail.getText().equals("")) ? null : tfMail.getText();
+            
+            newCli = new TM_Client(
+                    -1, // ce -1 sera remplacé par la clé du prochain client (retrouvée dans la base de données)
+                    dataCli[0], 
+                    dataCli[1], 
+                    dataCli[2], 
+                    dataCli[3], 
+                    dataCli[4]
+            );
+            ClientDao.insert(newCli);
+            // Fait correspondre le client crée au client sélectionner.
+            MyWindowsparent.setClient(newCli);
+            this.dispose();
+        }
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -168,26 +194,7 @@ public class TM_NewClient extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtValidezActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtValidezActionPerformed
-        String[] dataCli = new String[5];
-        if (!(tfNom.getText().equals("")) && !(tfPrenom.getText().equals(""))){
-            dataCli[0] = tfPrenom.getText();
-            dataCli[1] = tfNom.getText(); 
-            dataCli[2] =  (tfAdresse.getText().equals("")) ? null : tfAdresse.getText();
-            dataCli[3] =  (tfTel.getText().equals("")) ? null : tfTel.getText() ;
-            dataCli[4] =  (tfMail.getText().equals("")) ? null : tfMail.getText();
-            
-            newCli = new TM_Client(
-                    -1, // ce -1 sera remplacé par la clé du prochain client (retrouvée dans la base de données)
-                    dataCli[0], 
-                    dataCli[1], 
-                    dataCli[2], 
-                    dataCli[3], 
-                    dataCli[4]
-            );
-            ClientDao.insert(newCli);
-            MyWindowsparent.setClient(newCli);
-            this.dispose();
-        }
+        creeClient();
     }//GEN-LAST:event_jbtValidezActionPerformed
 
     private void men_help_apropos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_men_help_apropos1ActionPerformed

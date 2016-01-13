@@ -7,6 +7,7 @@ import java.awt.event.*;
  * @author jonathan.capitao
  */
 public class filterTools {
+    // Prépare un filtre pour champ texte acceptant les nombres positif et négatif
     public static void filterPositiveEtNegativeInt(java.awt.event.KeyEvent evt){
         char c = evt.getKeyChar() ;
 
@@ -21,8 +22,9 @@ public class filterTools {
                 evt.consume();
             }
         }     
-    }
+    } // filterPositiveEtNegativeInt
   
+    // Prépare un filtre pour champ texte acceptant les nombres positif uniquement
     public static void filterPositiveInt(java.awt.event.KeyEvent evt){
         char c = evt.getKeyChar() ;
 
@@ -32,8 +34,10 @@ public class filterTools {
         {
             evt.consume() ;
         }   
-    } 
+    } // filterPositiveInt
     
+    // Prépare un filtre pour champ texte acceptant les chiffres et le plus comme
+    // premier caractère comme un numéro de téléphone au format internationnal
     public static void filterTel(java.awt.event.KeyEvent evt){
         char c = evt.getKeyChar() ;
 
@@ -48,5 +52,5 @@ public class filterTools {
                 evt.consume();
             }
         }   
-    }     
-}
+    }  // filterTel  
+} // filterTools

@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class ComposantTypeDao {
   
-    /** Retourne la liste des employés, dans l'ordre des nom et prénom. */
+    /** Retourne la liste des catégories de composants */
     public static ArrayList<TM_ComposantType> getListeCatCompo () {
       ArrayList lst = new ArrayList();
       try {
@@ -36,10 +36,10 @@ public class ComposantTypeDao {
           return null;
       }
       return lst;
-    } // getListeEmployes
+    } // getListeCatCompo
  
     
-    
+    // Crée une catégorie de composant
     public static void insert (TM_ComposantType ct) {
         try {
             Connection con = ConnexionBase.get();
@@ -54,6 +54,7 @@ public class ComposantTypeDao {
         }   
     } // insert
     
+    // Modifier une catégorie de composant
     public static void update (TM_ComposantType ct) {
         try {
             Connection con = ConnexionBase.get();
@@ -73,6 +74,4 @@ public class ComposantTypeDao {
         }   
     } // update
     
-  
-    
-}
+} // ComposantTypeDao

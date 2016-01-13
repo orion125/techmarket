@@ -32,6 +32,7 @@ public class TM_PanierInterface extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     
+    // Charge le panier dans la liste (et calcule les totaux)
     private void initList(){
         double prixTot = 0.0;
         list_compoCommandes.removeAll();
@@ -168,7 +169,7 @@ public class TM_PanierInterface extends javax.swing.JFrame {
     private void list_compoCommandesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_list_compoCommandesItemStateChanged
         valideur();
     }//GEN-LAST:event_list_compoCommandesItemStateChanged
-
+    // Gestion du bouton supprimer
     public void valideur(){
         jbt_panSuppr.setEnabled(list_compoCommandes.getSelectedIndexes().length > 0);
     }

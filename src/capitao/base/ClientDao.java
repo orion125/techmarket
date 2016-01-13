@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class ClientDao {
   
-    /** Retourne la liste des clients */
+    // Retourne la liste des clients 
     public static ArrayList getListeClient () {
       ArrayList lst = new ArrayList();
       try {
@@ -44,7 +44,7 @@ public class ClientDao {
       return lst;
     } // getListeClient
  
-    /** Ajoute un client **/
+    // Ajoute un client 
     public static int insert (TM_Client client) {
         int id_empl = -1;
         try {
@@ -71,25 +71,4 @@ public class ClientDao {
         }   
         return id_empl;
     } // insert
-    
-    /** Modifie un client **/
-    public static void update (TM_Client client) {
-        try {
-            Connection con = ConnexionBase.get();
-            PreparedStatement stmt = con.prepareStatement(
-                      "UPDATE vw_client "
-                      + "SET cli_nom = "+client.getNom()+","
-                          + "cli_prenom = "+client.getPrenom()+","
-                          + "cli_telephone = "+client.getTelephone()+","
-                          + "cli_address = "+client.getAddress()+","
-                          + "cli_mail = "+client.getMail()+" "
-                      + "WHERE cli_id = "+client.getId()
-            );
-            stmt.executeUpdate();
-            stmt.close();
-        } catch (SQLException ex) {
-            System.err.println("ClientDao.insert(): " + ex.getMessage());
-        }   
-    } // update
-    
-}
+} // ClientDao

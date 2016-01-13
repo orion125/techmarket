@@ -30,6 +30,7 @@ public class TM_Emplacement {
         return Emplacement;
     }
     
+    // Un emplacement ce vérifie avec toutes ces données
     public boolean equals(TM_Emplacement o){
         return ((this.getId() == o.getId()) || 
                 (this.getEmplacement() == o.getEmplacement())

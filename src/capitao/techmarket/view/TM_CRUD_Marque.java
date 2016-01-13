@@ -35,7 +35,8 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         initList();
     }
-
+    
+    // Initialise les ArrayListes
     public void initList(){
         ct = ComposantTypeDao.getListeCatCompo();
         mar = MarqueDao.getListeMarque();
@@ -44,6 +45,8 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
         }
     }
     
+    // Détermine le type d'action a effectué et vérifie si les champs son remplie
+    // puis appel le DAO pour l'ajout ou la modification des données
     public void valider(){
         ArrayList<TM_ComposantType> ctUsed = getCompoTypeUtilis();
         if (mod.equals("Add")){
@@ -75,6 +78,7 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
         initList();
     }
     
+    // Récupère les types de composant utiliser
     public ArrayList<TM_ComposantType> getCompoTypeUtilis(){
         String[] st = listTypeCompoUsed.getItems();
         ArrayList<TM_ComposantType> ctUsed = new ArrayList<TM_ComposantType>();
@@ -87,10 +91,12 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
         }
         return ctUsed;
     }
+    // nétoie les listes
     public void clean(){
         listTypeCompo.removeAll();
         listTypeCompoUsed.removeAll();
     }
+    // Passe la fenètre en modification
     public void mod(){
         clean();
         btRemoveType.setEnabled(false);
@@ -100,7 +106,7 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
         tfName.setText(marqueActu.toString());
         actu();
     }
-    
+    // Passe la fenètre en ajout
     public void add(){
         clean();
         btRemoveType.setEnabled(true);
@@ -109,7 +115,7 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
         tfName.setText("");
         actu();
     }
-    
+    // Actualise les données
     public void actu(){
         clean();
         if (mod.equals("Mod")){
@@ -122,7 +128,7 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
             for (TM_ComposantType compT : ct) listTypeCompo.add(compT.toString());
         }
     }
-    
+    // Gestion des boutons flècher pour les catégories de composants
     public void selectActu(){
         if (listTypeCompo.getItemCount() > 0)
             btAddNewType.setEnabled(listTypeCompo.getSelectedIndex()>-1); 
@@ -423,7 +429,8 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
         btMod.setEnabled(true);
         btSuppr.setEnabled(true);
     }//GEN-LAST:event_listMarqueItemStateChanged
-
+    // Détermine le type d'action a effectué et vérifie si les champs son remplie
+    // puis appel le DAO pour l'ajout ou la modification des données
     public void resize(boolean minmax){
         int width = 0;
         if (minmax){
