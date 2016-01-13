@@ -9,3 +9,5 @@
 Information le dossier /data et le fichier de configuration concerner par l'application dépend de : 
 	Si on la lance avec NetBeans
 	Ou avec l'executable
+
+
