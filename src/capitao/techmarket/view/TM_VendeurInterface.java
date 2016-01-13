@@ -316,7 +316,8 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
     private void tfCPTextValueChanged(java.awt.event.TextEvent evt) {//GEN-FIRST:event_tfCPTextValueChanged
         maj();
     }//GEN-LAST:event_tfCPTextValueChanged
-
+    
+    // Gére la mise à jour des champs
     public void maj(){
         int lign = 1;
         data[0] = tfSoc.getText();
@@ -325,6 +326,7 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
         String[] configContent = new String[lign];
         configContent[0] = "Societe:"+data[0]+";SocAdr:"
                 +data[1]+";CodePost:"+data[2];
+        // écrit les nouvelles données dans le fichier de configuration.
         FileToStr.write(new File("").getAbsolutePath() +"/config.cfg", configContent);
     }
     
