@@ -82,7 +82,11 @@ public class TM_Specification {
     public String printValPos(){
         String valPostoString = "";
         for (int i = 0; i < this.valpos.size();i++){
-            valPostoString+= ((TM_SpecificationAsValue)valpos.get(i)).getValue()+" ";
+            valPostoString+= ((TM_SpecificationAsValue)valpos.get(i)).getValue();
+            if (i < this.valpos.size()-1){
+                
+                valPostoString+= ", ";
+            }
         }
         return valPostoString;
     }
