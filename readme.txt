@@ -3,7 +3,7 @@
 * Date     : 13.01.2016                                                                                                                *
 * Version  : 1.2                                                                                                                       *
 * Language : JAVA (JDK 8)                                                                                                              *
-* IDE	   : Netbeans                                                                                                                  *
+* IDE	   : Netbeans                                                                                                                 *
 ****************************************************************************************************************************************
 
 Information le dossier /data et le fichier de configuration concerner par l'application dépend de : 
