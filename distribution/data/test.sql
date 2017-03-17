@@ -1,1 +1,0 @@
-INSERT INTO vw_composant VALUES (seq_cmp_id.NEXTVAL,'Mad Catz S.T.R.I.K.E 8',340.40,5,6);

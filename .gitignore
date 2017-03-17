@@ -1,5 +1,5 @@
-/CAPITAO_TechMarket/build/
-/CAPITAO_TechMarket/nbproject/private/
+/build/
+/distribution/
 /Scripts DB/Logs/
 /nbproject/private/
 /build/
@@ -16,6 +16,8 @@
 *.jar
 *.war
 *.ear
+build.xml
+manifest.mf
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
