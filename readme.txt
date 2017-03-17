@@ -11,3 +11,4 @@ Information le dossier /data et le fichier de configuration concerner par l'appl
 	Ou avec l'executable
 
 
+Ce projet est totalement mal codé ! 
