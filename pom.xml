@@ -5,8 +5,45 @@
    <groupId>ch.hesge.capitao</groupId>
    <artifactId>techmarket</artifactId>
    <version>0.0.1-SNAPSHOT</version>
+   
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.oracle/ojdbc6 -->
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>11.1.0.7.0</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.4.3</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+	
+    <repositories>
+        <repository>
+            <id>Oracle jdbc</id>
+            <url>http://maven.jahia.org/maven2/</url>  
+        </repository>
+    </repositories>
 </project>

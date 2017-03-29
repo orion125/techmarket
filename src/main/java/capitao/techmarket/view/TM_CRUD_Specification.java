@@ -44,7 +44,7 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
         loadList();
     }
     
-    // charge la liste des sp√©cifications
+    // charge la liste des spÈcifications
     public void loadList(){
         listSpec.removeAll();
         for (TM_Specification s : spcs){
@@ -52,7 +52,7 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
         }
     }
 
-    // R√©cup√®re les types de composant utiliser
+    // RÈcup√®re les types de composant utiliser
     public ArrayList<TM_ComposantType> getCompoTypeUtilis(){
         String[] st = listTypeCompoUsed.getItems();
         ArrayList<TM_ComposantType> ctUsed = new ArrayList<TM_ComposantType>();
@@ -66,7 +66,7 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
         return ctUsed;
     }    
     
-    // N√©toie les listes
+    // NÈtoie les listes
     public void clean(){
         listTypeCompo.removeAll();
         listTypeCompoUsed.removeAll();
@@ -103,7 +103,7 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
         actu();
     }
     
-    // Actualise les donn√©es
+    // Actualise les donnÈes
     public void actu(){
         clean();
         if (mod.equals("Mod")){
@@ -120,7 +120,7 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
         }
     }
     
-    // Gestion des boutons fl√®cher pour les cat√©gories de composants
+    // Gestion des boutons fl√®cher pour les catÈgories de composants
     public void selectActu(){
         if (listTypeCompo.getItemCount() > 0)
             btAddNewType.setEnabled(listTypeCompo.getSelectedIndex()>-1); 
@@ -133,8 +133,8 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
             btRemoveType.setEnabled(false);
     } 
     
-    // D√©termine le type d'action a effectu√© et v√©rifie si les champs son remplie
-    // puis appel le DAO pour l'ajout ou la modification des donn√©es
+    // DÈtermine le type d'action a effectuÈ et vÈrifie si les champs son remplie
+    // puis appel le DAO pour l'ajout ou la modification des donnÈes
     public void valider(){
         ArrayList<TM_ComposantType> ctUsed = getCompoTypeUtilis();
         if (mod.equals("Add")){
@@ -147,8 +147,8 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
                 spcs.add(specActu);
             } else {
                 JOptionPane.showMessageDialog(this
-                        , "Veuillez remplir toutes les donn√©es de la page"
-                        , "Erreur : Donn√©es manquantes"
+                        , "Veuillez remplir toutes les donnÈes de la page"
+                        , "Erreur : DonnÈes manquantes"
                         , JOptionPane.ERROR_MESSAGE
                 );
             }
@@ -163,8 +163,8 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
                 SpecificationDao.update(specActu);
             } else {
                 JOptionPane.showMessageDialog(this
-                        , "Veuillez remplir toutes les donn√©es de la page"
-                        , "Erreur : Donn√©es manquantes"
+                        , "Veuillez remplir toutes les donnÈes de la page"
+                        , "Erreur : DonnÈes manquantes"
                         , JOptionPane.ERROR_MESSAGE
                 );
             }
@@ -219,7 +219,7 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
         men_help_apropos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gestion des sp√©cifications");
+        setTitle("Gestion des spÈcifications");
         setPreferredSize(new java.awt.Dimension(295, 527));
         setResizable(false);
 
@@ -259,7 +259,7 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
             }
         });
 
-        lbName.setText("Libell√© de la sp√©cification");
+        lbName.setText("LibellÈ de la spÈcification");
 
         lbTypeAssoc.setText("Types de composants");
 
@@ -275,7 +275,7 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
             }
         });
 
-        lbTypeUsed.setText("Utilis√©s");
+        lbTypeUsed.setText("UtilisÈs");
 
         btAddNewType.setIcon(new javax.swing.ImageIcon(getClass().getResource("/capitao/techmarket/view/image/green_globe_right_arrow_559_rs.jpg"))); // NOI18N
         btAddNewType.setEnabled(false);
@@ -310,7 +310,7 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
             }
         });
 
-        btReiniVal.setText("R√©initialiser les valeurs");
+        btReiniVal.setText("RÈinitialiser les valeurs");
         btReiniVal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btReiniValActionPerformed(evt);
@@ -425,7 +425,7 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        lbListCompoType.setText("Liste des sp√©cifications");
+        lbListCompoType.setText("Liste des spÈcifications");
 
         menuMain.setText("Fichier");
 
@@ -443,7 +443,7 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
         men_help.setText("Aide");
 
         men_help_apropos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-        men_help_apropos.setText("√Ä propos");
+        men_help_apropos.setText("¿ propos");
         men_help_apropos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 men_help_aproposActionPerformed(evt);
@@ -567,19 +567,19 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
         btMod.setEnabled(true);
         btSuppr.setEnabled(true);
     }//GEN-LAST:event_listSpecItemStateChanged
-    // Suppression d'une sp√©cification de la liste
+    // Suppression d'une spÈcification de la liste
     public void suppr(TM_Specification s){
         SpecificationDao.delete(s);
         spcs.remove(s);
         initList();
     }
-    // V√©rification des bouton
+    // VÈrification des bouton
     public void btvalStat (){
         jbtValUp.setEnabled((listValeurSpec.getSelectedIndex() > 0));
         jbtValDown.setEnabled((listValeurSpec.getSelectedIndex() < listValeurSpec.getItemCount()-1));
     }
     
-    // D√©place les valeurs de sp√©cifications dans la liste
+    // DÈplace les valeurs de spÈcifications dans la liste
     public void upDown (int val){                                     
         String[] valList = listValeurSpec.getItems();
         int aMove = listValeurSpec.getSelectedIndex();
@@ -598,8 +598,8 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
         btvalStat();
     }
     
-    // D√©termine le type d'action a effectu√© et v√©rifie si les champs son remplie
-    // puis appel le DAO pour l'ajout ou la modification des donn√©es
+    // DÈtermine le type d'action a effectuÈ et vÈrifie si les champs son remplie
+    // puis appel le DAO pour l'ajout ou la modification des donnÈes
     public void resize(boolean minmax){
         int width = 0;
         if (minmax){
@@ -691,16 +691,16 @@ public class TM_CRUD_Specification extends javax.swing.JFrame {
             int valNum = Integer.parseInt(newVal);
             if (valNum > -1){
                 if (typeIsInt==false){
-                    JOptionPane.showMessageDialog(this, "Vous avez choisi une valeur num√©rique, "+
-                        "vous ne pouvez plus entrer de valeur texte √† moins de r√©initialiser les valeurs",
-                        "Attention : Valeur num√©rique choisie", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Vous avez choisi une valeur numÈrique, "+
+                        "vous ne pouvez plus entrer de valeur texte √† moins de rÈinitialiser les valeurs",
+                        "Attention : Valeur numÈrique choisie", JOptionPane.WARNING_MESSAGE);
                     typeIsInt = true;
                 }
                 return;
             }else {
                 if (valNum <= -1)
-                JOptionPane.showMessageDialog(this, "Les valeures num√©riques doivent √™tre positives",
-                    "Erreur : Valeur n√©gative", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Les valeures numÈriques doivent √™tre positives",
+                    "Erreur : Valeur nÈgative", JOptionPane.ERROR_MESSAGE);
             }
             listValeurSpec.add(tfNewVal.getText());
         }else{

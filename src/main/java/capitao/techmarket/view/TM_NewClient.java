@@ -31,20 +31,20 @@ public class TM_NewClient extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     
-    // CrÃ©e un nouveau client.
+    // Crée un nouveau client.
     public void creeClient(){
         String[] dataCli = new String[5];
-        // VÃ©rification des donnÃ©es obligatoire
+        // Vérification des données obligatoire
         if (!(tfNom.getText().equals("")) && !(tfPrenom.getText().equals(""))){
             dataCli[0] = tfPrenom.getText();
             dataCli[1] = tfNom.getText(); 
-            // Teste des donnÃ©es facultative et initialisation Ã  null si vide
+            // Teste des données facultative et initialisation Ã  null si vide
             dataCli[2] =  (tfAdresse.getText().equals("")) ? null : tfAdresse.getText();
             dataCli[3] =  (tfTel.getText().equals("")) ? null : tfTel.getText() ;
             dataCli[4] =  (tfMail.getText().equals("")) ? null : tfMail.getText();
             
             newCli = new TM_Client(
-                    -1, // ce -1 sera remplacÃ© par la clÃ© du prochain client (retrouvÃ©e dans la base de donnÃ©es)
+                    -1, // ce -1 sera remplacé par la clé du prochain client (retrouvée dans la base de données)
                     dataCli[0], 
                     dataCli[1], 
                     dataCli[2], 
@@ -52,7 +52,7 @@ public class TM_NewClient extends javax.swing.JFrame {
                     dataCli[4]
             );
             ClientDao.insert(newCli);
-            // Fait correspondre le client crÃ©e au client sÃ©lectionner.
+            // Fait correspondre le client crée au client sélectionner.
             MyWindowsparent.setClient(newCli);
             this.dispose();
         }

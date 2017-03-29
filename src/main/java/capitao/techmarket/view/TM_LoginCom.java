@@ -35,13 +35,13 @@ public class TM_LoginCom extends javax.swing.JFrame {
         loginActivation ();
     }
 
-    // VÃ©rifie que les champs nom d'utilisateur et mot de passe sont remplie
+    // Vérifie que les champs nom d'utilisateur et mot de passe sont remplie
     public void loginActivation (){
         jbtLogin.setEnabled(!(jtf_Username.getText().equals(""))
                           && (jpw_Password.getPassword().length > 0));
     }
     
-    // VÃ©rifie que les information de login correpondent Ã  un des manager
+    // Vérifie que les information de login correpondent Ã  un des manager
     public boolean infoCorrect(){
         TM_Manager temp = new TM_Manager(jtf_Username.getText(),
                                 new String(jpw_Password.getPassword()));
@@ -143,8 +143,8 @@ public class TM_LoginCom extends javax.swing.JFrame {
             listToUnlock.setEnabled(true);
             this.dispose();
         }else{
-            JOptionPane.showMessageDialog(this, "Nom d'utilisateur ou mot de passe erronÃ©"
-                    , "Erreur : Indentifiants erronÃ©s", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Nom d'utilisateur ou mot de passe erroné"
+                    , "Erreur : Indentifiants erronés", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbtLoginActionPerformed
 

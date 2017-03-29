@@ -52,7 +52,7 @@ public class TM_ClientInterface extends javax.swing.JFrame {
     }
     
     // Initlise le menu et l'arrayList contenant la liste des composant
-    // et attribue le listener d'√©venements
+    // et attribue le listener d'Èvenements
     private void initCompoTypeList (){     
         CompoType = ComposantTypeDao.getListeCatCompo() ; 
         JMenuItem menElemActu = null;
@@ -78,7 +78,7 @@ public class TM_ClientInterface extends javax.swing.JFrame {
         }
     }
    
-    // Initialise la liste & arraylist des sp√©cification
+    // Initialise la liste & arraylist des spÈcification
     private void initSpecList(TM_ComposantType cp){
         Specs = SpecificationDao.getListeSpec(cp);
         list_spec.removeAll();
@@ -91,7 +91,7 @@ public class TM_ClientInterface extends javax.swing.JFrame {
         }
     }
     
-    // Sous la s√©lection d'une cat√©gorie de composant
+    // Sous la sÈlection d'une catÈgorie de composant
     // Met √† jour le GUI et appel l'initialisation des listes & arraylist
     public void menuCompTypeActionPerformed(String Source){
         for (int i = 0; i < CompoType.size(); i++) {
@@ -128,7 +128,7 @@ public class TM_ClientInterface extends javax.swing.JFrame {
         Double.parseDouble(tf_prixMax.getText()) : 9999999.95;
         for (TM_Composant c : allComp){
             ComposantDao.setSpecAsValue(c);
-            // Appel la v√©rification de composant par rapport au crit√®re
+            // Appel la vÈrification de composant par rapport au crit√®re
             if (verif(c,m,s, max, min)){
                 ComposantsTrouvee.add(c);
                 list_composants.add(c.toString());
@@ -136,7 +136,7 @@ public class TM_ClientInterface extends javax.swing.JFrame {
         }
     }
     
-    // V√©rifie si un composant correspond √† une liste de crit√®res
+    // VÈrifie si un composant correspond √† une liste de crit√®res
     public boolean verif (TM_Composant c, TM_Marque m, TM_SpecificationAsValue s,
                             double prixMax, double prixMin){
         boolean vpmin = true; boolean vpmax = true;
@@ -162,7 +162,7 @@ public class TM_ClientInterface extends javax.swing.JFrame {
         return vpmin&&vpmax&&vs&&vm&&verif(c);
     }
     
-    // v√©rifie si un composant fait partie d'une cat√©gorie de composant
+    // vÈrifie si un composant fait partie d'une catÈgorie de composant
     public boolean verif (TM_Composant c){
         return c.getCompoType().equals(cp);
     }
@@ -398,8 +398,8 @@ public class TM_ClientInterface extends javax.swing.JFrame {
     private void tf_prixGestTextValueChanged(java.awt.event.TextEvent evt) {//GEN-FIRST:event_tf_prixGestTextValueChanged
         verifPrix();
     }//GEN-LAST:event_tf_prixGestTextValueChanged
-    // V√©rifie si les valeurs entr√©es dans les champs de prix minimal et maximal
-    // sont coh√©rente.
+    // VÈrifie si les valeurs entrÈes dans les champs de prix minimal et maximal
+    // sont cohÈrente.
     void verifPrix(){
         double min = (tf_prixMin.getText().length() > 0)? 
                 Double.parseDouble(tf_prixMin.getText()) : 0.0;
@@ -407,8 +407,8 @@ public class TM_ClientInterface extends javax.swing.JFrame {
                 Double.parseDouble(tf_prixMax.getText()) : 9999999.95;
         if (min > max){
             JOptionPane.showMessageDialog(this,
-                    "Erreur le prix minimal ne peut pas d√©passer le prix maximal",
-                    "Erreur : Prix minimal trop √©lev√©",
+                    "Erreur le prix minimal ne peut pas dÈpasser le prix maximal",
+                    "Erreur : Prix minimal trop ÈlevÈ",
                     JOptionPane.ERROR_MESSAGE);
             tf_prixMin.setText("");
         }else{
@@ -452,8 +452,8 @@ public class TM_ClientInterface extends javax.swing.JFrame {
             }
         });
     }
-    // Ajoute un composant dans la panier si il n'y est pas d√©j√†
-    // sinon augmente la quantit√©e de se composant pr√©sent dans la panier
+    // Ajoute un composant dans la panier si il n'y est pas dÈj√†
+    // sinon augmente la quantitÈe de se composant prÈsent dans la panier
     // Format TM_LigneCommande
     private void panAdd() {
         ArrayList<TM_Composant> alcToCp = new ArrayList<TM_Composant>();

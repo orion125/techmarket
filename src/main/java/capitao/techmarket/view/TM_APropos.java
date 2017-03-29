@@ -28,7 +28,7 @@ public class TM_APropos extends javax.swing.JFrame {
         jTextPane1.setText("<strong>Auteur :</strong> Capitao Jonathan <br/>"
                           +"<strong>Version :</strong> 0.20 <br/>"
                           +"<strong>Date de la version :</strong> 13.01.2016 <br/><br/>"
-                          +"Cette application a Ã©tÃ© crÃ©e par TechSellerSA. Toute reproduction mÃªme partielle "
+                          +"Cette application a été crée par TechSellerSA. Toute reproduction mÃªme partielle "
                           +"est interdite. <br/>");
     } // genereAPropos
 
