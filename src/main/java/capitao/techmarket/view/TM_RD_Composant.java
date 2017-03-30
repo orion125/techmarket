@@ -31,7 +31,7 @@ public class TM_RD_Composant extends javax.swing.JFrame {
         initList();
     }
     
-    // R�cupère l'arraylist de composant
+    // Récupère l'arraylist de composant
     public void initList(){
         alComposants = ComposantDao.getListeComp();
         loadList();
@@ -194,7 +194,7 @@ public class TM_RD_Composant extends javax.swing.JFrame {
         btMod.setEnabled(true);
         btSuppr.setEnabled(true);
     }//GEN-LAST:event_listComposantsItemStateChanged
-    // Ouvre la fenètre d'ajout ou de modification des composant et d�termine le mode
+    // Ouvre la fenètre d'ajout ou de modification des composant et détermine le mode
     // dans lequel celle-ci se trouvera.
     public void open(TM_Composant comp){
         TM_CU_Composant cuCompoFrame = TM_CU_Composant.getInstance(this,comp);

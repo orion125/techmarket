@@ -45,8 +45,8 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
         }
     }
     
-    // Détermine le type d'action a effectué et vérifie si les champs son remplie
-    // puis appel le DAO pour l'ajout ou la modification des données
+    // DÃ©termine le type d'action a effectuÃ© et vÃ©rifie si les champs son remplie
+    // puis appel le DAO pour l'ajout ou la modification des donnÃ©es
     public void valider(){
         ArrayList<TM_ComposantType> ctUsed = getCompoTypeUtilis();
         if (mod.equals("Add")){
@@ -55,8 +55,8 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
                 MarqueDao.insert(marqueActu);
             }else{
                 JOptionPane.showMessageDialog(this
-                        , "Veuillez remplir toutes les données de la page"
-                        , "Erreur : Données manquantes"
+                        , "Veuillez remplir toutes les donnÃ©es de la page"
+                        , "Erreur : DonnÃ©es manquantes"
                         , JOptionPane.ERROR_MESSAGE
                 );
             }
@@ -68,8 +68,8 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
                 MarqueDao.update(marqueActu);
             }else{
                 JOptionPane.showMessageDialog(this
-                        , "Veuillez remplir toutes les données de la page"
-                        , "Erreur : Données manquantes"
+                        , "Veuillez remplir toutes les donnÃ©es de la page"
+                        , "Erreur : DonnÃ©es manquantes"
                         , JOptionPane.ERROR_MESSAGE
                 );
             }
@@ -78,7 +78,7 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
         initList();
     }
     
-    // RécupÃ¨re les types de composant utiliser
+    // RÃ©cupÃ¨re les types de composant utiliser
     public ArrayList<TM_ComposantType> getCompoTypeUtilis(){
         String[] st = listTypeCompoUsed.getItems();
         ArrayList<TM_ComposantType> ctUsed = new ArrayList<TM_ComposantType>();
@@ -91,7 +91,7 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
         }
         return ctUsed;
     }
-    // nétoie les listes
+    // nÃ©toie les listes
     public void clean(){
         listTypeCompo.removeAll();
         listTypeCompoUsed.removeAll();
@@ -115,7 +115,7 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
         tfName.setText("");
         actu();
     }
-    // Actualise les données
+    // Actualise les donnÃ©es
     public void actu(){
         clean();
         if (mod.equals("Mod")){
@@ -128,7 +128,7 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
             for (TM_ComposantType compT : ct) listTypeCompo.add(compT.toString());
         }
     }
-    // Gestion des boutons flÃ¨cher pour les catégories de composants
+    // Gestion des boutons flÃ¨cher pour les catÃ©gories de composants
     public void selectActu(){
         if (listTypeCompo.getItemCount() > 0)
             btAddNewType.setEnabled(listTypeCompo.getSelectedIndex()>-1); 
@@ -203,7 +203,7 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
             }
         });
 
-        lbTypeUsed.setText("Utilisés");
+        lbTypeUsed.setText("Utilisï¿½s");
 
         btAddNewType.setIcon(new javax.swing.ImageIcon(getClass().getResource("/capitao/techmarket/view/image/green_globe_right_arrow_559_rs.jpg"))); // NOI18N
         btAddNewType.setEnabled(false);
@@ -329,7 +329,7 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
         men_help.setText("Aide");
 
         men_help_apropos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-        men_help_apropos.setText("À propos");
+        men_help_apropos.setText("ï¿½ propos");
         men_help_apropos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 men_help_aproposActionPerformed(evt);
@@ -429,8 +429,8 @@ public class TM_CRUD_Marque extends javax.swing.JFrame {
         btMod.setEnabled(true);
         btSuppr.setEnabled(true);
     }//GEN-LAST:event_listMarqueItemStateChanged
-    // Détermine le type d'action a effectué et vérifie si les champs son remplie
-    // puis appel le DAO pour l'ajout ou la modification des données
+    // DÃ©termine le type d'action a effectuÃ© et vÃ©rifie si les champs son remplie
+    // puis appel le DAO pour l'ajout ou la modification des donnÃ©es
     public void resize(boolean minmax){
         int width = 0;
         if (minmax){

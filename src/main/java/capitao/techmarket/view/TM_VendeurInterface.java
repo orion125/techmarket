@@ -35,7 +35,7 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     
-    // Initialise la fÈn√®tre
+    // Initialise la f√©n√®tre
     private void initFen(){
         // Charge le fichier de configuration et l'affiche dans les champs textes.
         String conf = FileToStr.read(new File("").getAbsolutePath() +"/config.cfg");
@@ -54,24 +54,24 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
         tfCP.setText(data[2]);
     }
 
-    // GÈre l'import de donnÈe SQL
+    // G√©re l'import de donn√©e SQL
     public void menuImport() {
         // initialise le dossier de destination 
-        // (emplacement exÈcutable /data/) 
+        // (emplacement ex√©cutable /data/) 
         JFileChooser fc_import =new JFileChooser("./data");
         
-        // CrÈe le filtre d'import en .sql et l'attribue √† l'explorateur de fichier
-        FileFilter filter1 = new ExtensionFileFilter("Fichier de base de donnÈes", new String[] {"sql"});
+        // Cr√©e le filtre d'import en .sql et l'attribue √† l'explorateur de fichier
+        FileFilter filter1 = new ExtensionFileFilter("Fichier de base de donn√©es", new String[] {"sql"});
         fc_import.setFileFilter( filter1 );
         fc_import.setAcceptAllFileFilterUsed(false);
         int result= fc_import.showOpenDialog(null);
         if(result==JFileChooser.CANCEL_OPTION)
             return;
-        // RÈcup√®re l'emplacement exacte du fichier
+        // R√©cup√®re l'emplacement exacte du fichier
         String BD=fc_import.getSelectedFile().getAbsolutePath();
         File fileBD = fc_import.getSelectedFile();
         try {
-            // Importe le fichier de donnÈe SQL.
+            // Importe le fichier de donn√©e SQL.
             importSql.importDB(fileBD);
         } catch (SQLException ex) {
             System.err.println("TM_VendeurInterface.menuImportActionPerformed: " + ex.getMessage());
@@ -317,7 +317,7 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
         maj();
     }//GEN-LAST:event_tfCPTextValueChanged
     
-    // GÈre la mise √† jour des champs
+    // G√©re la mise √† jour des champs
     public void maj(){
         int lign = 1;
         data[0] = tfSoc.getText();
@@ -326,7 +326,7 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
         String[] configContent = new String[lign];
         configContent[0] = "Societe:"+data[0]+";SocAdr:"
                 +data[1]+";CodePost:"+data[2];
-        // Ècrit les nouvelles donnÈes dans le fichier de configuration.
+        // √©crit les nouvelles donn√©es dans le fichier de configuration.
         FileToStr.write(new File("").getAbsolutePath() +"/config.cfg", configContent);
     }
     

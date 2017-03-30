@@ -63,7 +63,7 @@ public class TM_ClientSelect extends javax.swing.JFrame {
         }
         if (id > -1){
                 // initialisation de la position dans l'arraylist des client ici apr√®s
-            lst_Clients.select(id); // sÈlection du client dans la list
+            lst_Clients.select(id); // s√©lection du client dans la list
         }
         return ;
     }
@@ -208,7 +208,7 @@ public class TM_ClientSelect extends javax.swing.JFrame {
             factu.setVisible(true);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Veuillez sÈlectionner un client !", "Erreur : Aucun client sÈlectionnÈ", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Veuillez s√©lectionner un client !", "Erreur : Aucun client s√©lectionn√©", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbtValiderActionPerformed
 

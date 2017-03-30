@@ -25,7 +25,7 @@ public class TM_CRUD_CompoType extends javax.swing.JFrame {
         return MyWindows;
     }    
     
-    // Initialise la liste des catégories de composants
+    // Initialise la liste des catÃ©gories de composants
     public void initList(){
         CompoType = ComposantTypeDao.getListeCatCompo() ;
         for (TM_ComposantType ct : CompoType) 
@@ -41,8 +41,8 @@ public class TM_CRUD_CompoType extends javax.swing.JFrame {
         initList();
     }
 
-    // Détermine le type d'action a effectué et vérifie si les champs son remplie
-    // puis appel le DAO pour l'ajout ou la modification des données
+    // DÃ©termine le type d'action a effectuÃ© et vÃ©rifie si les champs son remplie
+    // puis appel le DAO pour l'ajout ou la modification des donnÃ©es
     public void valider(){
         if (mod.equals("Add")){
             if (!tfName.getText().equals("")){
@@ -50,8 +50,8 @@ public class TM_CRUD_CompoType extends javax.swing.JFrame {
                 ComposantTypeDao.insert(ct);
             }else{
                 JOptionPane.showMessageDialog(this
-                        , "Veuillez remplir toutes les données de la page"
-                        , "Erreur : Données manquantes"
+                        , "Veuillez remplir toutes les donnÃ©es de la page"
+                        , "Erreur : DonnÃ©es manquantes"
                         , JOptionPane.ERROR_MESSAGE
                 );
             }
@@ -62,8 +62,8 @@ public class TM_CRUD_CompoType extends javax.swing.JFrame {
                 ComposantTypeDao.update(ct);
             }else{
                 JOptionPane.showMessageDialog(this
-                        , "Veuillez remplir toutes les données de la page"
-                        , "Erreur : Données manquantes"
+                        , "Veuillez remplir toutes les donnÃ©es de la page"
+                        , "Erreur : DonnÃ©es manquantes"
                         , JOptionPane.ERROR_MESSAGE
                 );
             }
@@ -96,7 +96,7 @@ public class TM_CRUD_CompoType extends javax.swing.JFrame {
         men_help_apropos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gestion des catégories de composants");
+        setTitle("Gestion des catï¿½gories de composants");
         setMinimumSize(null);
         setName("frmMarque"); // NOI18N
         setPreferredSize(new java.awt.Dimension(290, 353));
@@ -111,7 +111,7 @@ public class TM_CRUD_CompoType extends javax.swing.JFrame {
             }
         });
 
-        lbName.setText("Libellé du type de composant");
+        lbName.setText("Libellï¿½ du type de composant");
 
         javax.swing.GroupLayout panAddModLayout = new javax.swing.GroupLayout(panAddMod);
         panAddMod.setLayout(panAddModLayout);
@@ -183,7 +183,7 @@ public class TM_CRUD_CompoType extends javax.swing.JFrame {
         men_help.setText("Aide");
 
         men_help_apropos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-        men_help_apropos.setText("À propos");
+        men_help_apropos.setText("ï¿½ propos");
         men_help_apropos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 men_help_aproposActionPerformed(evt);
