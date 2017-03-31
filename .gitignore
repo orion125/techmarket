@@ -1,6 +1,6 @@
 /build/
 /distribution/
-/Scripts DB/Logs/
+/src/main/resources/Scripts DB/Logs/
 /nbproject/
 /build/
 /dist/
