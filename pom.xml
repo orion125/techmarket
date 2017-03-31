@@ -4,7 +4,7 @@
    <modelVersion>4.0.0</modelVersion>
    <groupId>ch.hesge.capitao</groupId>
    <artifactId>techmarket</artifactId>
-   <version>0.0.1-SNAPSHOT</version>
+   <version>0.8.1-SNAPSHOT</version>
    
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.oracle/ojdbc6 -->
@@ -12,6 +12,11 @@
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc6</artifactId>
             <version>11.1.0.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.9.9</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
@@ -23,26 +28,57 @@
             <artifactId>plexus-utils</artifactId>
             <version>1.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.8</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>2.7.19</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <!-- use 2.6.0 for Java 7 projects -->
+            <version>3.6.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.25</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
                 <configuration>
                     <archive>
                       <manifest>
                         <addClasspath>true</addClasspath>
-                        <mainClass>capitao.techmarket.TM_Main</mainClass>
+                        <mainClass>ch.hesge.capitao.techmarket.TM_Main</mainClass>
                       </manifest>
                     </archive>
                   </configuration>
             </plugin>
             
-            <!--plugin>
+            <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
-                <version>2.2.1</version>
+                <version>2.2.2</version>
                 <executions>
                     <execution>
                         <id>get-the-git-infos</id>
@@ -52,29 +88,22 @@
                     </execution>
                     <execution>
                         <id>validate-the-git-infos</id>
-                        <goals>
+                        <!-- Features of the 2.2.2 version of the pluggins  -->
+                        <!--goals> 
                             <goal>validateRevision</goal>
-                        </goals>
+                        </goals-->
                         <phase>package</phase>
                     </execution>
                 </executions>
 
                 <configuration>
                     <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
-                    <prefix>git</prefix>
                     <dateFormat>dd.MM.yyyy '@' HH:mm:ss z</dateFormat>
                     <dateFormatTimeZone>${user.timezone}</dateFormatTimeZone>
                     <verbose>false</verbose>
                     <generateGitPropertiesFile>true</generateGitPropertiesFile>
                     <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
                     <format>properties</format>
-                    <skipPoms>true</skipPoms>
-                    <injectAllReactorProjects>false</injectAllReactorProjects>                   
-                    <failOnNoGitDirectory>true</failOnNoGitDirectory>
-                    <failOnUnableToExtractRepoInfo>true</failOnUnableToExtractRepoInfo>
-                    <skip>false</skip>
-                    <runOnlyOnce>false</runOnlyOnce>
-                    <useNativeGit>false</useNativeGit>
                     <abbrevLength>7</abbrevLength>
                     <commitIdGenerationMode>flat</commitIdGenerationMode>
                     <gitDescribe>
@@ -86,16 +115,16 @@
                         <tags>false</tags>
                         <forceLongFormat>false</forceLongFormat>
                     </gitDescribe>
-                    <validationProperties>
+                    <!--validationProperties>
                         <validationProperty>
                             <name>validating project version</name>
                             <value>${project.version}</value>
                             <shouldMatchTo><![CDATA[^.*(?<!-SNAPSHOT)$]]></shouldMatchTo>
                         </validationProperty>
-                    </validationProperties>
+                    </validationProperties-->
                     <validationShouldFailIfNoMatch>true</validationShouldFailIfNoMatch>
                 </configuration>
-            </plugin-->
+            </plugin>
         </plugins>
     </build>
     <properties>

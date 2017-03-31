@@ -1,0 +1,503 @@
+package ch.hesge.capitao.techmarket.view;
+
+import ch.hesge.capitao.techmarket.base.ComposantTypeDao;
+import ch.hesge.capitao.techmarket.base.MarqueDao;
+import ch.hesge.capitao.techmarket.domaine.TM_ComposantType;
+import ch.hesge.capitao.techmarket.domaine.TM_Marque;
+import java.awt.Dimension;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author jonathan.capitao
+ */
+public class TM_CRUD_Marque extends javax.swing.JFrame {
+
+    ArrayList<TM_Marque> mar;
+    ArrayList<TM_ComposantType> ct;
+    String mod = "Add";
+    TM_Marque marqueActu;
+    private static TM_CRUD_Marque MyWindows = null;
+    
+    public static TM_CRUD_Marque getInstance(){
+        if (MyWindows == null){
+            MyWindows = new TM_CRUD_Marque();
+        }
+        return MyWindows;
+    }    
+    
+    /**
+     * Creates new form TM_CRUD_Marque
+     */
+    private TM_CRUD_Marque() {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        initList();
+    }
+    
+    // Initialise les ArrayListes
+    public void initList(){
+        ct = ComposantTypeDao.getListeCatCompo();
+        mar = MarqueDao.getListeMarque();
+        for (TM_Marque m : mar){
+            listMarque.add(m.toString());
+        }
+    }
+    
+    // Détermine le type d'action a effectué et vérifie si les champs son remplie
+    // puis appel le DAO pour l'ajout ou la modification des données
+    public void valider(){
+        ArrayList<TM_ComposantType> ctUsed = getCompoTypeUtilis();
+        if (mod.equals("Add")){
+            if (!tfName.getText().equals("")){
+                marqueActu = new TM_Marque(0,tfName.getText(), ctUsed);
+                MarqueDao.insert(marqueActu);
+            }else{
+                JOptionPane.showMessageDialog(this
+                        , "Veuillez remplir toutes les données de la page"
+                        , "Erreur : Données manquantes"
+                        , JOptionPane.ERROR_MESSAGE
+                );
+            }
+        }
+        if (mod.equals("Mod")){
+            if (!tfName.getText().equals("")){
+                marqueActu.setNom(tfName.getText());
+                marqueActu.setCompoType(ctUsed);
+                MarqueDao.update(marqueActu);
+            }else{
+                JOptionPane.showMessageDialog(this
+                        , "Veuillez remplir toutes les données de la page"
+                        , "Erreur : Données manquantes"
+                        , JOptionPane.ERROR_MESSAGE
+                );
+            }
+        }
+        listMarque.removeAll();
+        initList();
+    }
+    
+    // Récupère les types de composant utiliser
+    public ArrayList<TM_ComposantType> getCompoTypeUtilis(){
+        String[] st = listTypeCompoUsed.getItems();
+        ArrayList<TM_ComposantType> ctUsed = new ArrayList<TM_ComposantType>();
+        for (int i= 0; i< st.length ; i++){
+            for (int j = 0; j < ct.size(); j++){
+                if (st[i].equals(ct.get(j).getNom())){
+                    ctUsed.add(ct.get(j));
+                }
+            }
+        }
+        return ctUsed;
+    }
+    // nétoie les listes
+    public void clean(){
+        listTypeCompo.removeAll();
+        listTypeCompoUsed.removeAll();
+    }
+    // Passe la fenètre en modification
+    public void mod(){
+        clean();
+        btRemoveType.setEnabled(false);
+        resize(true);
+        mod = "Mod";
+        marqueActu = mar.get(listMarque.getSelectedIndex());
+        tfName.setText(marqueActu.toString());
+        actu();
+    }
+    // Passe la fenètre en ajout
+    public void add(){
+        clean();
+        btRemoveType.setEnabled(true);
+        resize(true);
+        mod = "Add";
+        tfName.setText("");
+        actu();
+    }
+    // Actualise les données
+    public void actu(){
+        clean();
+        if (mod.equals("Mod")){
+            for (TM_ComposantType compT : ct){
+                if (marqueActu.getCompoTypes().contains(compT)) listTypeCompoUsed.add(compT.toString());
+                else listTypeCompo.add(compT.toString()); 
+            }
+        }
+        if (mod.equals("Add")){
+            for (TM_ComposantType compT : ct) listTypeCompo.add(compT.toString());
+        }
+    }
+    // Gestion des boutons flècher pour les catégories de composants
+    public void selectActu(){
+        if (listTypeCompo.getItemCount() > 0)
+            btAddNewType.setEnabled(listTypeCompo.getSelectedIndex()>-1); 
+        else
+            btAddNewType.setEnabled(false);
+            
+        if (listTypeCompoUsed.getItemCount() > 0 && !mod.equals("Mod"))
+            btRemoveType.setEnabled(listTypeCompoUsed.getSelectedIndex()>-1);
+        else
+            btRemoveType.setEnabled(false);
+    }
+    
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        panAddMod = new javax.swing.JPanel();
+        btValider = new javax.swing.JButton();
+        tfName = new java.awt.TextField();
+        lbName = new java.awt.Label();
+        lbTypeAssoc = new java.awt.Label();
+        listTypeCompo = new java.awt.List();
+        listTypeCompoUsed = new java.awt.List();
+        lbTypeUsed = new java.awt.Label();
+        btAddNewType = new javax.swing.JButton();
+        btRemoveType = new javax.swing.JButton();
+        listMarque = new java.awt.List();
+        btAdd = new javax.swing.JButton();
+        btMod = new javax.swing.JButton();
+        btSuppr = new javax.swing.JButton();
+        lbMarqueList = new java.awt.Label();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menuMain = new javax.swing.JMenu();
+        menuFermer = new javax.swing.JMenuItem();
+        men_help = new javax.swing.JMenu();
+        men_help_apropos = new javax.swing.JMenuItem();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gestion des marques");
+        setMinimumSize(null);
+        setName("frmMarque"); // NOI18N
+        setResizable(false);
+        setSize(new java.awt.Dimension(290, 335));
+        setType(java.awt.Window.Type.POPUP);
+
+        btValider.setText("Valider");
+        btValider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btValiderActionPerformed(evt);
+            }
+        });
+
+        lbName.setText("Nom de la marque");
+
+        lbTypeAssoc.setText("Types de composants");
+
+        listTypeCompo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                listTypeCompoItemStateChanged(evt);
+            }
+        });
+
+        listTypeCompoUsed.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                listTypeCompoUsedItemStateChanged(evt);
+            }
+        });
+
+        lbTypeUsed.setText("Utilisés");
+
+        btAddNewType.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ch/hesge/capitao/techmarket/view/image/green_globe_right_arrow_559_rs.jpg"))); // NOI18N
+        btAddNewType.setEnabled(false);
+        btAddNewType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAddNewTypeActionPerformed(evt);
+            }
+        });
+
+        btRemoveType.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ch/hesge/capitao/techmarket/view/image/green_globe_left_arrow_558_rs.jpg"))); // NOI18N
+        btRemoveType.setEnabled(false);
+        btRemoveType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRemoveTypeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panAddModLayout = new javax.swing.GroupLayout(panAddMod);
+        panAddMod.setLayout(panAddModLayout);
+        panAddModLayout.setHorizontalGroup(
+            panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panAddModLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panAddModLayout.createSequentialGroup()
+                        .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAddModLayout.createSequentialGroup()
+                        .addComponent(lbTypeAssoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbTypeUsed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panAddModLayout.createSequentialGroup()
+                        .addComponent(listTypeCompo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btRemoveType, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btAddNewType, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(listTypeCompoUsed, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAddModLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btValider)
+                .addGap(112, 112, 112))
+        );
+        panAddModLayout.setVerticalGroup(
+            panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAddModLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panAddModLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbTypeUsed, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbTypeAssoc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(2, 2, 2)
+                        .addGroup(panAddModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(listTypeCompoUsed, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                            .addComponent(listTypeCompo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(panAddModLayout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(btAddNewType, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btRemoveType, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btValider)
+                .addContainerGap())
+        );
+
+        tfName.getAccessibleContext().setAccessibleName("");
+        tfName.getAccessibleContext().setAccessibleDescription("");
+        lbName.getAccessibleContext().setAccessibleName("");
+        lbTypeUsed.getAccessibleContext().setAccessibleDescription("");
+
+        listMarque.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                listMarqueItemStateChanged(evt);
+            }
+        });
+
+        btAdd.setText("Ajouter");
+        btAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAddActionPerformed(evt);
+            }
+        });
+
+        btMod.setText("Modifier");
+        btMod.setEnabled(false);
+        btMod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btModActionPerformed(evt);
+            }
+        });
+
+        btSuppr.setText("Supprimer");
+        btSuppr.setEnabled(false);
+        btSuppr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSupprActionPerformed(evt);
+            }
+        });
+
+        lbMarqueList.setText("Liste des marques");
+
+        menuMain.setText("Fichier");
+
+        menuFermer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.ALT_MASK));
+        menuFermer.setText("Fermer");
+        menuFermer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuFermerActionPerformed(evt);
+            }
+        });
+        menuMain.add(menuFermer);
+
+        jMenuBar1.add(menuMain);
+
+        men_help.setText("Aide");
+
+        men_help_apropos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        men_help_apropos.setText("À propos");
+        men_help_apropos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                men_help_aproposActionPerformed(evt);
+            }
+        });
+        men_help.add(men_help_apropos);
+
+        jMenuBar1.add(men_help);
+
+        setJMenuBar(jMenuBar1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(listMarque, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btAdd)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btMod)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btSuppr))
+                    .addComponent(lbMarqueList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panAddMod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panAddMod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbMarqueList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(listMarque, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btAdd)
+                    .addComponent(btMod)
+                    .addComponent(btSuppr))
+                .addContainerGap())
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void menuFermerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFermerActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_menuFermerActionPerformed
+
+    private void btModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModActionPerformed
+        mod();
+    }//GEN-LAST:event_btModActionPerformed
+
+    private void btAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddActionPerformed
+        add();
+    }//GEN-LAST:event_btAddActionPerformed
+
+    private void btValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btValiderActionPerformed
+        resize(false);
+        valider();
+    }//GEN-LAST:event_btValiderActionPerformed
+
+    private void men_help_aproposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_men_help_aproposActionPerformed
+        TM_APropos.getInstance().setVisible(true);
+    }//GEN-LAST:event_men_help_aproposActionPerformed
+
+    private void btAddNewTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddNewTypeActionPerformed
+        listTypeCompoUsed.add(listTypeCompo.getSelectedItem());
+        listTypeCompo.remove(listTypeCompo.getSelectedItem());
+        selectActu();
+    }//GEN-LAST:event_btAddNewTypeActionPerformed
+
+    private void btRemoveTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoveTypeActionPerformed
+        listTypeCompo.add(listTypeCompoUsed.getSelectedItem());
+        listTypeCompoUsed.remove(listTypeCompoUsed.getSelectedItem());
+        selectActu();
+    }//GEN-LAST:event_btRemoveTypeActionPerformed
+
+    private void listTypeCompoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listTypeCompoItemStateChanged
+        btAddNewType.setEnabled(listTypeCompo.getSelectedIndex()>=0);
+    }//GEN-LAST:event_listTypeCompoItemStateChanged
+
+    private void listTypeCompoUsedItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listTypeCompoUsedItemStateChanged
+        btRemoveType.setEnabled(listTypeCompoUsed.getSelectedIndex()>=0);
+    }//GEN-LAST:event_listTypeCompoUsedItemStateChanged
+
+    private void btSupprActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSupprActionPerformed
+        MarqueDao.delete(mar.get(listMarque.getSelectedIndex()));
+        mar.remove(listMarque.getSelectedIndex());
+        listMarque.remove(listMarque.getSelectedIndex());
+    }//GEN-LAST:event_btSupprActionPerformed
+
+    private void listMarqueItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listMarqueItemStateChanged
+        btMod.setEnabled(true);
+        btSuppr.setEnabled(true);
+    }//GEN-LAST:event_listMarqueItemStateChanged
+    // Détermine le type d'action a effectué et vérifie si les champs son remplie
+    // puis appel le DAO pour l'ajout ou la modification des données
+    public void resize(boolean minmax){
+        int width = 0;
+        if (minmax){
+            width = 600;
+        }else{
+            width = 290;
+        }    
+        Dimension dt = new Dimension(width, 428);
+        this.setPreferredSize(dt);
+        this.pack();
+        this.validate();
+    }    
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(TM_CRUD_Marque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(TM_CRUD_Marque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(TM_CRUD_Marque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(TM_CRUD_Marque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new TM_CRUD_Marque().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAdd;
+    private javax.swing.JButton btAddNewType;
+    private javax.swing.JButton btMod;
+    private javax.swing.JButton btRemoveType;
+    private javax.swing.JButton btSuppr;
+    private javax.swing.JButton btValider;
+    private javax.swing.JMenuBar jMenuBar1;
+    private java.awt.Label lbMarqueList;
+    private java.awt.Label lbName;
+    private java.awt.Label lbTypeAssoc;
+    private java.awt.Label lbTypeUsed;
+    private java.awt.List listMarque;
+    private java.awt.List listTypeCompo;
+    private java.awt.List listTypeCompoUsed;
+    private javax.swing.JMenu men_help;
+    private javax.swing.JMenuItem men_help_apropos;
+    private javax.swing.JMenuItem menuFermer;
+    private javax.swing.JMenu menuMain;
+    private javax.swing.JPanel panAddMod;
+    private java.awt.TextField tfName;
+    // End of variables declaration//GEN-END:variables
+}
