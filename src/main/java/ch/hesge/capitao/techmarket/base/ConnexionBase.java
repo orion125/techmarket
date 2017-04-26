@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class ConnexionBase {
 
-    private static final String NOM_BASE = "HEGLOCAL"; 
+    private static final String NOM_BASE = "XE"; 
 
     private static Connection con = null; 
     private static Connection conAdm = null; 

@@ -3,7 +3,10 @@ package ch.hesge.capitao.techmarket.view;
 import ch.hesge.capitao.techmarket.base.ManagerDao;
 import ch.hesge.capitao.techmarket.domaine.TM_Manager;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
@@ -208,6 +211,15 @@ public class TM_Login extends javax.swing.JFrame {
         });
     }
 
+    public JPasswordField getJpw_Password() { return jpw_Password; }
+
+    public JTextField getJtf_Username() {return jtf_Username; }
+
+    public JButton getJbtLogin() {return jbtLogin; }
+
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -13,13 +13,17 @@ SET ECHO ON
 SET LINESIZE 200
 SET PAGESIZE 100
 
+
+-- Connexion à XE en tant que system
+CONNECT system/manager@XE
+
 -- Création des utilisateurs en tant que System
 SPOOL .\Logs\02_security_TechMarket.log
 @.\02_security_TechMarket.sql
 SPOOL OFF
 
--- Connexion à HEGLOCAL en tant que TechMarket_data (propirétaires des objets de schéma)
-CONNECT TechMarket_data/TechMarket_data@HEGLOCAL
+-- Connexion à XE en tant que TechMarket_data (propirétaires des objets de schéma)
+CONNECT TechMarket_data/TechMarket_data@XE
 
 -- Création des tables
 SPOOL .\Logs\03_create_TechMarket.log
@@ -42,14 +46,14 @@ SPOOL .\Logs\06_vues_TechMarket.log
 SPOOL OFF
 
 -- Connexion à HEGLOCAL en tant que system
-CONNECT system/manager@HEGLOCAL
+CONNECT system/manager@XE
 
 -- Création des synonymes
 SPOOL .\Logs\07_synonymes_TechMarket.log
 @.\07_synonymes_TechMarket.sql;
 SPOOL OFF
 
-CONNECT TechMarket_data/TechMarket_data@HEGLOCAL
+CONNECT TechMarket_data/TechMarket_data@XE
 -- Partage des droits sur les séquences
 SPOOL .\Logs\08_grantsequence_TechMarket.log
 @.\08_grantsequence_TechMarket.sql

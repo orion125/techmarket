@@ -38,7 +38,7 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
     // Initialise la fénètre
     private void initFen(){
         // Charge le fichier de configuration et l'affiche dans les champs textes.
-        String conf = FileToStr.read(new File("").getAbsolutePath() +"/config.cfg");
+        String conf = FileToStr.read(new File("").getAbsolutePath() +"/src/main/resources/config.cfg");
         StringTokenizer stLigne = new StringTokenizer(conf,";");
         int i = 0;
         while (stLigne.hasMoreTokens()) {
@@ -58,7 +58,7 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
     public void menuImport() {
         // initialise le dossier de destination 
         // (emplacement exécutable /data/) 
-        JFileChooser fc_import =new JFileChooser("./data");
+            JFileChooser fc_import =new JFileChooser("./src/main/resources/data");
         
         // Crée le filtre d'import en .sql et l'attribue à l'explorateur de fichier
         FileFilter filter1 = new ExtensionFileFilter("Fichier de base de données", new String[] {"sql"});
@@ -327,7 +327,7 @@ public class TM_VendeurInterface extends javax.swing.JFrame {
         configContent[0] = "Societe:"+data[0]+";SocAdr:"
                 +data[1]+";CodePost:"+data[2];
         // écrit les nouvelles données dans le fichier de configuration.
-        FileToStr.write(new File("").getAbsolutePath() +"/config.cfg", configContent);
+        FileToStr.write(new File("").getAbsolutePath() +"/src/main/resources/config.cfg", configContent);
     }
     
     /**
