@@ -47,6 +47,7 @@ public class ConnexionBaseNGTest {
         System.out.println("get");
         Connection result = ConnexionBase.get();
         assertNotNull(result);
+        assertTrue(result instanceof Connection);
     }
 
 
