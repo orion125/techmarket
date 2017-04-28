@@ -49,7 +49,7 @@ public class ExtensionFileFilterNGTest {
         System.out.println("getDescription");
         String expResult = "Fichier de base de données";
         String result = ExfilterTest.getDescription();
-        assertEquals(result, expResult);
+        assertSame(result, expResult);
     }
 
     /**

@@ -61,7 +61,7 @@ public class FileToStrNGTest {
         assertNotSame(result, expResult);
         
         
-        String expResult2 = "fdsfsdfsf3";
+        String expResult2 = "test";
         assertNotSame(result, expResult2);
         
         
