@@ -37,6 +37,10 @@ public class TM_LigneCommande {
         this.qte = qte;
     }
 
+    public double getTot(){
+        return compo.getPrix()*qte;
+    }
+    
     @Override
     public String toString() {
         Locale caLoc = new Locale("fr","CH");

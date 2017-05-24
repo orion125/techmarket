@@ -3,6 +3,7 @@ package ch.hesge.capitao.techmarket.view;
 import ch.hesge.capitao.techmarket.outils.FileToStr;
 import ch.hesge.capitao.techmarket.domaine.TM_Commande;
 import ch.hesge.capitao.techmarket.domaine.TM_LigneCommande;
+import ch.hesge.capitao.techmarket.outils.HtmlParser;
 import java.awt.print.PrinterException;
 import java.io.File;
 import java.text.NumberFormat;
@@ -62,44 +63,13 @@ public class TM_FactureAutoGenerer extends javax.swing.JFrame {
         Document doc = kit.createDefaultDocument();
         jEdpan_facture.setDocument(doc);
         
-        // Prépare un format de date
-        SimpleDateFormat dt = new SimpleDateFormat("dd-MM-yyyy"); 
-        Date dateActu = new Date(); 
-        // Prépare un format de money
-        NumberFormat money = NumberFormat.getCurrencyInstance(); 
+        double[] prix = new double[3];          
+        prix[0] = comData.getValTotCommande();
+        prix[1] = comData.getValTva()-comData.getValTotCommande();
+        prix[2] = comData.getValTva();
+        HtmlParser.setPrix(prix);
         // Génère la facture en html (utile pour les allignements entre autre.
-        String htmlFact = "<table><tr>"
-            + "<td width=\"280px\">"+comData.getCli().getNom()+" "+comData.getCli().getPrenom() 
-            + "</td><td width=\"280px\" align=\"right\" >"+data[0]+"</td></tr>"
-            + "<tr><td width=\"280px\">"+comData.getCli().getAddress()+"</td>"
-            + "<td width=\"280px\" align=\"right\">"+data[1]+" "+data[2]+"</td>"
-            + "<tr></tr><tr>Genève, le "+dt.format(dateActu)+"</tr><tr></tr>"
-            + "</table><br>";
-        htmlFact += "<table><tr>Facture de la commande n°"+comData.getId()+"</tr>"
-                + "<tr></tr></table>";
-        htmlFact += "<table class=\"art\" >"
-                + "<tr><th width=\"280px\">Article</th><th width=\"280px\">Prix</th>";
-        // Récupère le contenu de la commande et l'écrit en html.
-        for (TM_LigneCommande lc : comData.getaListComposantCommandes()){
-            htmlFact += "<tr>"
-                        + "<td width=\"280px\" >"
-                            +lc.getCompo().getNom()+" x"+lc.getQte()+"</td>"
-                        + "<td width=\"280px\" align=\"right\">"
-                            + money.format(lc.getCompo().getPrix()*lc.getQte())+"</td>"
-                        + "</tr>";
-        }
-        // Calcule des totaux & TVA
-        double totComArrondi = comData.getValTotCommande();
-        double tva = totComArrondi*0.08;
-        htmlFact += "<tr> "+"<td width=\"280px\"></td>"
-                + "<td class=\"art\" width=\"280px\" align=\"right\" >"
-                + "Total  : "+money.format(totComArrondi)+"</td></tr>";
-        htmlFact += "<tr> "+"<td width=\"280px\"></td>"
-                + "<td class=\"art\" width=\"280px\" align=\"right\" >"
-                + "TVA(8%) : "+money.format(tva)+"</td></tr>";
-        htmlFact += "<tr> "+"<td width=\"280px\"></td>"
-                + "<td class=\"art\" width=\"280px\" align=\"right\" >"
-                + "Total NET : "+money.format(totComArrondi+tva)+"</td>"+"</tr>";
+        String htmlFact = HtmlParser.toHtml(data);
         jEdpan_facture.setText(htmlFact);
     }
 

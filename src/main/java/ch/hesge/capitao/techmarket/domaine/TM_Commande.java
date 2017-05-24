@@ -10,6 +10,8 @@ public class TM_Commande {
     private int id;
     private TM_Client cli;
     private ArrayList<TM_LigneCommande> aListComposantCommandes;
+    
+    private final double TVA = 1.08;
      
     public TM_Commande(int id ,TM_Client cli, ArrayList<TM_LigneCommande> aListComposantCommandes) {
         this.id = id;
@@ -28,9 +30,13 @@ public class TM_Commande {
     public double getValTotCommande(){
         double tot = 0.0;
         for (TM_LigneCommande lc : aListComposantCommandes){
-            tot+= lc.getCompo().getPrix()*lc.getQte();
+            tot+= lc.getTot();
         }
         return tot;
+    }
+    
+    public double getValTva(){
+        return getValTotCommande()*TVA;
     }
 
     public TM_Client getCli() {
