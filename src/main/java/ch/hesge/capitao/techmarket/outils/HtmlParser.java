@@ -35,28 +35,41 @@ public class HtmlParser {
         return endhtml;
     }
     
-    public static String toHtml(String[] data){
-        String html = 
-        "<table><tr>"
-            + "<td width=\"280px\">"+comData.getCli().getNom()+" "+comData.getCli().getPrenom() 
-            + "</td><td width=\"280px\" align=\"right\" >"+data[0]+"</td></tr>"
+    public static String getTitle(){
+        return "Facture de la commande n°"+comData.getId();
+    }
+    
+    public static String getHeader(String[] data){
+        return 
+        "<table>"
+            + "<tr>"
+                + "<td width=\"280px\">"+comData.getCli().getNom()+" "+comData.getCli().getPrenom()+"</td>"
+                +"<td width=\"280px\" align=\"right\" >"+data[0]+"</td>"
+            + "</tr>"
             + "<tr><td width=\"280px\">"+comData.getCli().getAddress()+"</td>"
-            + "<td width=\"280px\" align=\"right\">"+data[1]+" "+data[2]+"</td>"
+                + "<td width=\"280px\" align=\"right\">"+data[1]+" "+data[2]+"</td>"
             + "<tr></tr><tr>Genève, le "+dt.format(dateActu)+"</tr><tr></tr>"
-            + "</table><br>";
-        html += "<table><tr>Facture de la commande n°"+comData.getId()+"</tr>"
-                + "<tr></tr></table>";
-        html += "<table class=\"art\" >"
+      + "</table><br>";
+    }
+    
+    public static String getCommandContent(){
+        String htmlCommandContent = "<table class=\"art\" >"
                 + "<tr><th width=\"280px\">Article</th><th width=\"280px\">Prix</th>";
         // Récupère le contenu de la commande et l'écrit en html.
         for (TM_LigneCommande lc : comData.getaListComposantCommandes()){
-            html += "<tr>"
-                        + "<td width=\"280px\" >"
-                            +lc.getCompo().getNom()+" x"+lc.getQte()+"</td>"
-                        + "<td width=\"280px\" align=\"right\">"
-                            + money.format(lc.getTot())+"</td>"
-                        + "</tr>";
+            htmlCommandContent += "<tr>"
+                    + "<td width=\"280px\" >" +lc.getCompo().getNom()+" x"+lc.getQte()+"</td>"
+                    + "<td width=\"280px\" align=\"right\">"+ money.format(lc.getTot())+"</td>"
+                 + "</tr>";
         }
+        return htmlCommandContent;
+    }
+    
+    public static String toHtml(String[] data){
+        String html = getHeader(data);
+        html += "<table><tr>"+getTitle()+"</tr>"
+                + "<tr></tr></table>";
+        html += getCommandContent();
         // Calcule des totaux & TVA
         html += getFormatedEnd();
         
