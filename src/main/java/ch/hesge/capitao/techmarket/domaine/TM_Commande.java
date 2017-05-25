@@ -40,7 +40,7 @@ public class TM_Commande {
     }
     
     public double getValTva(){
-        return getValTotCommande()*TVA;
+        return ((double)(Math.round(TVA * getValTotCommande() *100)))/100;
     }
 
     public TM_Client getCli() {

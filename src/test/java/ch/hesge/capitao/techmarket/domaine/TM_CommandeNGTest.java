@@ -34,6 +34,7 @@ public class TM_CommandeNGTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
+        
     }
 
     @AfterClass
@@ -44,7 +45,7 @@ public class TM_CommandeNGTest {
     public void setUpMethod() throws Exception {
         temp1.setPrix(10.00);
         temp2.setPrix(0.00);
-        temp2.setPrix(200.00);
+        temp3.setPrix(200.00);
         
         test1.getaListComposantCommandes().add(new TM_LigneCommande(temp1, 1));
         
@@ -59,6 +60,10 @@ public class TM_CommandeNGTest {
 
     @AfterMethod
     public void tearDownMethod() throws Exception {
+        test1.setaListComposantCommandes(new ArrayList<>());
+        test2.setaListComposantCommandes(new ArrayList<>());
+        test3.setaListComposantCommandes(new ArrayList<>());
+        test4.setaListComposantCommandes(new ArrayList<>());
     }
 
 
@@ -68,10 +73,10 @@ public class TM_CommandeNGTest {
     @Test
     public void testGetValTotCommande() {
         System.out.println("getValTotCommande");
-        assertEquals(10.0,test1.getValTotCommande(),0.0);
-        assertEquals(460.0,test2.getValTotCommande(),0.0);
-        assertEquals(0.0,test3.getValTotCommande(),0.0);
-        assertEquals(0.0,test4.getValTotCommande(),0.0);
+        assertEquals(test1.getValTotCommande(), 10.0,  0.0);
+        assertEquals(test2.getValTotCommande(), 450.0, 0.0);
+        assertEquals(test3.getValTotCommande(), 0.0,   0.0);
+        assertEquals(test4.getValTotCommande(), 0.0,   0.0);
     }
 
     /**
@@ -80,10 +85,11 @@ public class TM_CommandeNGTest {
     @Test
     public void testGetValTva() {
         System.out.println("getValTva");
-        assertEquals(0.8,test1.getValTva(),0.0);
-        assertEquals(36.0,test2.getValTva(),0.0);
-        assertEquals(0.0,test3.getValTva(),0.0);
-        assertEquals(0.0,test4.getValTva(),0.0);
+        System.out.println(test1.getValTotCommande());
+        assertEquals(test1.getValTva(), 10.8  ,0.0);
+        assertEquals(test2.getValTva(), 486.0 ,0.0);
+        assertEquals(test3.getValTva(), 0.0   ,0.0);
+        assertEquals(test4.getValTva(), 0.0   ,0.0);
     }
 
     
