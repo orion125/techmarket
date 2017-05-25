@@ -18,6 +18,10 @@ public class TM_Commande {
         this.cli = cli;
         this.aListComposantCommandes = aListComposantCommandes;
     }
+    
+    public TM_Commande(){
+        this(-1, new TM_Client(),new ArrayList<TM_LigneCommande>());
+    }
 
     public int getId() {
         return id;

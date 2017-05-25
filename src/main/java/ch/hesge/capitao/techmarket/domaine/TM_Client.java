@@ -21,6 +21,12 @@ public class TM_Client {
         this.telephone = telephone;
         this.mail = mail;
     }
+    
+    public TM_Client(){
+        this(-1,"","","","","");
+    }
+    
+    
     public int getId() {
         return id;
     }
