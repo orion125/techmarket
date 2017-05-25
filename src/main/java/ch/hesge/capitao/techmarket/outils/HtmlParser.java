@@ -1,7 +1,7 @@
 package ch.hesge.capitao.techmarket.outils;
 
+import ch.hesge.capitao.techmarket.domaine.TM_Commande;
 import ch.hesge.capitao.techmarket.domaine.TM_LigneCommande;
-import static ch.hesge.capitao.techmarket.view.TM_FactureAutoGenerer.comData;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,7 +16,9 @@ public class HtmlParser {
     static SimpleDateFormat dt = new SimpleDateFormat("dd-MM-yyyy"); 
     static Date dateActu = new Date(); 
     // Prépare un format de money
-    static NumberFormat money = NumberFormat.getCurrencyInstance(); 
+    static NumberFormat money = NumberFormat.getCurrencyInstance();
+    
+    public static TM_Commande comData;
     
     private static double[] prix ;
     
@@ -63,6 +65,15 @@ public class HtmlParser {
                  + "</tr>";
         }
         return htmlCommandContent;
+    }
+    
+    public static void init (TM_Commande com){
+        comData = com;
+        double[] prix = new double[3];          
+        prix[0] = comData.getValTotCommande();
+        prix[1] = comData.getValTva()-comData.getValTotCommande();
+        prix[2] = comData.getValTva();
+        HtmlParser.setPrix(prix);
     }
     
     public static String toHtml(String[] data){

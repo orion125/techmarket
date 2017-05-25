@@ -62,12 +62,6 @@ public class TM_FactureAutoGenerer extends javax.swing.JFrame {
         styleSheet.addRule(".art td{border : 1px solid #black;}");
         Document doc = kit.createDefaultDocument();
         jEdpan_facture.setDocument(doc);
-        
-        double[] prix = new double[3];          
-        prix[0] = comData.getValTotCommande();
-        prix[1] = comData.getValTva()-comData.getValTotCommande();
-        prix[2] = comData.getValTva();
-        HtmlParser.setPrix(prix);
         // Génère la facture en html (utile pour les allignements entre autre.
         String htmlFact = HtmlParser.toHtml(data);
         jEdpan_facture.setText(htmlFact);
